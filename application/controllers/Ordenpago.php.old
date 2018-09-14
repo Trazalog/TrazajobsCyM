@@ -1,0 +1,97 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Ordenpago extends CI_Controller {
+
+   
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Ordenpagos');
+    }
+        // proveedores
+    public function getProveedoresFactura($permission){
+
+        $data['proveedores']   = $this->Ordenpagos->proveedoresList();
+        $data['permission']    = $permission;
+        $this->load->view('ordenpago/view_', $data);
+    }
+
+        //facturas por proveedor
+    public function factPorProveedorList(){
+
+        $data = $this->Ordenpagos->factPorProveedorListado($this->input->post());
+        if($data == false)
+        {
+            echo json_encode(false);
+        }
+        else
+        {
+            echo json_encode($data);
+        }
+    }
+
+    public function getChequesTercero(){
+        $data = $this->Ordenpagos->getChequesTerceros();
+        if($data == false)
+        {
+            echo json_encode(false);
+        }
+        else
+        {
+            echo json_encode($data);
+        }
+    }
+
+    public function getChequesTerceroPorId(){
+
+        $data = $this->Ordenpagos->getChequesTerceroPorIds($this->input->post());
+        if($data == false)
+        {
+            echo json_encode(false);
+        }
+        else
+        {
+            echo json_encode($data);
+        }
+    }
+
+    public function getChequePropio(){
+
+        $data = $this->Ordenpagos->getChequesPropios();
+        if($data == false)
+        {
+            echo json_encode(false);
+        }
+        else
+        {
+            echo json_encode($data);
+        }
+    }
+
+    public function getChequePropioPorId(){
+
+        $data = $this->Ordenpagos->getChequesPropiosPorId($this->input->post());
+        if($data == false)
+        {
+            echo json_encode(false);
+        }
+        else
+        {
+            echo json_encode($data);
+        }
+    }
+
+    public function setOrdenPago(){
+    
+        $data = $this->Ordenpagos->setOrdenPagos($this->input->post());
+        if($data == false)
+        {
+            echo json_encode(false);
+        }
+        else
+        {
+            echo json_encode($data);
+        }
+    }
+}

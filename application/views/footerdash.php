@@ -1,0 +1,16 @@
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 1.0.0
+        </div>
+        <strong>Copyright &copy; 2015-2016 <a href="http://trazalog.com">trazalog</a>.</strong> Todos los derechos reservados.
+      </footer>
+
+      
+
+  </body>
+  <script>
+  	//Esto dispara un evento para que se cargue el calendario en forma automatica cuando ingreso.
+    //$data['permission'] = 'Add-Edit-Del-View';
+    //cargarView('Otrabajo', 'listOrden', 'View');
+    cargarView('Otrabajo', 'index', 'View');
+  </script>
