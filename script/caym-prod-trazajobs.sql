@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.8
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 14-09-2018 a las 01:23:10
--- Versión del servidor: 5.6.23
--- Versión de PHP: 5.2.17
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 18-09-2018 a las 16:43:52
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `jobs24_opticacym`
+-- Base de datos: `caym-prod-trazajobs`
 --
 
 -- --------------------------------------------------------
@@ -26,15 +26,14 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `abmbancos`
 --
 
-CREATE TABLE IF NOT EXISTS `abmbancos` (
-  `bancid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `abmbancos` (
+  `bancid` int(11) NOT NULL,
   `bancdescrip` varchar(255) DEFAULT NULL,
   `bancdir` varchar(255) DEFAULT NULL,
   `banccontacto` varchar(255) DEFAULT NULL,
   `banccuenta` varchar(255) DEFAULT NULL,
-  `bancsucursal` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`bancid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `bancsucursal` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `abmbancos`
@@ -42,7 +41,8 @@ CREATE TABLE IF NOT EXISTS `abmbancos` (
 
 INSERT INTO `abmbancos` (`bancid`, `bancdescrip`, `bancdir`, `banccontacto`, `banccuenta`, `bancsucursal`) VALUES
 (3, 'ICBC', 'Mendoza 84 Sur', 'Jesus', NULL, 'San Juan'),
-(5, 'BANCO COMAFI', 'GRAL ACHA 384- SUR-', '******', NULL, 'SAN JUAN');
+(5, 'BANCO COMAFI', 'GRAL ACHA 384- SUR-', '******', NULL, 'SAN JUAN'),
+(6, 'Banco Gallardo', 'lib 1890', 'falso contacto', NULL, 'sucursal rivadavia');
 
 -- --------------------------------------------------------
 
@@ -50,17 +50,16 @@ INSERT INTO `abmbancos` (`bancid`, `bancdescrip`, `bancdir`, `banccontacto`, `ba
 -- Estructura de tabla para la tabla `abmdeposito`
 --
 
-CREATE TABLE IF NOT EXISTS `abmdeposito` (
-  `depositoId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `abmdeposito` (
+  `depositoId` int(11) NOT NULL,
   `depositodescrip` varchar(255) DEFAULT NULL,
   `direccion` varchar(255) DEFAULT NULL,
   `id_provincial` int(11) DEFAULT NULL,
   `id_localidad` int(11) DEFAULT NULL,
   `id_pais` int(11) DEFAULT NULL,
   `GPS` varchar(255) DEFAULT NULL,
-  `id_empresa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`depositoId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `id_empresa` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `abmdeposito`
@@ -75,88 +74,88 @@ INSERT INTO `abmdeposito` (`depositoId`, `depositodescrip`, `direccion`, `id_pro
 -- Estructura de tabla para la tabla `abmproveedores`
 --
 
-CREATE TABLE IF NOT EXISTS `abmproveedores` (
-  `provid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `abmproveedores` (
+  `provid` int(10) NOT NULL,
   `provnombre` varchar(255) DEFAULT NULL,
   `provcuit` varchar(50) DEFAULT NULL,
   `provdomicilio` varchar(255) DEFAULT NULL,
   `provtelefono` varchar(50) DEFAULT NULL,
   `provmail` varchar(100) DEFAULT NULL,
-  `provestado` varchar(4) DEFAULT NULL,
-  PRIMARY KEY (`provid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=77 ;
+  `tipo` char(4) DEFAULT NULL,
+  `provestado` varchar(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `abmproveedores`
 --
 
-INSERT INTO `abmproveedores` (`provid`, `provnombre`, `provcuit`, `provdomicilio`, `provtelefono`, `provmail`, `provestado`) VALUES
-(10, 'RANIERI ARGENTINA S.A', '30-69172993-8', 'CALLE 29 Nº 2522-SAN ANDRESD', '011-4754-1300-fax-011-4752-4391', 'postventa@ranieriarg.com', '8'),
-(11, 'FALCONE BODETTO S.A', '30-50363209-4', 'SANTA FE 4545- RODARIO', '0341-4370838', 'fbd@fbd.com.ar', '8'),
-(12, 'VECTORLATINA S.A', '30-71426568-3', 'AV: S. MARTIN 1027.GAL PIAZZA LOCAL 2 SS- MENDOZA', '0261-4291114', 'mendoza@vectorlatina.com.ar', '8'),
-(13, 'MOA', '30-52232587-9', 'COLPAYO 745- CAPITAL FEDERAL', '0261-4253737-fax-0261-4200999', 'mendoza@moa.com.ar', '8'),
-(14, 'LABORATORIO OPTICO GUAYMALLEN', '20-16751880-0', 'L.MANZILLA 765-SAN JOSE-GUAYMALLEN-MZA', '0261-4323055-43118842', 'laboratorio@guaymallen.com.ar', '8'),
-(15, 'VITOLEN', '30-52118920-3', 'AV.ROQUE SANZ PEÑA 786-RAFAELA-STA FE', '0264-4278339-', 'administracion@vitolen.com', '8'),
-(16, 'WAICON VISION S.A', '30-51677561-7', 'AV: PUEYRREDON 1716-3º A-BS AS', '011-4718-4200', 'waicon.pedidos@bausch.com', '8'),
-(17, 'OPTOFOR SRL', '30-71501590-7', 'GRAL PAZ 315 ESTE-PLANTA BAJE B- SAN JUAN', '0264-4203311', 'optoford@optoford.com.ar', '8'),
-(18, 'CACIC SPORTS VISION SRL', '30-71098310-7', 'DR: ADOLFO DICKMAN 1352/54- CABA', '011-4582-0377', 'info@rustyoptical.com.ar', '8'),
-(19, 'LA CAMIONERA MENDOCINA', '33-53112259-9', 'MENDOZA 1919-SUR', '4214265', '555555', '8'),
-(20, 'GPERM S.A', '33-70993738-9', 'CATAMARCA 177 OF-2 (1213) CAP.FEDERAL', '011-4957-0845', '5656556', '8'),
-(21, 'DIATTO SERGIO DANIEL ( TODO OPTICA)', '20-16083164-3', 'CORDOBA', '56565', '4444444', '8'),
-(22, 'NORTIME S.R.L', '30-71069181-5', 'AV: DE MAYO 1316- PISO 21 DPTO A-( 1085) BS AS', '011-4382-4862', '213183135411', '8'),
-(23, 'CDA ( CRISTIAN DANIEL ARIAUDO)', '20-21402620-2', 'RIVERA INDARTE 243', 'PPPPPPP', 'PPPPP', '8'),
-(24, 'OPTIWAY S.R.L.', '30-70808240-2', 'AV.ALVAREZ TOMAS 1131-', '011-4555-6333', 'info@optiway.com.ar', '8'),
-(25, 'WEST OPTICAL S.A', '30.71455979-2', 'AV. PUEYRREDON 480- P-11 OF: 73', '011-4862-4172', '*******', '8'),
-(26, 'BOXER ', '30.70798338-4', 'CERRITO 146 5º PISO  C/P 1010', '011-4382-7979', 'atencionalcliente@boxeronline.com.ar', '8'),
-(27, 'ANTEOJOS NIVEL UNO S.R.L', '30.70890423-2', 'DONATO ALVAREZ 836- C/P 1708- MORON', '*******', '*******', '8'),
-(28, 'L.G.I. SRL', '30-70809651-9', 'ROSALES 3925/3933 C/P 1672- VILLA LINCH-SAN MARTIN -PCI BS AS', '******', '*******', '8'),
-(29, 'L&D VISUAL', '30.71134798-0', 'AGUSTIN M. GARCIA 3755-C/P-1621- BENAVIDEZ-', '03327-480944', '************', '8'),
-(30, 'VISION PLANET', '30-71089730-8', 'SERRANO 661 4º PISO-C.A.B.A', '011-5272-6120', 'info@visionplanet.com.ar', '8'),
-(31, 'IMPRESOS ASTRO', '20.25641479-2', 'HELGUERA 44- C.A.B.A', '*****', 'ventas@impresosastro.com', '8'),
-(32, 'CASA PARA TI S.A.C.I.F', '30-54208344-8', 'CIUDAD DE LA PAZ 1808- 3º A', '011-4780-2100', 'infocasaparati.com.ar', '8'),
-(33, 'GILARDI ARGENTINA', '20-26200343-5', 'ARANGUREN 1572 (1424) CAPITAL FEDERAL', '011-4431-9882', '******', '8'),
-(34, 'ZF. MONICA VILLALBA', '27-26577364-3', 'AV: GAONA 4248-CIUDADELA( C/P 1702)', '011-4488-8666', 'GABRIELFEDON@GMAIL', '8'),
-(35, 'MEGAVISION S.A', '30.71450633-8', 'SARMIENTO 2884-RIO CUARTO-CBA', '*******', '*****', '8'),
-(36, 'MG LUNETTES', '20-10762146-7', 'AV CORRIENTES 4006 2º PISO OF -18 (1194) CAP.FEDERAL', '011-4867-6080-', 'mglunettes@fibertel.com.ar', '8'),
-(37, 'BISTOLFI (ELEVE)', '****', 'PASAJE PUMA-3606-CAP.FEDERAL', '011-3965-4825', '**********', '8'),
-(38, 'BORSALINO', '******', 'BERNASCONI 255-BS AS', '011-4856-6960', '----', '8'),
-(39, 'CLIVION', '***********', 'J.B.AMBROSETTI 277', '011-5901-5583', '------------------', '8'),
-(40, 'CREMONA DAMIAN TIZIANO HERA', '*******', '****', '121212121211', '************', '8'),
-(41, 'CROSS', '**************', 'LA FRATERNIDAD 255-C.A.B.A', '011-4460-5484', '----------------', '8'),
-(42, 'CUYO VISION', '******************', 'JOSE V. ZAPATA 194- OF. 8- MZA', '0261-156667368', '********', '8'),
-(43, 'DAMIANO', '***************', 'SAN ANTONIO DE PADUA- BS AS', '0220-4824371', '--------------', '8'),
-(44, 'DL.3 S.R.L.', '*********', 'BRUSELAS 36 -ITUZAINGO- BS AS', '011-4661-8448', '-------------------------', '8'),
-(45, 'FEDON FLAVIO FIORAVANTE ', '*****', 'GARCIA LORCA 3604- PCIA DE BS AS', '011-4657-7942', '---------------------', '8'),
-(46, 'FRANCO LENT', '*******', 'BS AS', '--------------------', '*************', '8'),
-(47, 'GOMAZ PAOLA DE LAS MERCEDES', '**********', 'MORENO 852-RIO CUARTO CBA', '0358-4650731', '********', '8'),
-(48, 'GONZALEZ JOSE ROBERTO', '**********', 'BETINOTTI 458- MERLO BS AS ', '0220-4806688', '***************', '8'),
-(49, 'HUGO PARADA OBIOL S.A', '******', 'AV: PUYRREDON 480- P-11- PCIA BS AS', '011-4862-8067', '***************', '8'),
-(50, 'KARINA RABOLINI', '*******', 'MEXICO 441-2º PISO -D-CAP.FEDERAL', '011-433-3776-78', '***************', '8'),
-(51, 'LENTES DE CUYO S.A', '***********', 'MENDOZA 179- SUR OF 25- SAN JUAN', '4201953', '**********', '8'),
-(52, 'LENTES OFTALMOLOGICAS GROUP', '*************', 'BARCALA 470- MENDOZA ', '0261-4251242', '********', '8'),
-(53, 'LUJAN GUADALUPE', '****************', 'ENTRE RIOS 3135- MARTINEZ- BS AS', '011-4717-0217', '**********', '8'),
-(54, 'LUMINOPTICA', '****************', 'LAVALLE 1783- 7º B- C.A B.A', '*********', '**********', '8'),
-(55, 'MARTINEZ ORLANDO', '30-71416565-4', 'BRASIL 237- HAEDO BS AS-', '**********************', '****', '8'),
-(56, 'OPTIVARO', '*******', 'MORENO 852- RIO CUARTO CBA-', '0358-4650731', '**********', '8'),
-(57, 'PRO-OPTIC', '20-16453622-0', 'NECOCHEA 1319- RAMOS MEJIA -BS AS', '1545771810', '********', '8'),
-(58, 'ROSAFE', '*******', 'MARCOS PAZ 5271-ROSARIO STA FE-', '***************', '*******', '8'),
-(59, 'SERVICIOS OPTICOS', '***************', 'CACANEO 675- CBA', '03541-441626', '**********', '8'),
-(60, 'WADA GROUP', '************', 'ROSARIO STA FE-', '121212122121', '*****', '8'),
-(61, '3B OPTIC', '20-14938378-7', 'OCAMPO 370-C/P-2000-ROSARIO', '0341-482-0414', 'alatina@3boptic.com', '8'),
-(62, 'SKILLMEDIA ', '30-71155862-0', 'LADISLAO MARTINEZ 24- 1640- MARTINEZ- BS AS', '0800-7777-767', 'administracion@smsmasivos.com.ar', '8'),
-(64, 'RANIERI ARG.SA (OSSIRA)', '30-69172993-8', '*****', '*******', '////', '8'),
-(65, 'RANIERI ARG SA ( REEF)', '30-69172993-8', '***********', '**/*/*/*/*/', '/////////', '8'),
-(66, 'BELLINI, ZULMA RAQUEL', '27-17591366-7', 'MARCOS PAZ 5271-ROSARIO NORTE- STA FE-', '*/**/*/*', '******', '8'),
-(67, 'SUCESION DE DORGAN ROBERTO JUAN', '20-06771252-9', 'MENDOZA 1726 -SUR- SAN JUAN', '*/*/*/*/*/*/*', '**********', '8'),
-(68, 'INDUSTRIA ÓPTICA ARGENTINA S.A- ( ADD)', '30-71224385-2', 'MARCOS PAZ 2570 OF.1 C/P 1417- BS AS', '*//*/*//', '*****', '8'),
-(69, 'PABLO VICENTE GAMIDDO', '20-28233870-0', 'VILLA BOSCH 1344- BS AS', '*/*/**/*//*', '******', '8'),
-(70, 'GRUPO IASA S.A ( Mormaii)', '30-61449860-5', '/*/*/*/*/', '/*/*', '********', '8'),
-(71, 'AGUIAR, ALFREDO JUAN', '20-11481427-0', 'GUEMES 24 (SUR) -SAN JUAN', '*/*/*/*/*/*/*/*/*/**', '*********', '8'),
-(72, 'TECNIVIS S.R.L.', '30-70721344-9', 'PJE.RIVAROLA 184- CAP. FEDERAL-', '/*/*/*/*/*/*/*/*', '**********', '8'),
-(73, 'LEMON-SOFT', '9998989899', 'PEDRO IGNACIO RIVERA 2463- 3º  PISO -A- C/P 1428 CAP.FEDERAL-', '011-4787-1282', '****', '8'),
-(74, 'RODE MARGARITA ADRIANA( D''ALESANDRO ESTUCHES)', '27-16844479-1', 'MOSCONI 3525-BECCAR- (B1643GG4) PCIA DE BS AS', '++++++++++++', '**********', '8'),
-(75, 'FRANCISCO MONTES S.A.C.I.F', '30-50012729-1', 'MENDOZA 380 SUR- SAN JUAN', '4290094', '******', '8'),
-(76, 'ENGLAND OPTICAL', '20-05250447-4', 'ARROYO 897 14º F (1007 C.A.B.A)', '02344-433828', 'ventas@englamdoptical.com.ar', '8');
+INSERT INTO `abmproveedores` (`provid`, `provnombre`, `provcuit`, `provdomicilio`, `provtelefono`, `provmail`, `tipo`, `provestado`) VALUES
+(10, 'RANIERI ARGENTINA S.A', '30-69172993-8', 'CALLE 29 Nº 2522-SAN ANDRESD', '011-4754-1300-fax-011-4752-4391', 'postventa@ranieriarg.com', 'T', '8'),
+(11, 'FALCONE BODETTO S.A', '30-50363209-4', 'SANTA FE 4545- RODARIO', '0341-4370838', 'fbd@fbd.com.ar', 'A', '8'),
+(12, 'VECTORLATINA S.A', '30-71426568-3', 'AV: S. MARTIN 1027.GAL PIAZZA LOCAL 2 SS- MENDOZA', '0261-4291114', 'mendoza@vectorlatina.com.ar', 'A', '8'),
+(13, 'MOA', '30-52232587-9', 'COLPAYO 745- CAPITAL FEDERAL', '0261-4253737-fax-0261-4200999', 'mendoza@moa.com.ar', 'A', '8'),
+(14, 'LABORATORIO OPTICO GUAYMALLEN', '20-16751880-0', 'L.MANZILLA 765-SAN JOSE-GUAYMALLEN-MZA', '0261-4323055-43118842', 'laboratorio@guaymallen.com.ar', 'A', '8'),
+(15, 'VITOLEN', '30-52118920-3', 'AV.ROQUE SANZ PEÑA 786-RAFAELA-STA FE', '0264-4278339-', 'administracion@vitolen.com', 'A', '8'),
+(16, 'WAICON VISION S.A', '30-51677561-7', 'AV: PUEYRREDON 1716-3º A-BS AS', '011-4718-4200', 'waicon.pedidos@bausch.com', 'A', '8'),
+(17, 'OPTOFOR SRL', '30-71501590-7', 'GRAL PAZ 315 ESTE-PLANTA BAJE B- SAN JUAN', '0264-4203311', 'optoford@optoford.com.ar', 'A', '8'),
+(18, 'CACIC SPORTS VISION SRL', '30-71098310-7', 'DR: ADOLFO DICKMAN 1352/54- CABA', '011-4582-0377', 'info@rustyoptical.com.ar', 'A', '8'),
+(19, 'LA CAMIONERA MENDOCINA', '33-53112259-9', 'MENDOZA 1919-SUR', '4214265', '555555', 'A', '8'),
+(20, 'GPERM S.A', '33-70993738-9', 'CATAMARCA 177 OF-2 (1213) CAP.FEDERAL', '011-4957-0845', '5656556', 'A', '8'),
+(21, 'DIATTO SERGIO DANIEL ( TODO OPTICA)', '20-16083164-3', 'CORDOBA', '56565', '4444444', 'A', '8'),
+(22, 'NORTIME S.R.L', '30-71069181-5', 'AV: DE MAYO 1316- PISO 21 DPTO A-( 1085) BS AS', '011-4382-4862', '213183135411', 'A', '8'),
+(23, 'CDA ( CRISTIAN DANIEL ARIAUDO)', '20-21402620-2', 'RIVERA INDARTE 243', 'PPPPPPP', 'PPPPP', 'A', '8'),
+(24, 'OPTIWAY S.R.L.', '30-70808240-2', 'AV.ALVAREZ TOMAS 1131-', '011-4555-6333', 'info@optiway.com.ar', 'A', '8'),
+(25, 'WEST OPTICAL S.A', '30.71455979-2', 'AV. PUEYRREDON 480- P-11 OF: 73', '011-4862-4172', '*******', 'A', '8'),
+(26, 'BOXER ', '30.70798338-4', 'CERRITO 146 5º PISO  C/P 1010', '011-4382-7979', 'atencionalcliente@boxeronline.com.ar', 'A', '8'),
+(27, 'ANTEOJOS NIVEL UNO S.R.L', '30.70890423-2', 'DONATO ALVAREZ 836- C/P 1708- MORON', '*******', '*******', 'A', '8'),
+(28, 'L.G.I. SRL', '30-70809651-9', 'ROSALES 3925/3933 C/P 1672- VILLA LINCH-SAN MARTIN -PCI BS AS', '******', '*******', 'A', '8'),
+(29, 'L&D VISUAL', '30.71134798-0', 'AGUSTIN M. GARCIA 3755-C/P-1621- BENAVIDEZ-', '03327-480944', '************', 'A', '8'),
+(30, 'VISION PLANET', '30-71089730-8', 'SERRANO 661 4º PISO-C.A.B.A', '011-5272-6120', 'info@visionplanet.com.ar', 'A', '8'),
+(31, 'IMPRESOS ASTRO', '20.25641479-2', 'HELGUERA 44- C.A.B.A', '*****', 'ventas@impresosastro.com', 'A', '8'),
+(32, 'CASA PARA TI S.A.C.I.F', '30-54208344-8', 'CIUDAD DE LA PAZ 1808- 3º A', '011-4780-2100', 'infocasaparati.com.ar', 'A', '8'),
+(33, 'GILARDI ARGENTINA', '20-26200343-5', 'ARANGUREN 1572 (1424) CAPITAL FEDERAL', '011-4431-9882', '******', 'A', '8'),
+(34, 'ZF. MONICA VILLALBA', '27-26577364-3', 'AV: GAONA 4248-CIUDADELA( C/P 1702)', '011-4488-8666', 'GABRIELFEDON@GMAIL', 'A', '8'),
+(35, 'MEGAVISION S.A', '30.71450633-8', 'SARMIENTO 2884-RIO CUARTO-CBA', '*******', '*****', 'A', '8'),
+(36, 'MG LUNETTES', '20-10762146-7', 'AV CORRIENTES 4006 2º PISO OF -18 (1194) CAP.FEDERAL', '011-4867-6080-', 'mglunettes@fibertel.com.ar', 'A', '8'),
+(37, 'BISTOLFI (ELEVE)', '****', 'PASAJE PUMA-3606-CAP.FEDERAL', '011-3965-4825', '**********', 'A', '8'),
+(38, 'BORSALINO', '******', 'BERNASCONI 255-BS AS', '011-4856-6960', '----', 'A', '8'),
+(39, 'CLIVION', '***********', 'J.B.AMBROSETTI 277', '011-5901-5583', '------------------', 'A', '8'),
+(40, 'CREMONA DAMIAN TIZIANO HERA', '*******', '****', '121212121211', '************', 'A', '8'),
+(41, 'CROSS', '**************', 'LA FRATERNIDAD 255-C.A.B.A', '011-4460-5484', '----------------', 'A', '8'),
+(42, 'CUYO VISION', '******************', 'JOSE V. ZAPATA 194- OF. 8- MZA', '0261-156667368', '********', 'A', '8'),
+(43, 'DAMIANO', '***************', 'SAN ANTONIO DE PADUA- BS AS', '0220-4824371', '--------------', 'A', '8'),
+(44, 'DL.3 S.R.L.', '*********', 'BRUSELAS 36 -ITUZAINGO- BS AS', '011-4661-8448', '-------------------------', 'A', '8'),
+(45, 'FEDON FLAVIO FIORAVANTE ', '*****', 'GARCIA LORCA 3604- PCIA DE BS AS', '011-4657-7942', '---------------------', 'A', '8'),
+(46, 'FRANCO LENT', '*******', 'BS AS', '--------------------', '*************', 'A', '8'),
+(47, 'GOMAZ PAOLA DE LAS MERCEDES', '**********', 'MORENO 852-RIO CUARTO CBA', '0358-4650731', '********', 'A', '8'),
+(48, 'GONZALEZ JOSE ROBERTO', '**********', 'BETINOTTI 458- MERLO BS AS ', '0220-4806688', '***************', 'A', '8'),
+(49, 'HUGO PARADA OBIOL S.A', '******', 'AV: PUYRREDON 480- P-11- PCIA BS AS', '011-4862-8067', '***************', 'A', '8'),
+(50, 'KARINA RABOLINI', '*******', 'MEXICO 441-2º PISO -D-CAP.FEDERAL', '011-433-3776-78', '***************', 'A', '8'),
+(51, 'LENTES DE CUYO S.A', '***********', 'MENDOZA 179- SUR OF 25- SAN JUAN', '4201953', '**********', 'A', '8'),
+(52, 'LENTES OFTALMOLOGICAS GROUP', '*************', 'BARCALA 470- MENDOZA ', '0261-4251242', '********', 'A', '8'),
+(53, 'LUJAN GUADALUPE', '****************', 'ENTRE RIOS 3135- MARTINEZ- BS AS', '011-4717-0217', '**********', 'A', '8'),
+(54, 'LUMINOPTICA', '****************', 'LAVALLE 1783- 7º B- C.A B.A', '*********', '**********', 'A', '8'),
+(55, 'MARTINEZ ORLANDO', '30-71416565-4', 'BRASIL 237- HAEDO BS AS-', '**********************', '****', 'A', '8'),
+(56, 'OPTIVARO', '*******', 'MORENO 852- RIO CUARTO CBA-', '0358-4650731', '**********', 'A', '8'),
+(57, 'PRO-OPTIC', '20-16453622-0', 'NECOCHEA 1319- RAMOS MEJIA -BS AS', '1545771810', '********', 'A', '8'),
+(58, 'ROSAFE', '*******', 'MARCOS PAZ 5271-ROSARIO STA FE-', '***************', '*******', 'A', '8'),
+(59, 'SERVICIOS OPTICOS', '***************', 'CACANEO 675- CBA', '03541-441626', '**********', 'A', '8'),
+(60, 'WADA GROUP', '************', 'ROSARIO STA FE-', '121212122121', '*****', 'A', '8'),
+(61, '3B OPTIC', '20-14938378-7', 'OCAMPO 370-C/P-2000-ROSARIO', '0341-482-0414', 'alatina@3boptic.com', 'A', '8'),
+(62, 'SKILLMEDIA ', '30-71155862-0', 'LADISLAO MARTINEZ 24- 1640- MARTINEZ- BS AS', '0800-7777-767', 'administracion@smsmasivos.com.ar', 'A', '8'),
+(64, 'RANIERI ARG.SA (OSSIRA)', '30-69172993-8', '*****', '*******', '////', 'A', '8'),
+(65, 'RANIERI ARG SA ( REEF)', '30-69172993-8', '***********', '**/*/*/*/*/', '/////////', 'A', '8'),
+(66, 'BELLINI, ZULMA RAQUEL', '27-17591366-7', 'MARCOS PAZ 5271-ROSARIO NORTE- STA FE-', '*/**/*/*', '******', 'A', '8'),
+(67, 'SUCESION DE DORGAN ROBERTO JUAN', '20-06771252-9', 'MENDOZA 1726 -SUR- SAN JUAN', '*/*/*/*/*/*/*', '**********', 'A', '8'),
+(68, 'INDUSTRIA ÓPTICA ARGENTINA S.A- ( ADD)', '30-71224385-2', 'MARCOS PAZ 2570 OF.1 C/P 1417- BS AS', '*//*/*//', '*****', 'A', '8'),
+(69, 'PABLO VICENTE GAMIDDO', '20-28233870-0', 'VILLA BOSCH 1344- BS AS', '*/*/**/*//*', '******', 'A', '8'),
+(70, 'GRUPO IASA S.A ( Mormaii)', '30-61449860-5', '/*/*/*/*/', '/*/*', '********', 'A', '8'),
+(71, 'AGUIAR, ALFREDO JUAN', '20-11481427-0', 'GUEMES 24 (SUR) -SAN JUAN', '*/*/*/*/*/*/*/*/*/**', '*********', 'A', '8'),
+(72, 'TECNIVIS S.R.L.', '30-70721344-9', 'PJE.RIVAROLA 184- CAP. FEDERAL-', '/*/*/*/*/*/*/*/*', '**********', 'A', '8'),
+(73, 'LEMON-SOFT', '9998989899', 'PEDRO IGNACIO RIVERA 2463- 3º  PISO -A- C/P 1428 CAP.FEDERAL-', '011-4787-1282', '****', 'A', '8'),
+(74, 'RODE MARGARITA ADRIANA( D''ALESANDRO ESTUCHES)', '27-16844479-1', 'MOSCONI 3525-BECCAR- (B1643GG4) PCIA DE BS AS', '++++++++++++', '**********', 'A', '8'),
+(75, 'FRANCISCO MONTES S.A.C.I.F', '30-50012729-1', 'MENDOZA 380 SUR- SAN JUAN', '4290094', '******', 'A', '8'),
+(76, 'ENGLAND OPTICAL', '20-05250447-4', 'ARROYO 897 14º F (1007 C.A.B.A)', '02344-433828', 'ventas@englamdoptical.com.ar', 'A', '8');
 
 -- --------------------------------------------------------
 
@@ -164,13 +163,11 @@ INSERT INTO `abmproveedores` (`provid`, `provnombre`, `provcuit`, `provdomicilio
 -- Estructura de tabla para la tabla `abmtarjetas`
 --
 
-CREATE TABLE IF NOT EXISTS `abmtarjetas` (
-  `tarjetid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `abmtarjetas` (
+  `tarjetid` int(11) NOT NULL,
   `tarjetdescrip` varchar(255) DEFAULT NULL,
-  `tarjetentidad` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`tarjetid`),
-  KEY `tarjetid` (`tarjetid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `tarjetentidad` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `abmtarjetas`
@@ -194,8 +191,8 @@ INSERT INTO `abmtarjetas` (`tarjetid`, `tarjetdescrip`, `tarjetentidad`) VALUES
 -- Estructura de tabla para la tabla `admcredits`
 --
 
-CREATE TABLE IF NOT EXISTS `admcredits` (
-  `crdId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admcredits` (
+  `crdId` int(11) NOT NULL,
   `crdDescription` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `crdDate` datetime DEFAULT NULL,
   `crdDebe` decimal(10,2) DEFAULT NULL,
@@ -203,19 +200,15 @@ CREATE TABLE IF NOT EXISTS `admcredits` (
   `crdNote` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `cliId` int(11) NOT NULL,
   `usrId` int(11) NOT NULL,
-  `saleId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`crdId`),
-  KEY `cliId` (`cliId`),
-  KEY `usrId` (`usrId`),
-  KEY `saleId` (`saleId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=97 ;
+  `saleId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admcredits`
 --
 
 INSERT INTO `admcredits` (`crdId`, `crdDescription`, `crdDate`, `crdDebe`, `crdHaber`, `crdNote`, `cliId`, `usrId`, `saleId`) VALUES
-(96, 'Importe venta 21', '2016-05-17 18:15:03', 1540.00, 0.00, '', 15, 1, 21);
+(96, 'Importe venta 21', '2016-05-17 18:15:03', '1540.00', '0.00', '', 15, 1, 21);
 
 -- --------------------------------------------------------
 
@@ -223,14 +216,11 @@ INSERT INTO `admcredits` (`crdId`, `crdDescription`, `crdDate`, `crdDebe`, `crdH
 -- Estructura de tabla para la tabla `admcustomerpreferences`
 --
 
-CREATE TABLE IF NOT EXISTS `admcustomerpreferences` (
-  `cstprefId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admcustomerpreferences` (
+  `cstprefId` int(11) NOT NULL,
   `sfamId` int(11) NOT NULL,
-  `cliId` int(11) NOT NULL,
-  PRIMARY KEY (`cstprefId`),
-  KEY `sfamId` (`sfamId`),
-  KEY `cliId` (`cliId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=103 ;
+  `cliId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admcustomerpreferences`
@@ -250,8 +240,8 @@ INSERT INTO `admcustomerpreferences` (`cstprefId`, `sfamId`, `cliId`) VALUES
 -- Estructura de tabla para la tabla `admcustomers`
 --
 
-CREATE TABLE IF NOT EXISTS `admcustomers` (
-  `cliId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admcustomers` (
+  `cliId` int(11) NOT NULL,
   `cliName` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `cliLastName` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `cliDni` varchar(8) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -265,9 +255,8 @@ CREATE TABLE IF NOT EXISTS `admcustomers` (
   `zonaId` int(11) DEFAULT NULL,
   `cliDay` int(11) DEFAULT '30',
   `cliColor` varchar(7) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `estado` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`cliId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=21 ;
+  `estado` varchar(5) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admcustomers`
@@ -281,7 +270,8 @@ INSERT INTO `admcustomers` (`cliId`, `cliName`, `cliLastName`, `cliDni`, `cliDat
 (17, 'juan', 'perez', NULL, NULL, NULL, NULL, NULL, '15555', NULL, NULL, NULL, 30, NULL, 'AN'),
 (18, 'eeeee', 'asdfasdfa', '', '0000-00-00', NULL, '', '', '111111111111111', '111111111111111', NULL, 10, 1, NULL, 'AN'),
 (19, 'Juan', 'Perez', '2111111', '1975-10-27', NULL, 'calle 5', '422222', '1555555', '1555555', NULL, 10, 1, NULL, 'C'),
-(20, 'OPTICA', 'CABELLO', '', '0000-00-00', NULL, '', '', '', '', NULL, 10, 1, NULL, 'C');
+(20, 'OPTICA', 'CABELLO', '', '0000-00-00', NULL, '', '', '', '', NULL, 10, 1, NULL, 'C'),
+(21, 'Hugo', 'Gallardo', NULL, NULL, NULL, NULL, NULL, '15555555', '15555555', NULL, NULL, 30, NULL, 'C');
 
 -- --------------------------------------------------------
 
@@ -289,8 +279,8 @@ INSERT INTO `admcustomers` (`cliId`, `cliName`, `cliLastName`, `cliDni`, `cliDat
 -- Estructura de tabla para la tabla `admproducts`
 --
 
-CREATE TABLE IF NOT EXISTS `admproducts` (
-  `prodId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admproducts` (
+  `prodId` int(11) NOT NULL,
   `prodCode` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `prodDescription` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `prodPrice` decimal(10,2) NOT NULL,
@@ -301,19 +291,17 @@ CREATE TABLE IF NOT EXISTS `admproducts` (
   `prodImg4` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `prodImg5` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `prodStatus` varchar(2) COLLATE utf8_spanish_ci NOT NULL,
-  `sfamId` int(11) NOT NULL,
-  PRIMARY KEY (`prodId`),
-  KEY `sfamId` (`sfamId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=11 ;
+  `sfamId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admproducts`
 --
 
 INSERT INTO `admproducts` (`prodId`, `prodCode`, `prodDescription`, `prodPrice`, `prodMargin`, `prodImg1`, `prodImg2`, `prodImg3`, `prodImg4`, `prodImg5`, `prodStatus`, `sfamId`) VALUES
-(8, '1', 'Taladro percutor 10mm', 500.00, 20, '8_1.png', '8_2.png', '8_3.png', '8_4.png', NULL, 'AC', 14),
-(9, '2', 'Microondas Philips', 700.00, 10, '9_1.png', '9_2.png', '9_3.png', '9_4.png', NULL, 'AC', 10),
-(10, '3', 'Sillas Plásticas x 6', 800.00, 20, '10_1.png', '10_2.png', '10_3.png', '10_4.png', NULL, 'AC', 13);
+(8, '1', 'Taladro percutor 10mm', '500.00', 20, '8_1.png', '8_2.png', '8_3.png', '8_4.png', NULL, 'AC', 14),
+(9, '2', 'Microondas Philips', '700.00', 10, '9_1.png', '9_2.png', '9_3.png', '9_4.png', NULL, 'AC', 10),
+(10, '3', 'Sillas Plásticas x 6', '800.00', 20, '10_1.png', '10_2.png', '10_3.png', '10_4.png', NULL, 'AC', 13);
 
 -- --------------------------------------------------------
 
@@ -321,16 +309,13 @@ INSERT INTO `admproducts` (`prodId`, `prodCode`, `prodDescription`, `prodPrice`,
 -- Estructura de tabla para la tabla `admsales`
 --
 
-CREATE TABLE IF NOT EXISTS `admsales` (
-  `saleId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admsales` (
+  `saleId` int(11) NOT NULL,
   `cliId` int(11) DEFAULT NULL,
   `saleDate` datetime DEFAULT NULL,
   `saleEstado` varchar(2) COLLATE utf8_spanish_ci DEFAULT '',
-  `usrId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`saleId`),
-  KEY `cliId` (`cliId`),
-  KEY `usrId` (`usrId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=22 ;
+  `usrId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admsales`
@@ -345,24 +330,21 @@ INSERT INTO `admsales` (`saleId`, `cliId`, `saleDate`, `saleEstado`, `usrId`) VA
 -- Estructura de tabla para la tabla `admsalesdetail`
 --
 
-CREATE TABLE IF NOT EXISTS `admsalesdetail` (
-  `saleDetId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admsalesdetail` (
+  `saleDetId` int(11) NOT NULL,
   `saleId` int(11) NOT NULL,
   `prodId` int(11) NOT NULL,
   `prodPrice` decimal(14,2) NOT NULL,
   `prodDescription` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `prodCant` int(11) NOT NULL,
-  PRIMARY KEY (`saleDetId`),
-  KEY `saleId` (`saleId`),
-  KEY `prodId` (`prodId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=22 ;
+  `prodCant` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admsalesdetail`
 --
 
 INSERT INTO `admsalesdetail` (`saleDetId`, `saleId`, `prodId`, `prodPrice`, `prodDescription`, `prodCant`) VALUES
-(21, 21, 9, 770.00, '2 - Microondas Philips', 2);
+(21, 21, 9, '770.00', '2 - Microondas Philips', 2);
 
 -- --------------------------------------------------------
 
@@ -370,17 +352,14 @@ INSERT INTO `admsalesdetail` (`saleDetId`, `saleId`, `prodId`, `prodPrice`, `pro
 -- Estructura de tabla para la tabla `admstock`
 --
 
-CREATE TABLE IF NOT EXISTS `admstock` (
-  `stkId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admstock` (
+  `stkId` int(11) NOT NULL,
   `prodId` int(11) NOT NULL,
   `stkCant` int(11) NOT NULL,
   `usrId` int(11) NOT NULL,
   `stkDate` datetime NOT NULL,
-  `stkMotive` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`stkId`),
-  KEY `prodId` (`prodId`),
-  KEY `usrId` (`usrId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=31 ;
+  `stkMotive` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admstock`
@@ -398,15 +377,13 @@ INSERT INTO `admstock` (`stkId`, `prodId`, `stkCant`, `usrId`, `stkDate`, `stkMo
 -- Estructura de tabla para la tabla `admvisits`
 --
 
-CREATE TABLE IF NOT EXISTS `admvisits` (
-  `vstId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admvisits` (
+  `vstId` int(11) NOT NULL,
   `vstDate` datetime NOT NULL,
   `cliId` int(11) NOT NULL,
   `vstNote` text COLLATE utf8_spanish_ci NOT NULL,
-  `vstStatus` varchar(2) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`vstId`),
-  KEY `cliId` (`cliId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=80 ;
+  `vstStatus` varchar(2) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `admvisits`
@@ -426,12 +403,11 @@ INSERT INTO `admvisits` (`vstId`, `vstDate`, `cliId`, `vstNote`, `vstStatus`) VA
 -- Estructura de tabla para la tabla `alicuotaiva`
 --
 
-CREATE TABLE IF NOT EXISTS `alicuotaiva` (
-  `alicuotaid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `alicuotaiva` (
+  `alicuotaid` int(11) NOT NULL,
   `alicuotadescrip` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `alicuota` double DEFAULT NULL,
-  PRIMARY KEY (`alicuotaid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `alicuota` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `alicuotaiva`
@@ -449,8 +425,8 @@ INSERT INTO `alicuotaiva` (`alicuotaid`, `alicuotadescrip`, `alicuota`) VALUES
 -- Estructura de tabla para la tabla `articles`
 --
 
-CREATE TABLE IF NOT EXISTS `articles` (
-  `artId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `articles` (
+  `artId` int(11) NOT NULL,
   `artBarCode` varchar(50) NOT NULL,
   `artDescription` varchar(50) NOT NULL,
   `artCoste` decimal(14,2) NOT NULL,
@@ -459,26 +435,22 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `artCantBox` int(11) DEFAULT NULL,
   `artMarginIsPorcent` bit(1) NOT NULL,
   `artEstado` varchar(2) NOT NULL DEFAULT 'AC',
-  `famId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`artId`),
-  UNIQUE KEY `artBarCode` (`artBarCode`) USING BTREE,
-  UNIQUE KEY `artDescription` (`artDescription`) USING BTREE,
-  KEY `famId` (`famId`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+  `famId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `articles`
 --
 
 INSERT INTO `articles` (`artId`, `artBarCode`, `artDescription`, `artCoste`, `artMargin`, `artIsByBox`, `artCantBox`, `artMarginIsPorcent`, `artEstado`, `famId`) VALUES
-(1, '4587', 'uniforme talle 6 x  ', 10.00, 5.00, b'0', 0, b'0', 'AC', 7),
-(8, '4444', 'agua x 1 ', 10.00, 4.00, b'0', 6, b'0', 'AC', 7),
-(9, '34', 'dasdsadasdasdas', 0.00, 0.00, b'0', 0, b'0', 'AC', 7),
-(12, '234423', 'ffsdfdsf', 0.00, 0.00, b'0', 0, b'0', 'AC', 7),
-(13, '345', 'cdsfsdfsdfdsfsdfsd', 0.00, 0.00, b'1', 345, b'0', 'AC', 7),
-(16, '33', '333', 0.00, 0.00, b'1', 34, b'0', 'AC', 7),
-(17, '2324324', 'fdfgdfg', 0.00, 0.00, b'0', 0, b'0', 'IN', 7),
-(18, 'sadasf', 'sdasd', 0.00, 0.00, b'1', 34, b'0', 'AC', 7);
+(1, '4587', 'uniforme talle 6 x  ', '10.00', '5.00', b'0', 0, b'0', 'AC', 7),
+(8, '4444', 'agua x 1 ', '10.00', '4.00', b'0', 6, b'0', 'AC', 7),
+(9, '34', 'dasdsadasdasdas', '0.00', '0.00', b'0', 0, b'0', 'AC', 7),
+(12, '234423', 'ffsdfdsf', '0.00', '0.00', b'0', 0, b'0', 'AC', 7),
+(13, '345', 'cdsfsdfsdfdsfsdfsd', '0.00', '0.00', b'1', 345, b'0', 'AC', 7),
+(16, '33', '333', '0.00', '0.00', b'1', 34, b'0', 'AC', 7),
+(17, '2324324', 'fdfgdfg', '0.00', '0.00', b'0', 0, b'0', 'IN', 7),
+(18, 'sadasf', 'sdasd', '0.00', '0.00', b'1', 34, b'0', 'AC', 7);
 
 -- --------------------------------------------------------
 
@@ -486,11 +458,10 @@ INSERT INTO `articles` (`artId`, `artBarCode`, `artDescription`, `artCoste`, `ar
 -- Estructura de tabla para la tabla `conffamily`
 --
 
-CREATE TABLE IF NOT EXISTS `conffamily` (
-  `famId` int(11) NOT NULL AUTO_INCREMENT,
-  `famName` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`famId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=9 ;
+CREATE TABLE `conffamily` (
+  `famId` int(11) NOT NULL,
+  `famName` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `conffamily`
@@ -508,13 +479,11 @@ INSERT INTO `conffamily` (`famId`, `famName`) VALUES
 -- Estructura de tabla para la tabla `confsubfamily`
 --
 
-CREATE TABLE IF NOT EXISTS `confsubfamily` (
-  `sfamId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `confsubfamily` (
+  `sfamId` int(11) NOT NULL,
   `sfamName` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `famId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`sfamId`),
-  KEY `famId` (`famId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=20 ;
+  `famId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `confsubfamily`
@@ -540,11 +509,10 @@ INSERT INTO `confsubfamily` (`sfamId`, `sfamName`, `famId`) VALUES
 -- Estructura de tabla para la tabla `confzone`
 --
 
-CREATE TABLE IF NOT EXISTS `confzone` (
-  `zonaId` int(11) NOT NULL AUTO_INCREMENT,
-  `zonaName` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`zonaId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=17 ;
+CREATE TABLE `confzone` (
+  `zonaId` int(11) NOT NULL,
+  `zonaName` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `confzone`
@@ -564,16 +532,13 @@ INSERT INTO `confzone` (`zonaId`, `zonaName`) VALUES
 -- Estructura de tabla para la tabla `deta-remito`
 --
 
-CREATE TABLE IF NOT EXISTS `deta-remito` (
-  `detaremitoid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `deta-remito` (
+  `detaremitoid` int(11) NOT NULL,
   `id_remito` int(10) NOT NULL,
   `loteid` int(11) NOT NULL,
   `cantidad` double NOT NULL,
-  `precio` double NOT NULL,
-  PRIMARY KEY (`detaremitoid`),
-  KEY `id_remito` (`id_remito`) USING BTREE,
-  KEY `loteid` (`loteid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+  `precio` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -581,16 +546,13 @@ CREATE TABLE IF NOT EXISTS `deta-remito` (
 -- Estructura de tabla para la tabla `deta_ordeninsumos`
 --
 
-CREATE TABLE IF NOT EXISTS `deta_ordeninsumos` (
-  `id_detaordeninsumo` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `deta_ordeninsumos` (
+  `id_detaordeninsumo` int(11) NOT NULL,
   `id_ordeninsumo` int(11) DEFAULT NULL,
   `loteid` int(10) NOT NULL,
   `cantidad` double NOT NULL,
-  `precio` double NOT NULL,
-  PRIMARY KEY (`id_detaordeninsumo`),
-  KEY `loteid` (`loteid`) USING BTREE,
-  KEY `id_ordeninsumo` (`id_ordeninsumo`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+  `precio` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -598,14 +560,13 @@ CREATE TABLE IF NOT EXISTS `deta_ordeninsumos` (
 -- Estructura de tabla para la tabla `orden_insumos`
 --
 
-CREATE TABLE IF NOT EXISTS `orden_insumos` (
-  `id_orden` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orden_insumos` (
+  `id_orden` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `solicitante` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `destino` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `comprobante` int(255) NOT NULL,
-  PRIMARY KEY (`id_orden`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+  `comprobante` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -613,8 +574,8 @@ CREATE TABLE IF NOT EXISTS `orden_insumos` (
 -- Estructura de tabla para la tabla `orden_pedido`
 --
 
-CREATE TABLE IF NOT EXISTS `orden_pedido` (
-  `id_orden` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orden_pedido` (
+  `id_orden` int(11) NOT NULL,
   `id_proveedor` int(11) NOT NULL,
   `nro_trabajo` int(11) NOT NULL,
   `descripcion` text NOT NULL,
@@ -623,11 +584,8 @@ CREATE TABLE IF NOT EXISTS `orden_pedido` (
   `fecha_entregada` datetime NOT NULL,
   `estado` varchar(2) NOT NULL,
   `id_trabajo` int(11) NOT NULL,
-  `observacion` text NOT NULL,
-  PRIMARY KEY (`id_orden`),
-  KEY `id_trabajo` (`id_trabajo`),
-  KEY `id_proveedor` (`id_proveedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `observacion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `orden_pedido`
@@ -642,8 +600,8 @@ INSERT INTO `orden_pedido` (`id_orden`, `id_proveedor`, `nro_trabajo`, `descripc
 -- Estructura de tabla para la tabla `orden_trabajo`
 --
 
-CREATE TABLE IF NOT EXISTS `orden_trabajo` (
-  `id_orden` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orden_trabajo` (
+  `id_orden` int(11) NOT NULL,
   `nro` varchar(100) NOT NULL,
   `fecha_inicio` datetime NOT NULL,
   `fecha_entrega` datetime NOT NULL,
@@ -656,14 +614,8 @@ CREATE TABLE IF NOT EXISTS `orden_trabajo` (
   `id_usuario` int(11) NOT NULL DEFAULT '1',
   `id_usuario_a` int(11) NOT NULL,
   `id_usuario_e` int(11) NOT NULL,
-  `id_sucursal` int(11) NOT NULL,
-  PRIMARY KEY (`id_orden`),
-  KEY `orden_trabajo_ibfk_1` (`cliId`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_usuariosolicitante` (`id_usuario_a`),
-  KEY `usuario_entrega` (`id_usuario_e`),
-  KEY `id_sucursal` (`id_sucursal`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+  `id_sucursal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `orden_trabajo`
@@ -682,7 +634,10 @@ INSERT INTO `orden_trabajo` (`id_orden`, `nro`, `fecha_inicio`, `fecha_entrega`,
 (11, '3444', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'adsadsadsad\nEDITADO\n', 13, 'As', 1, 1, 1, 0),
 (12, '33', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'asdsa\nEDITADO1', 14, 'As', 1, 2, 1, 0),
 (13, '12120', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'cambiar ventana en edificio\nEDITADO', 16, 'C', 1, 1, 1, 0),
-(18, '1234', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 20, 'C', 1, 1, 1, 1);
+(18, '1234', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 20, 'C', 1, 1, 1, 1),
+(19, '123', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'orden test', 20, 'C', 1, 1, 1, 1),
+(20, '234', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'ORDEN TRABAJO PRUEBA', 17, 'C', 1, 1, 1, 1),
+(21, '33', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'orden3', 13, 'C', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -690,13 +645,11 @@ INSERT INTO `orden_trabajo` (`id_orden`, `nro`, `fecha_inicio`, `fecha_entrega`,
 -- Estructura de tabla para la tabla `remitos`
 --
 
-CREATE TABLE IF NOT EXISTS `remitos` (
+CREATE TABLE `remitos` (
   `remitoId` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `provid` int(11) NOT NULL,
-  `comprobante` varchar(255) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`remitoId`),
-  KEY `provid` (`provid`) USING BTREE
+  `comprobante` varchar(255) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -714,12 +667,11 @@ INSERT INTO `remitos` (`remitoId`, `fecha`, `provid`, `comprobante`) VALUES
 -- Estructura de tabla para la tabla `sisactions`
 --
 
-CREATE TABLE IF NOT EXISTS `sisactions` (
-  `actId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sisactions` (
+  `actId` int(11) NOT NULL,
   `actDescription` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `actDescriptionSpanish` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`actId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=11 ;
+  `actDescriptionSpanish` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sisactions`
@@ -743,11 +695,10 @@ INSERT INTO `sisactions` (`actId`, `actDescription`, `actDescriptionSpanish`) VA
 -- Estructura de tabla para la tabla `sisgroups`
 --
 
-CREATE TABLE IF NOT EXISTS `sisgroups` (
-  `grpId` int(11) NOT NULL AUTO_INCREMENT,
-  `grpName` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`grpId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=7 ;
+CREATE TABLE `sisgroups` (
+  `grpId` int(11) NOT NULL,
+  `grpName` varchar(20) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sisgroups`
@@ -767,14 +718,11 @@ INSERT INTO `sisgroups` (`grpId`, `grpName`) VALUES
 -- Estructura de tabla para la tabla `sisgroupsactions`
 --
 
-CREATE TABLE IF NOT EXISTS `sisgroupsactions` (
-  `grpactId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sisgroupsactions` (
+  `grpactId` int(11) NOT NULL,
   `grpId` int(11) NOT NULL,
-  `menuAccId` int(11) NOT NULL,
-  PRIMARY KEY (`grpactId`),
-  KEY `grpId` (`grpId`),
-  KEY `menuAccId` (`menuAccId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2895 ;
+  `menuAccId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sisgroupsactions`
@@ -923,15 +871,14 @@ INSERT INTO `sisgroupsactions` (`grpactId`, `grpId`, `menuAccId`) VALUES
 -- Estructura de tabla para la tabla `sismenu`
 --
 
-CREATE TABLE IF NOT EXISTS `sismenu` (
-  `menuId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sismenu` (
+  `menuId` int(11) NOT NULL,
   `menuName` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `menuIcon` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `menuController` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `menuView` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `menuFather` int(11) DEFAULT NULL,
-  PRIMARY KEY (`menuId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=52 ;
+  `menuFather` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sismenu`
@@ -990,12 +937,11 @@ INSERT INTO `sismenu` (`menuId`, `menuName`, `menuIcon`, `menuController`, `menu
 -- Estructura de tabla para la tabla `sismenuactions`
 --
 
-CREATE TABLE IF NOT EXISTS `sismenuactions` (
-  `menuAccId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sismenuactions` (
+  `menuAccId` int(11) NOT NULL,
   `menuId` int(11) NOT NULL,
-  `actId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`menuAccId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=145 ;
+  `actId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sismenuactions`
@@ -1141,16 +1087,15 @@ INSERT INTO `sismenuactions` (`menuAccId`, `menuId`, `actId`) VALUES
 -- Estructura de tabla para la tabla `sisusers`
 --
 
-CREATE TABLE IF NOT EXISTS `sisusers` (
-  `usrId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sisusers` (
+  `usrId` int(11) NOT NULL,
   `usrNick` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `usrName` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `usrLastName` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `usrComision` int(11) NOT NULL,
   `usrPassword` varchar(5000) COLLATE utf8_spanish_ci NOT NULL,
-  `grpId` int(11) NOT NULL,
-  PRIMARY KEY (`usrId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+  `grpId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `sisusers`
@@ -1167,15 +1112,14 @@ INSERT INTO `sisusers` (`usrId`, `usrNick`, `usrName`, `usrLastName`, `usrComisi
 -- Estructura de tabla para la tabla `sucursal`
 --
 
-CREATE TABLE IF NOT EXISTS `sucursal` (
-  `id_sucursal` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sucursal` (
+  `id_sucursal` int(11) NOT NULL,
   `dire` varchar(3000) NOT NULL,
   `telefono` varchar(3000) NOT NULL,
   `zonas` varchar(3000) NOT NULL,
   `id_localidad` int(11) NOT NULL,
-  `descripc` varchar(3000) NOT NULL,
-  PRIMARY KEY (`id_sucursal`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `descripc` varchar(3000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `sucursal`
@@ -1191,16 +1135,14 @@ INSERT INTO `sucursal` (`id_sucursal`, `dire`, `telefono`, `zonas`, `id_localida
 -- Estructura de tabla para la tabla `tbl_chequera`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_chequera` (
-  `cheqId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_chequera` (
+  `cheqId` int(11) NOT NULL,
   `cheqinicio` varchar(255) DEFAULT NULL,
   `cheqcantidad` varchar(255) DEFAULT NULL,
   `chefecha` varchar(255) DEFAULT NULL,
   `bancid` int(11) DEFAULT NULL,
-  `cont` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cheqId`),
-  KEY `bancid` (`bancid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+  `cont` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_chequera`
@@ -1208,8 +1150,9 @@ CREATE TABLE IF NOT EXISTS `tbl_chequera` (
 
 INSERT INTO `tbl_chequera` (`cheqId`, `cheqinicio`, `cheqcantidad`, `chefecha`, `bancid`, `cont`) VALUES
 (10, '89879326', '50', NULL, 3, 50),
-(11, '91852301', '50', NULL, 3, 49),
-(12, '2820001', '50', NULL, 5, 6);
+(11, '91852301', '50', NULL, 3, 50),
+(12, '2820001', '50', NULL, 5, 6),
+(14, '00000', '50000', NULL, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -1217,124 +1160,123 @@ INSERT INTO `tbl_chequera` (`cheqId`, `cheqinicio`, `cheqcantidad`, `chefecha`, 
 -- Estructura de tabla para la tabla `tbl_cheques`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_cheques` (
-  `cheqid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_cheques` (
+  `cheqid` int(11) NOT NULL,
   `cheqnro` int(11) NOT NULL,
   `cheqvenc` date DEFAULT NULL,
   `provid` int(11) DEFAULT NULL,
   `cheqmonto` double DEFAULT NULL,
   `cheqestado` varchar(5) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `id_chequera` int(11) DEFAULT NULL,
-  `cheqfechae` date NOT NULL,
-  PRIMARY KEY (`cheqid`),
-  KEY `provid` (`provid`),
-  KEY `id_chequera` (`id_chequera`),
-  KEY `cheqestado` (`cheqestado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=113 ;
+  `cheqfechae` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_cheques`
 --
 
 INSERT INTO `tbl_cheques` (`cheqid`, `cheqnro`, `cheqvenc`, `provid`, `cheqmonto`, `cheqestado`, `id_chequera`, `cheqfechae`) VALUES
-(7, 89879326, '2018-04-30', 64, 20000, 'C', 10, '2018-04-23'),
-(8, 89879327, '2018-05-31', 64, 23, 'C', 10, '2018-04-23'),
-(9, 89879328, '2018-06-30', 64, 23.61, 'C', 10, '2018-04-23'),
-(10, 89879340, '2018-04-13', 12, 30, 'C', 10, '2018-04-23'),
-(11, 89879341, '2018-05-14', 12, 50, 'C', 10, '2018-04-23'),
-(13, 89879343, '2018-04-30', 11, 8.047, 'C', 10, '2018-04-23'),
-(14, 89879344, '2018-05-31', 11, 10, 'C', 10, '2018-04-23'),
-(15, 89879345, '2018-06-30', 11, 10, 'C', 10, '2018-04-23'),
-(16, 89879346, '2018-05-15', 11, 9.159, 'C', 10, '2018-04-23'),
-(17, 89879357, '2018-05-30', 23, 40, 'C', 10, '2018-04-23'),
-(18, 89879358, '2018-06-30', 23, 41, 'C', 10, '2018-04-23'),
-(19, 89879359, '2018-07-30', 23, 50, 'C', 10, '2018-04-23'),
-(20, 89879360, '2018-08-30', 23, 60, 'C', 10, '2018-04-23'),
-(21, 89879361, '2018-09-30', 23, 60, 'C', 10, '2018-04-23'),
-(22, 89879362, '2018-10-30', 23, 60, 'C', 10, '2018-04-23'),
-(23, 89879363, '2018-11-30', 23, 70, 'C', 10, '2018-04-23'),
-(24, 89879368, '2018-04-30', 14, 5, 'C', 10, '2018-04-23'),
-(25, 89879369, '2018-05-28', 14, 6.374, 'C', 10, '2018-04-23'),
-(26, 89879338, '2018-04-30', 33, 7.278, 'C', 10, '2018-04-23'),
-(27, 89879339, '2018-05-30', 33, 10, 'C', 10, '2018-04-23'),
-(28, 89879329, '2018-04-30', 55, 10.232, 'C', 10, '2018-04-23'),
-(29, 89879330, '2018-05-31', 55, 15, 'C', 10, '2018-04-23'),
-(30, 89879331, '2018-06-30', 55, 15, 'C', 10, '2018-04-23'),
-(31, 89879332, '2018-04-30', 25, 6.244, 'C', 10, '2018-04-23'),
-(32, 89879333, '2018-05-31', 25, 10, 'C', 10, '2018-04-23'),
-(33, 89879334, '2018-06-30', 25, 10, 'C', 10, '2018-04-23'),
-(34, 89879335, '2018-04-30', 66, 11.803, 'C', 10, '2018-04-23'),
-(35, 89879336, '2018-04-30', 27, 12, 'C', 10, '2018-04-23'),
-(36, 89879337, '2018-05-31', 27, 12, 'C', 10, '2018-04-23'),
-(38, 89879367, '2018-04-30', 15, 10.48, 'C', 10, '2018-04-23'),
-(39, 89879371, '2018-04-30', 67, 3.702, 'C', 10, '2018-04-23'),
-(40, 89879348, '2018-05-31', 24, 9.532, 'C', 10, '2018-04-23'),
-(41, 89879349, '2018-06-30', 24, 12, 'C', 10, '2018-04-23'),
-(42, 89879350, '2018-07-31', 24, 12, 'C', 10, '2018-04-23'),
-(43, 89879351, '2018-08-30', 24, 12, 'C', 10, '2018-04-23'),
-(44, 89879352, '2018-09-30', 24, 12, 'C', 10, '2018-04-23'),
-(45, 89879353, '2018-10-30', 24, 12, 'C', 10, '2018-04-23'),
-(46, 89879370, '2018-04-30', 69, 1.792, 'C', 10, '2018-04-23'),
-(47, 89879364, '2018-05-21', 70, 18.382, 'C', 10, '2018-04-23'),
-(49, 89879366, '2018-07-30', 70, 20, 'C', 10, '2018-04-23'),
-(50, 89879372, '2018-05-18', 57, 4.484, 'C', 10, '2018-04-24'),
-(51, 89879373, '2018-04-25', 71, 14.26, 'C', 10, '2018-04-24'),
-(52, 89879374, '2018-05-24', 71, 14.26, 'C', 10, '2018-04-24'),
-(53, 89879375, '2018-05-15', 30, 6.02, 'C', 10, '2018-04-26'),
-(55, 91852301, '2018-07-31', 26, 50, 'C', 11, '2018-05-23'),
-(56, 91852302, '2018-08-31', 26, 60, 'C', 11, '2018-05-23'),
-(57, 91852303, '2018-09-30', 26, 60, 'C', 11, '2018-05-23'),
-(58, 91852304, '2018-10-31', 26, 60, 'C', 11, '2018-05-23'),
-(59, 91852305, '2018-11-30', 26, 60000, 'C', 11, '2018-05-23'),
-(60, 91852306, '2018-12-31', 26, 60, 'C', 11, '2018-05-23'),
-(61, 91852307, '2018-06-04', 73, 4.85, 'C', 11, '2018-05-23'),
-(62, 91852308, '2018-07-06', 73, 4.85, 'C', 11, '2018-05-23'),
-(63, 91852309, '2018-08-06', 73, 4.85, 'C', 11, '2018-05-23'),
-(64, 91852310, '2018-09-06', 73, 4.85, 'C', 11, '2018-05-23'),
-(65, 91852311, '2018-10-06', 73, 4.85, 'C', 11, '2018-05-23'),
-(66, 91852312, '2018-11-06', 73, 4.85, 'C', 11, '2018-05-23'),
-(67, 91852336, '2018-05-31', 68, 24, 'C', 11, '2018-05-09'),
-(68, 91852337, '2018-06-30', 68, 24, 'C', 11, '2018-05-09'),
-(69, 91852338, '2018-07-31', 68, 24, 'C', 11, '2018-05-09'),
-(70, 89879342, '2018-06-15', 12, 50000, 'C', 10, '2018-04-23'),
-(71, 89879375, '2018-05-15', 30, 6020, 'C', 10, '2018-04-23'),
-(72, 91852339, '2018-08-31', 68, 27383.91, 'C', 11, '2018-05-09'),
-(73, 91852333, '2018-07-10', 57, 11719, 'C', 11, '2018-06-08'),
-(74, 91852334, '2018-08-31', 57, 9200, 'C', 11, '2018-06-08'),
-(75, 91852335, '2018-09-30', 57, 7948, 'C', 11, '2018-06-08'),
-(76, 91852315, '2018-05-31', 17, 60000, 'C', 11, '2018-05-28'),
-(77, 91852316, '2018-06-22', 17, 50000, 'C', 11, '2018-05-29'),
-(78, 91852317, '2018-06-30', 17, 50000, 'C', 11, '2018-05-29'),
-(82, 91852321, '2018-08-31', 17, 50000, 'C', 11, '2018-05-29'),
-(83, 91852318, '2018-07-20', 17, 50000, 'C', 11, '2018-05-29'),
-(84, 91852319, '2018-07-31', 17, 50000, 'C', 11, '2018-05-29'),
-(85, 91852320, '2018-08-17', 17, 50000, 'C', 11, '2018-05-29'),
-(86, 91852322, '2018-06-22', 18, 12619.75, 'C', 11, '2018-05-28'),
-(87, 91852323, '2018-06-08', 15, 13326, 'C', 11, '2018-05-28'),
-(88, 91852324, '2018-06-22', 15, 4966, 'C', 11, '2018-05-28'),
-(89, 91852325, '2018-06-30', 11, 10000, 'C', 11, '2018-05-28'),
-(90, 91852326, '2018-07-23', 11, 12654, 'C', 11, '2018-05-28'),
-(91, 91852327, '2018-06-30', 32, 6000, 'C', 11, '2018-06-06'),
-(92, 91852328, '2018-07-31', 32, 6000, 'C', 11, '2018-06-06'),
-(93, 91852329, '2018-08-31', 32, 7000, 'C', 11, '2018-06-06'),
-(94, 91852330, '2018-09-30', 32, 7000, 'C', 11, '2018-06-06'),
-(95, 91852332, '2018-10-31', 32, 9574.1, 'C', 11, '2018-06-06'),
-(96, 91852331, '2018-10-31', 32, 7142, 'C', 11, '2018-06-08'),
-(97, 91852347, '2018-08-30', 74, 16920, 'C', 11, '2018-06-11'),
-(98, 91852348, '2018-06-30', 12, 60000, 'C', 11, '2018-06-19'),
-(99, 91852349, '2018-07-31', 12, 70000, 'C', 11, '2018-06-19'),
-(100, 91852350, '2018-08-31', 12, 70000, 'C', 11, '2018-06-19'),
-(101, 91852346, '2018-07-31', 66, 10877, 'C', 11, '2018-06-11'),
-(102, 91852340, '2018-07-31', 25, 12646.65, 'C', 11, '2018-06-11'),
-(103, 91852341, '2018-08-31', 25, 15000, 'C', 11, '2018-06-11'),
-(104, 91852342, '2018-09-30', 25, 15000, 'C', 11, '2018-06-11'),
-(106, 27000016, '2018-06-22', 65, 19585.64, 'C', 12, '2018-03-08'),
-(107, 2700017, '2018-07-22', 65, 19585.64, 'C', 12, '2018-03-08'),
-(108, 2700018, '2018-08-22', 65, 19585.64, 'C', 12, '2018-03-08'),
-(109, 2700019, '2018-09-22', 65, 19585.64, 'C', 12, '2018-03-08'),
-(110, 2820006, '2018-10-22', 65, 19585.64, 'C', 12, '2018-03-08'),
-(111, 89879365, '2018-06-21', 22, 20000, 'C', 10, '2018-05-01'),
-(112, 91852358, '2018-08-06', 75, 4383.54, 'E', 11, '2018-07-03');
+(7, 89879326, '2018-04-30', 64, 20000, '1', 10, '2018-04-23'),
+(8, 89879327, '2018-05-31', 64, 23, '2', 10, '2018-04-23'),
+(9, 89879328, '2018-06-30', 64, 23.61, '2', 10, '2018-04-23'),
+(10, 89879340, '2018-04-13', 12, 30, '1', 10, '2018-04-23'),
+(11, 89879341, '2018-05-14', 12, 50, '1', 10, '2018-04-23'),
+(13, 89879343, '2018-04-30', 11, 8.047, '1', 10, '2018-04-23'),
+(14, 89879344, '2018-05-31', 11, 10, '1', 10, '2018-04-23'),
+(15, 89879345, '2018-06-30', 11, 10, '1', 10, '2018-04-23'),
+(16, 89879346, '2018-05-15', 11, 9.159, '1', 10, '2018-04-23'),
+(17, 89879357, '2018-05-30', 23, 40, '1', 10, '2018-04-23'),
+(18, 89879358, '2018-06-30', 23, 41, '1', 10, '2018-04-23'),
+(19, 89879359, '2018-07-30', 23, 50, '1', 10, '2018-04-23'),
+(20, 89879360, '2018-08-30', 23, 60, '1', 10, '2018-04-23'),
+(21, 89879361, '2018-09-30', 23, 60, '1', 10, '2018-04-23'),
+(22, 89879362, '2018-10-30', 23, 60, '1', 10, '2018-04-23'),
+(23, 89879363, '2018-11-30', 23, 70, '1', 10, '2018-04-23'),
+(24, 89879368, '2018-04-30', 14, 5, '1', 10, '2018-04-23'),
+(25, 89879369, '2018-05-28', 14, 6.374, '1', 10, '2018-04-23'),
+(26, 89879338, '2018-04-30', 33, 7.278, '1', 10, '2018-04-23'),
+(27, 89879339, '2018-05-30', 33, 10, '1', 10, '2018-04-23'),
+(28, 89879329, '2018-04-30', 55, 10.232, '1', 10, '2018-04-23'),
+(29, 89879330, '2018-05-31', 55, 15, '1', 10, '2018-04-23'),
+(30, 89879331, '2018-06-30', 55, 15, '1', 10, '2018-04-23'),
+(31, 89879332, '2018-04-30', 25, 6.244, '1', 10, '2018-04-23'),
+(32, 89879333, '2018-05-31', 25, 10, '1', 10, '2018-04-23'),
+(33, 89879334, '2018-06-30', 25, 10, '1', 10, '2018-04-23'),
+(34, 89879335, '2018-04-30', 66, 11.803, '1', 10, '2018-04-23'),
+(35, 89879336, '2018-04-30', 27, 12, '1', 10, '2018-04-23'),
+(36, 89879337, '2018-05-31', 27, 12, '1', 10, '2018-04-23'),
+(38, 89879367, '2018-04-30', 15, 10.48, '1', 10, '2018-04-23'),
+(39, 89879371, '2018-04-30', 67, 3.702, '2', 10, '2018-04-23'),
+(40, 89879348, '2018-05-31', 24, 9.532, '1', 10, '2018-04-23'),
+(41, 89879349, '2018-06-30', 24, 12, '1', 10, '2018-04-23'),
+(42, 89879350, '2018-07-31', 24, 12, '1', 10, '2018-04-23'),
+(43, 89879351, '2018-08-30', 24, 12, '1', 10, '2018-04-23'),
+(44, 89879352, '2018-09-30', 24, 12, '1', 10, '2018-04-23'),
+(45, 89879353, '2018-10-30', 24, 12, '1', 10, '2018-04-23'),
+(46, 89879370, '2018-04-30', 69, 1.792, '1', 10, '2018-04-23'),
+(47, 89879364, '2018-05-21', 70, 18.382, '1', 10, '2018-04-23'),
+(49, 89879366, '2018-07-30', 70, 20, '1', 10, '2018-04-23'),
+(50, 89879372, '2018-05-18', 57, 4.484, '1', 10, '2018-04-24'),
+(51, 89879373, '2018-04-25', 71, 14.26, '1', 10, '2018-04-24'),
+(52, 89879374, '2018-05-24', 71, 14.26, '1', 10, '2018-04-24'),
+(53, 89879375, '2018-05-15', 30, 6.02, '1', 10, '2018-04-26'),
+(55, 91852301, '2018-07-31', 26, 50, '1', 11, '2018-05-23'),
+(56, 91852302, '2018-08-31', 26, 60, '1', 11, '2018-05-23'),
+(57, 91852303, '2018-09-30', 26, 60, '1', 11, '2018-05-23'),
+(58, 91852304, '2018-10-31', 26, 60, '1', 11, '2018-05-23'),
+(59, 91852305, '2018-11-30', 26, 60000, '1', 11, '2018-05-23'),
+(60, 91852306, '2018-12-31', 26, 60, '1', 11, '2018-05-23'),
+(61, 91852307, '2018-06-04', 73, 4.85, '1', 11, '2018-05-23'),
+(62, 91852308, '2018-07-06', 73, 4.85, '1', 11, '2018-05-23'),
+(63, 91852309, '2018-08-06', 73, 4.85, '1', 11, '2018-05-23'),
+(64, 91852310, '2018-09-06', 73, 4.85, '1', 11, '2018-05-23'),
+(65, 91852311, '2018-10-06', 73, 4.85, '1', 11, '2018-05-23'),
+(66, 91852312, '2018-11-06', 73, 4.85, '1', 11, '2018-05-23'),
+(67, 91852336, '2018-05-31', 68, 24, '1', 11, '2018-05-09'),
+(68, 91852337, '2018-06-30', 68, 24, '1', 11, '2018-05-09'),
+(69, 91852338, '2018-07-31', 68, 24, '1', 11, '2018-05-09'),
+(70, 89879342, '2018-06-15', 12, 50000, '1', 10, '2018-04-23'),
+(71, 89879375, '2018-05-15', 30, 6020, '1', 10, '2018-04-23'),
+(72, 91852339, '2018-08-31', 68, 27383.91, '1', 11, '2018-05-09'),
+(73, 91852333, '2018-07-10', 57, 11719, '1', 11, '2018-06-08'),
+(74, 91852334, '2018-08-31', 57, 9200, '1', 11, '2018-06-08'),
+(75, 91852335, '2018-09-30', 57, 7948, '1', 11, '2018-06-08'),
+(76, 91852315, '2018-05-31', 17, 60000, '1', 11, '2018-05-28'),
+(77, 91852316, '2018-06-22', 17, 50000, '1', 11, '2018-05-29'),
+(78, 91852317, '2018-06-30', 17, 50000, '1', 11, '2018-05-29'),
+(82, 91852321, '2018-08-31', 17, 50000, '1', 11, '2018-05-29'),
+(83, 91852318, '2018-07-20', 17, 50000, '1', 11, '2018-05-29'),
+(84, 91852319, '2018-07-31', 17, 50000, '1', 11, '2018-05-29'),
+(85, 91852320, '2018-08-17', 17, 50000, '1', 11, '2018-05-29'),
+(86, 91852322, '2018-06-22', 18, 12619.75, '1', 11, '2018-05-28'),
+(87, 91852323, '2018-06-08', 15, 13326, '1', 11, '2018-05-28'),
+(88, 91852324, '2018-06-22', 15, 4966, '1', 11, '2018-05-28'),
+(89, 91852325, '2018-06-30', 11, 10000, '1', 11, '2018-05-28'),
+(90, 91852326, '2018-07-23', 11, 12654, '1', 11, '2018-05-28'),
+(91, 91852327, '2018-06-30', 32, 6000, '1', 11, '2018-06-06'),
+(92, 91852328, '2018-07-31', 32, 6000, '1', 11, '2018-06-06'),
+(93, 91852329, '2018-08-31', 32, 7000, '1', 11, '2018-06-06'),
+(94, 91852330, '2018-09-30', 32, 7000, '1', 11, '2018-06-06'),
+(95, 91852332, '2018-10-31', 32, 9574.1, '1', 11, '2018-06-06'),
+(96, 91852331, '2018-10-31', 32, 7142, '1', 11, '2018-06-08'),
+(97, 91852347, '2018-08-30', 74, 16920, '1', 11, '2018-06-11'),
+(98, 91852348, '2018-06-30', 12, 60000, '1', 11, '2018-06-19'),
+(99, 91852349, '2018-07-31', 12, 70000, '1', 11, '2018-06-19'),
+(100, 91852350, '2018-08-31', 12, 70000, '1', 11, '2018-06-19'),
+(101, 91852346, '2018-07-31', 66, 10877, '1', 11, '2018-06-11'),
+(102, 91852340, '2018-07-31', 25, 12646.65, '1', 11, '2018-06-11'),
+(103, 91852341, '2018-08-31', 25, 15000, '1', 11, '2018-06-11'),
+(104, 91852342, '2018-09-30', 25, 15000, '1', 11, '2018-06-11'),
+(106, 27000016, '2018-06-22', 65, 19585.64, '1', 12, '2018-03-08'),
+(107, 2700017, '2018-07-22', 65, 19585.64, '1', 12, '2018-03-08'),
+(108, 2700018, '2018-08-22', 65, 19585.64, '1', 12, '2018-03-08'),
+(109, 2700019, '2018-09-22', 65, 19585.64, '1', 12, '2018-03-08'),
+(110, 2820006, '2018-10-22', 65, 19585.64, '1', 12, '2018-03-08'),
+(111, 89879365, '2018-06-21', 22, 20000, '1', 10, '2018-05-01'),
+(112, 91852358, '2018-08-06', 75, 4383.54, 'E', 11, '2018-07-03'),
+(113, 91852350, '2018-09-21', 11, 5000, '1', 11, '2018-09-14'),
+(114, 0, '2018-09-28', 26, 123456.7, '1', 14, '2018-09-14'),
+(115, 1, '2018-09-28', 10, 500.2, '1', 14, '2018-09-14');
 
 -- --------------------------------------------------------
 
@@ -1342,23 +1284,25 @@ INSERT INTO `tbl_cheques` (`cheqid`, `cheqnro`, `cheqvenc`, `provid`, `cheqmonto
 -- Estructura de tabla para la tabla `tbl_chequesterceros`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_chequesterceros` (
-  `id_che` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_chequesterceros` (
+  `id_che` int(11) NOT NULL,
   `numero` int(11) NOT NULL,
   `id_banco` int(11) NOT NULL,
   `cliente` mediumtext COLLATE utf8_spanish_ci NOT NULL,
   `estado` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
   `monto` float NOT NULL,
-  `fecha_vto` date NOT NULL,
-  PRIMARY KEY (`id_che`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=6 ;
+  `fecha_vto` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tbl_chequesterceros`
 --
 
 INSERT INTO `tbl_chequesterceros` (`id_che`, `numero`, `id_banco`, `cliente`, `estado`, `monto`, `fecha_vto`) VALUES
-(5, 4324234, 4, 'dasdasdas', 'E', 23.333, '2017-05-13');
+(5, 4324234, 4, 'dasdasdas', 'E', 23.333, '2017-05-13'),
+(7, 1, 6, '20', '1', 1.23, '2018-09-14'),
+(8, 111, 6, '13', '1', 1, '2018-09-14'),
+(9, 222, 6, '13', '1', 1234.56, '2018-09-21');
 
 -- --------------------------------------------------------
 
@@ -1366,8 +1310,8 @@ INSERT INTO `tbl_chequesterceros` (`id_che`, `numero`, `id_banco`, `cliente`, `e
 -- Estructura de tabla para la tabla `tbl_cupon`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_cupon` (
-  `cuponid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_cupon` (
+  `cuponid` int(11) NOT NULL,
   `cuponfech` datetime DEFAULT NULL,
   `cuponnro` varchar(255) DEFAULT NULL,
   `cuponlote` varchar(255) DEFAULT NULL,
@@ -1375,10 +1319,8 @@ CREATE TABLE IF NOT EXISTS `tbl_cupon` (
   `cuponcliente` varchar(255) DEFAULT NULL,
   `cuponmonto` double DEFAULT NULL,
   `cuponestado` varchar(255) DEFAULT NULL,
-  `tarjetaid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cuponid`),
-  KEY `tarjetaid` (`tarjetaid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+  `tarjetaid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_cupon`
@@ -1415,19 +1357,16 @@ INSERT INTO `tbl_cupon` (`cuponid`, `cuponfech`, `cuponnro`, `cuponlote`, `cupon
 -- Estructura de tabla para la tabla `tbl_deposito`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_deposito` (
-  `depid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_deposito` (
+  `depid` int(11) NOT NULL,
   `depfecha` date DEFAULT NULL,
   `depbanco` int(11) DEFAULT NULL,
   `liquidaid` int(11) DEFAULT NULL,
   `bancid` int(11) DEFAULT NULL,
   `depestado` varchar(11) DEFAULT NULL,
   `depmonto` double NOT NULL,
-  `codigo` double NOT NULL,
-  PRIMARY KEY (`depid`),
-  KEY `liquidaid` (`liquidaid`),
-  KEY `bancid` (`bancid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `codigo` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_deposito`
@@ -1445,15 +1384,12 @@ INSERT INTO `tbl_deposito` (`depid`, `depfecha`, `depbanco`, `liquidaid`, `banci
 -- Estructura de tabla para la tabla `tbl_detaliquida`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_detaliquida` (
-  `detaliqid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_detaliquida` (
+  `detaliqid` int(11) NOT NULL,
   `liquidaid` int(11) DEFAULT NULL,
   `detaliqfecha` datetime DEFAULT NULL,
-  `cuponid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`detaliqid`),
-  KEY `liquidaid` (`liquidaid`),
-  KEY `cuponid` (`cuponid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `cuponid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_detaliquida`
@@ -1469,15 +1405,14 @@ INSERT INTO `tbl_detaliquida` (`detaliqid`, `liquidaid`, `detaliqfecha`, `cuponi
 -- Estructura de tabla para la tabla `tbl_detaordenpago`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_detaordenpago` (
-  `id_detaordenpago` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_detaordenpago` (
+  `id_detaordenpago` int(11) NOT NULL,
   `opid` int(11) DEFAULT NULL,
   `monto` float(15,3) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `tipo` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `comp` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_detaordenpago`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=8 ;
+  `comp` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tbl_detaordenpago`
@@ -1498,12 +1433,11 @@ INSERT INTO `tbl_detaordenpago` (`id_detaordenpago`, `opid`, `monto`, `fecha`, `
 -- Estructura de tabla para la tabla `tbl_estados`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_estados` (
-  `estadoid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_estados` (
+  `estadoid` int(11) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
-  `estado` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`estadoid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `estado` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_estados`
@@ -1519,8 +1453,8 @@ INSERT INTO `tbl_estados` (`estadoid`, `descripcion`, `estado`) VALUES
 -- Estructura de tabla para la tabla `tbl_factura`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_factura` (
-  `facId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_factura` (
+  `facId` int(11) NOT NULL,
   `facNumero` varchar(20) NOT NULL,
   `facFecha` date NOT NULL,
   `facTipo` varchar(10) NOT NULL,
@@ -1532,10 +1466,8 @@ CREATE TABLE IF NOT EXISTS `tbl_factura` (
   `facTotal` double NOT NULL,
   `facRetenciones` double NOT NULL,
   `facTipoComprobante` varchar(10) NOT NULL,
-  `facEstado` varchar(10) NOT NULL,
-  PRIMARY KEY (`facId`),
-  KEY `provid` (`facProveedorId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=702 ;
+  `facEstado` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_factura`
@@ -2241,13 +2173,11 @@ INSERT INTO `tbl_factura` (`facId`, `facNumero`, `facFecha`, `facTipo`, `facProv
 -- Estructura de tabla para la tabla `tbl_imputapago`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_imputapago` (
-  `id_imputfac` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_imputapago` (
+  `id_imputfac` int(11) NOT NULL,
   `factid` int(11) DEFAULT NULL,
-  `opid` int(11) DEFAULT NULL,
-  KEY `id_imputfac` (`id_imputfac`),
-  KEY `opid` (`opid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `opid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2255,16 +2185,14 @@ CREATE TABLE IF NOT EXISTS `tbl_imputapago` (
 -- Estructura de tabla para la tabla `tbl_liquida`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_liquida` (
-  `liquidaid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_liquida` (
+  `liquidaid` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
   `monto` double DEFAULT NULL,
   `codigo` varchar(255) DEFAULT NULL,
   `tarjetaid` int(11) DEFAULT NULL,
-  `retencion` float NOT NULL,
-  PRIMARY KEY (`liquidaid`),
-  KEY `tarjetaid` (`tarjetaid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `retencion` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_liquida`
@@ -2283,15 +2211,14 @@ INSERT INTO `tbl_liquida` (`liquidaid`, `fecha`, `monto`, `codigo`, `tarjetaid`,
 -- Estructura de tabla para la tabla `tbl_ordenpago`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_ordenpago` (
-  `opid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_ordenpago` (
+  `opid` int(11) NOT NULL,
   `opcomprobante` varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `opfecha` date DEFAULT NULL,
   `opmonto` float(15,0) DEFAULT NULL,
   `provid` int(11) DEFAULT NULL,
-  `opestado` varchar(5) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`opid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `opestado` varchar(5) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_ordenpago`
@@ -2304,6 +2231,515 @@ INSERT INTO `tbl_ordenpago` (`opid`, `opcomprobante`, `opfecha`, `opmonto`, `pro
 (4, '1', '2018-06-30', 98332, 12, 'P'),
 (5, '1', '2018-07-04', 4384, 75, 'P');
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `abmbancos`
+--
+ALTER TABLE `abmbancos`
+  ADD PRIMARY KEY (`bancid`);
+
+--
+-- Indices de la tabla `abmdeposito`
+--
+ALTER TABLE `abmdeposito`
+  ADD PRIMARY KEY (`depositoId`);
+
+--
+-- Indices de la tabla `abmproveedores`
+--
+ALTER TABLE `abmproveedores`
+  ADD PRIMARY KEY (`provid`);
+
+--
+-- Indices de la tabla `abmtarjetas`
+--
+ALTER TABLE `abmtarjetas`
+  ADD PRIMARY KEY (`tarjetid`),
+  ADD KEY `tarjetid` (`tarjetid`);
+
+--
+-- Indices de la tabla `admcredits`
+--
+ALTER TABLE `admcredits`
+  ADD PRIMARY KEY (`crdId`),
+  ADD KEY `cliId` (`cliId`),
+  ADD KEY `usrId` (`usrId`),
+  ADD KEY `saleId` (`saleId`);
+
+--
+-- Indices de la tabla `admcustomerpreferences`
+--
+ALTER TABLE `admcustomerpreferences`
+  ADD PRIMARY KEY (`cstprefId`),
+  ADD KEY `sfamId` (`sfamId`),
+  ADD KEY `cliId` (`cliId`);
+
+--
+-- Indices de la tabla `admcustomers`
+--
+ALTER TABLE `admcustomers`
+  ADD PRIMARY KEY (`cliId`);
+
+--
+-- Indices de la tabla `admproducts`
+--
+ALTER TABLE `admproducts`
+  ADD PRIMARY KEY (`prodId`),
+  ADD KEY `sfamId` (`sfamId`);
+
+--
+-- Indices de la tabla `admsales`
+--
+ALTER TABLE `admsales`
+  ADD PRIMARY KEY (`saleId`),
+  ADD KEY `cliId` (`cliId`),
+  ADD KEY `usrId` (`usrId`);
+
+--
+-- Indices de la tabla `admsalesdetail`
+--
+ALTER TABLE `admsalesdetail`
+  ADD PRIMARY KEY (`saleDetId`),
+  ADD KEY `saleId` (`saleId`),
+  ADD KEY `prodId` (`prodId`);
+
+--
+-- Indices de la tabla `admstock`
+--
+ALTER TABLE `admstock`
+  ADD PRIMARY KEY (`stkId`),
+  ADD KEY `prodId` (`prodId`),
+  ADD KEY `usrId` (`usrId`);
+
+--
+-- Indices de la tabla `admvisits`
+--
+ALTER TABLE `admvisits`
+  ADD PRIMARY KEY (`vstId`),
+  ADD KEY `cliId` (`cliId`);
+
+--
+-- Indices de la tabla `alicuotaiva`
+--
+ALTER TABLE `alicuotaiva`
+  ADD PRIMARY KEY (`alicuotaid`);
+
+--
+-- Indices de la tabla `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`artId`),
+  ADD UNIQUE KEY `artBarCode` (`artBarCode`) USING BTREE,
+  ADD UNIQUE KEY `artDescription` (`artDescription`) USING BTREE,
+  ADD KEY `famId` (`famId`) USING BTREE;
+
+--
+-- Indices de la tabla `conffamily`
+--
+ALTER TABLE `conffamily`
+  ADD PRIMARY KEY (`famId`);
+
+--
+-- Indices de la tabla `confsubfamily`
+--
+ALTER TABLE `confsubfamily`
+  ADD PRIMARY KEY (`sfamId`),
+  ADD KEY `famId` (`famId`);
+
+--
+-- Indices de la tabla `confzone`
+--
+ALTER TABLE `confzone`
+  ADD PRIMARY KEY (`zonaId`);
+
+--
+-- Indices de la tabla `deta-remito`
+--
+ALTER TABLE `deta-remito`
+  ADD PRIMARY KEY (`detaremitoid`),
+  ADD KEY `id_remito` (`id_remito`) USING BTREE,
+  ADD KEY `loteid` (`loteid`) USING BTREE;
+
+--
+-- Indices de la tabla `deta_ordeninsumos`
+--
+ALTER TABLE `deta_ordeninsumos`
+  ADD PRIMARY KEY (`id_detaordeninsumo`),
+  ADD KEY `loteid` (`loteid`) USING BTREE,
+  ADD KEY `id_ordeninsumo` (`id_ordeninsumo`) USING BTREE;
+
+--
+-- Indices de la tabla `orden_insumos`
+--
+ALTER TABLE `orden_insumos`
+  ADD PRIMARY KEY (`id_orden`);
+
+--
+-- Indices de la tabla `orden_pedido`
+--
+ALTER TABLE `orden_pedido`
+  ADD PRIMARY KEY (`id_orden`),
+  ADD KEY `id_trabajo` (`id_trabajo`),
+  ADD KEY `id_proveedor` (`id_proveedor`);
+
+--
+-- Indices de la tabla `orden_trabajo`
+--
+ALTER TABLE `orden_trabajo`
+  ADD PRIMARY KEY (`id_orden`),
+  ADD KEY `orden_trabajo_ibfk_1` (`cliId`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_usuariosolicitante` (`id_usuario_a`),
+  ADD KEY `usuario_entrega` (`id_usuario_e`),
+  ADD KEY `id_sucursal` (`id_sucursal`);
+
+--
+-- Indices de la tabla `remitos`
+--
+ALTER TABLE `remitos`
+  ADD PRIMARY KEY (`remitoId`),
+  ADD KEY `provid` (`provid`) USING BTREE;
+
+--
+-- Indices de la tabla `sisactions`
+--
+ALTER TABLE `sisactions`
+  ADD PRIMARY KEY (`actId`);
+
+--
+-- Indices de la tabla `sisgroups`
+--
+ALTER TABLE `sisgroups`
+  ADD PRIMARY KEY (`grpId`);
+
+--
+-- Indices de la tabla `sisgroupsactions`
+--
+ALTER TABLE `sisgroupsactions`
+  ADD PRIMARY KEY (`grpactId`),
+  ADD KEY `grpId` (`grpId`),
+  ADD KEY `menuAccId` (`menuAccId`);
+
+--
+-- Indices de la tabla `sismenu`
+--
+ALTER TABLE `sismenu`
+  ADD PRIMARY KEY (`menuId`);
+
+--
+-- Indices de la tabla `sismenuactions`
+--
+ALTER TABLE `sismenuactions`
+  ADD PRIMARY KEY (`menuAccId`);
+
+--
+-- Indices de la tabla `sisusers`
+--
+ALTER TABLE `sisusers`
+  ADD PRIMARY KEY (`usrId`);
+
+--
+-- Indices de la tabla `sucursal`
+--
+ALTER TABLE `sucursal`
+  ADD PRIMARY KEY (`id_sucursal`);
+
+--
+-- Indices de la tabla `tbl_chequera`
+--
+ALTER TABLE `tbl_chequera`
+  ADD PRIMARY KEY (`cheqId`),
+  ADD KEY `bancid` (`bancid`);
+
+--
+-- Indices de la tabla `tbl_cheques`
+--
+ALTER TABLE `tbl_cheques`
+  ADD PRIMARY KEY (`cheqid`),
+  ADD KEY `provid` (`provid`),
+  ADD KEY `id_chequera` (`id_chequera`),
+  ADD KEY `cheqestado` (`cheqestado`);
+
+--
+-- Indices de la tabla `tbl_chequesterceros`
+--
+ALTER TABLE `tbl_chequesterceros`
+  ADD PRIMARY KEY (`id_che`);
+
+--
+-- Indices de la tabla `tbl_cupon`
+--
+ALTER TABLE `tbl_cupon`
+  ADD PRIMARY KEY (`cuponid`),
+  ADD KEY `tarjetaid` (`tarjetaid`);
+
+--
+-- Indices de la tabla `tbl_deposito`
+--
+ALTER TABLE `tbl_deposito`
+  ADD PRIMARY KEY (`depid`),
+  ADD KEY `liquidaid` (`liquidaid`),
+  ADD KEY `bancid` (`bancid`);
+
+--
+-- Indices de la tabla `tbl_detaliquida`
+--
+ALTER TABLE `tbl_detaliquida`
+  ADD PRIMARY KEY (`detaliqid`),
+  ADD KEY `liquidaid` (`liquidaid`),
+  ADD KEY `cuponid` (`cuponid`);
+
+--
+-- Indices de la tabla `tbl_detaordenpago`
+--
+ALTER TABLE `tbl_detaordenpago`
+  ADD PRIMARY KEY (`id_detaordenpago`);
+
+--
+-- Indices de la tabla `tbl_estados`
+--
+ALTER TABLE `tbl_estados`
+  ADD PRIMARY KEY (`estadoid`);
+
+--
+-- Indices de la tabla `tbl_factura`
+--
+ALTER TABLE `tbl_factura`
+  ADD PRIMARY KEY (`facId`),
+  ADD KEY `provid` (`facProveedorId`);
+
+--
+-- Indices de la tabla `tbl_imputapago`
+--
+ALTER TABLE `tbl_imputapago`
+  ADD KEY `id_imputfac` (`id_imputfac`),
+  ADD KEY `opid` (`opid`);
+
+--
+-- Indices de la tabla `tbl_liquida`
+--
+ALTER TABLE `tbl_liquida`
+  ADD PRIMARY KEY (`liquidaid`),
+  ADD KEY `tarjetaid` (`tarjetaid`);
+
+--
+-- Indices de la tabla `tbl_ordenpago`
+--
+ALTER TABLE `tbl_ordenpago`
+  ADD PRIMARY KEY (`opid`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `abmbancos`
+--
+ALTER TABLE `abmbancos`
+  MODIFY `bancid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `abmdeposito`
+--
+ALTER TABLE `abmdeposito`
+  MODIFY `depositoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `abmproveedores`
+--
+ALTER TABLE `abmproveedores`
+  MODIFY `provid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+--
+-- AUTO_INCREMENT de la tabla `abmtarjetas`
+--
+ALTER TABLE `abmtarjetas`
+  MODIFY `tarjetid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT de la tabla `admcredits`
+--
+ALTER TABLE `admcredits`
+  MODIFY `crdId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+--
+-- AUTO_INCREMENT de la tabla `admcustomerpreferences`
+--
+ALTER TABLE `admcustomerpreferences`
+  MODIFY `cstprefId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+--
+-- AUTO_INCREMENT de la tabla `admcustomers`
+--
+ALTER TABLE `admcustomers`
+  MODIFY `cliId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT de la tabla `admproducts`
+--
+ALTER TABLE `admproducts`
+  MODIFY `prodId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `admsales`
+--
+ALTER TABLE `admsales`
+  MODIFY `saleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT de la tabla `admsalesdetail`
+--
+ALTER TABLE `admsalesdetail`
+  MODIFY `saleDetId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT de la tabla `admstock`
+--
+ALTER TABLE `admstock`
+  MODIFY `stkId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT de la tabla `admvisits`
+--
+ALTER TABLE `admvisits`
+  MODIFY `vstId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+--
+-- AUTO_INCREMENT de la tabla `alicuotaiva`
+--
+ALTER TABLE `alicuotaiva`
+  MODIFY `alicuotaid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `artId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT de la tabla `conffamily`
+--
+ALTER TABLE `conffamily`
+  MODIFY `famId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `confsubfamily`
+--
+ALTER TABLE `confsubfamily`
+  MODIFY `sfamId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT de la tabla `confzone`
+--
+ALTER TABLE `confzone`
+  MODIFY `zonaId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT de la tabla `deta-remito`
+--
+ALTER TABLE `deta-remito`
+  MODIFY `detaremitoid` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `deta_ordeninsumos`
+--
+ALTER TABLE `deta_ordeninsumos`
+  MODIFY `id_detaordeninsumo` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `orden_insumos`
+--
+ALTER TABLE `orden_insumos`
+  MODIFY `id_orden` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `orden_pedido`
+--
+ALTER TABLE `orden_pedido`
+  MODIFY `id_orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `orden_trabajo`
+--
+ALTER TABLE `orden_trabajo`
+  MODIFY `id_orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT de la tabla `sisactions`
+--
+ALTER TABLE `sisactions`
+  MODIFY `actId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `sisgroups`
+--
+ALTER TABLE `sisgroups`
+  MODIFY `grpId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `sisgroupsactions`
+--
+ALTER TABLE `sisgroupsactions`
+  MODIFY `grpactId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2895;
+--
+-- AUTO_INCREMENT de la tabla `sismenu`
+--
+ALTER TABLE `sismenu`
+  MODIFY `menuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+--
+-- AUTO_INCREMENT de la tabla `sismenuactions`
+--
+ALTER TABLE `sismenuactions`
+  MODIFY `menuAccId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+--
+-- AUTO_INCREMENT de la tabla `sisusers`
+--
+ALTER TABLE `sisusers`
+  MODIFY `usrId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `sucursal`
+--
+ALTER TABLE `sucursal`
+  MODIFY `id_sucursal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tbl_chequera`
+--
+ALTER TABLE `tbl_chequera`
+  MODIFY `cheqId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT de la tabla `tbl_cheques`
+--
+ALTER TABLE `tbl_cheques`
+  MODIFY `cheqid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+--
+-- AUTO_INCREMENT de la tabla `tbl_chequesterceros`
+--
+ALTER TABLE `tbl_chequesterceros`
+  MODIFY `id_che` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `tbl_cupon`
+--
+ALTER TABLE `tbl_cupon`
+  MODIFY `cuponid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT de la tabla `tbl_deposito`
+--
+ALTER TABLE `tbl_deposito`
+  MODIFY `depid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `tbl_detaliquida`
+--
+ALTER TABLE `tbl_detaliquida`
+  MODIFY `detaliqid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tbl_detaordenpago`
+--
+ALTER TABLE `tbl_detaordenpago`
+  MODIFY `id_detaordenpago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `tbl_estados`
+--
+ALTER TABLE `tbl_estados`
+  MODIFY `estadoid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tbl_factura`
+--
+ALTER TABLE `tbl_factura`
+  MODIFY `facId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=702;
+--
+-- AUTO_INCREMENT de la tabla `tbl_imputapago`
+--
+ALTER TABLE `tbl_imputapago`
+  MODIFY `id_imputfac` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tbl_liquida`
+--
+ALTER TABLE `tbl_liquida`
+  MODIFY `liquidaid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `tbl_ordenpago`
+--
+ALTER TABLE `tbl_ordenpago`
+  MODIFY `opid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Restricciones para tablas volcadas
 --

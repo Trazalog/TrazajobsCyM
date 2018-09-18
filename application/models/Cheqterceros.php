@@ -15,10 +15,7 @@ class Cheqterceros extends CI_Model
 		JOIN abmbancos ON abmbancos.bancid=tbl_chequesterceros.id_banco
 		JOIN admcustomers ON admcustomers.cliId=tbl_chequesterceros.cliente
 		";
-
-		$query= $this->db->query($sql);
-
-		
+		$query= $this->db->query($sql);		
 		if ($query->num_rows()!=0)
 		{
 			return $query->result_array();	
@@ -65,9 +62,7 @@ class Cheqterceros extends CI_Model
 			return false;
 		}
 
-	}
-
-	
+	}	
 
 	function getpropio($id){
 
@@ -103,8 +98,7 @@ class Cheqterceros extends CI_Model
 		{
 			return false;
 		}
-	}
-	
+	}	
 
 	function getnumeros(){
 
@@ -126,7 +120,6 @@ class Cheqterceros extends CI_Model
 		}
 	}
 
-
   	function update_editar($data, $id){
   		
         $this->db->where('id_che', $id);
@@ -140,7 +133,6 @@ class Cheqterceros extends CI_Model
     	return $query;
         
     }
-
 
   	function co_cheques($nu){
 
@@ -169,10 +161,9 @@ class Cheqterceros extends CI_Model
         }
 	
 	    return $datos;  
-    }
-   
+    }   
     
-   function update_tblcheq($id,$co){
+   	function update_tblcheq($id,$co){
     	$sql=" UPDATE tbl_chequera
 				SET cont = $co
 				WHERE cheqId=$id";
@@ -182,11 +173,11 @@ class Cheqterceros extends CI_Model
         /*$this->db->where('cheqId', $id);
         $query = $this->db->update("tbl_chequera",$co);*/
         return $query;
-    }
-
-    function eliminacion($data)
-    {
-       	$this->db->where('id_che', $data);
+	}
+	
+    function eliminacion($data){
+		   
+		$this->db->where('id_che', $data);
 		$query =$this->db->delete('tbl_chequesterceros');
         return $query;
     }

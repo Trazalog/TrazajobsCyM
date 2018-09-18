@@ -297,45 +297,32 @@ function getnums($id){
 
 	if($query!=""){
 
-	foreach ($query->result_array() as $row){		
-		$data = $row['id_orden'];
-						        
-						       
-	 
+		foreach ($query->result_array() as $row){		
+			$data = $row['id_orden'];		
 		}
-	return $data;
+		return $data;
+	}else{
+		return 0;
 	}
-
-
-else
-{
-	return 0;
 }
 
+function getproveedor(){
+
+	$query= $this->db->get_where('abmproveedores',array('tipo' => 'T'));
+	if($query->num_rows()>0){
+		return $query->result();
+	}
+	else{
+		return false;
+	}
 }
 
-
-
-	function getproveedor(){
-
-			$query= $this->db->get_where('abmproveedores');
-			if($query->num_rows()>0){
-                return $query->result();
-            }
-            else{
-                return false;
-            }
-
-        
-		
-	}
+function agregar_usuario($data){
+				
+	$query = $this->db->insert("sisusers",$data);
+	return $query;
 	
-	function agregar_usuario($data){
-                   
-        $query = $this->db->insert("sisusers",$data);
-    	return $query;
-        
-    }
+}
 //nuevo
     //guardar_agregar
     

@@ -27,7 +27,7 @@
         <?php 
             echo '<option value="-1"></option>';
           foreach ($data['clientes'] as $c) {
-           echo '<option value="'.$c['cliId'].'">'.$c['cliLastName'].', '.$c['cliName'].'</option>';
+           echo '<option value="'.$c['cliId'].'">'.$c['cliLastName'].', '.$c['cliName'].' '.$c['cliMovil'].'</option>';
           }
         ?>
       </select>

@@ -174,7 +174,7 @@ public function getasigna()
 
 
 public function getusuario(){
-		$this->load->model('Otrabajos');
+		
 		$usuario = $this->Otrabajos->getusuario();
 		//echo json_encode($Customers);
 
@@ -193,7 +193,7 @@ public function getusuario(){
 	
 
 	public function traer_cli(){
-		$this->load->model('Otrabajos');
+		
 		$usuario = $this->Otrabajos->traer_cli();
 		//echo json_encode($Customers);
 
@@ -213,7 +213,7 @@ public function getusuario(){
 	public function getgrupo(){
 		
 		//$id=$_POST['id_usuario'];
-		$this->load->model('Otrabajos');
+		
 		$grupo = $this->Otrabajos->getgrupo();
 		
 		if($grupo)
@@ -232,8 +232,7 @@ public function getusuario(){
 
 	public function getnum(){
 		//$id=$_GET['id_orden'];
-		$id=$_POST['id_orden'];
-		$this->load->model('Otrabajos');
+		$id=$_POST['id_orden'];		
 		$grupo = $this->Otrabajos->getnums();
 		
 		echo json_encode($grupo);
@@ -273,10 +272,8 @@ public function getusuario(){
 
   	//traer proveedor
   	public function getproveedor(){
-		$this->load->model('Otrabajos');
-		//$id=$_POST['id_proveedor'];
-		$proveedor= $this->Otrabajos->getproveedor();
-		//echo json_encode($Customers);
+		
+		$proveedor= $this->Otrabajos->getproveedor();	
 
 		if($proveedor)
 		{	
@@ -375,9 +372,8 @@ public function getusuario(){
 	}
 
 	public function traer_sucursal(){
-		$this->load->model('Otrabajos');
-		$usuario = $this->Otrabajos->traer_sucursal();
-		//echo json_encode($Customers);
+		
+		$usuario = $this->Otrabajos->traer_sucursal();	
 
 		if($usuario)
 		{	

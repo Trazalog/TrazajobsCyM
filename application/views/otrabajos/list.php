@@ -63,7 +63,7 @@
 
                         if($a['estado'] == 'As'){
                           echo '<i  href="#"class="fa fa-fw fa fa-toggle-on" style="color: #3c8dbc; cursor: pointer; margin-left: 15px;" title="Finalizar Orden"></i>';
-                            }
+                        }
                             
       	                echo '</td>';
                         echo '<td style="text-align: right">'.$a['nro'].'</td>';
@@ -74,8 +74,7 @@
                         echo '<td style="text-align: left">'.$a['cliLastName'].' , '.$a['cliName'].'</td>';
                         echo '<td style="text-align: right">'.$a['usrName'].'</td>';
                         echo '<td style="text-align: center">'.($a['estado'] == 'C' ? '<small class="label pull-left bg-green">Curso</small>' : ($a['estado'] == 'P' ? '<small class="label pull-left bg-red">Pedido</small>' : ($a['estado'] == 'As' ? '<small class="label pull-left bg-yellow">Asignado</small>' : '<small class="label pull-left bg-blue">Terminado</small>'))).'</td>';
-      	                echo '</tr>';
-                    
+      	                echo '</tr>';                    
       		          }
                   }
                   
@@ -97,9 +96,7 @@ var idp="";
 var idArt = 0;
 var acArt = '';
 var i="";
-$(document).ready(function(event) {
-
-    
+$(document).ready(function(event) {    
 
   //Asignar 
   $(".fa-thumb-tack").click(function (e) { 
@@ -112,24 +109,17 @@ $(document).ready(function(event) {
             type: 'GET',
             data: { id_orden: id_orden},
             url: 'index.php/Otrabajo/getasigna', //index.php/
-            success: function(data){
-                    //var data = jQuery.parseJSON( data );
+            success: function(data){  
                     
-                    console.log(data);
-                   
                     datos={
                       'id_orden':id_orden,
-
                       'nro':data['datos'][0]['nro'],
                       'fecha_inicio':data['datos'][0]['fecha_inicio'],
                       'estado':data['datos'][0]['estado'],
-                      'descripcion':data['datos'][0]['descripcion'],
-                      
-                      'cliente': data['datos'][0]['cliLastName']+' '+data['datos'][0]['cliName'],
-                  
+                      'descripcion':data['datos'][0]['descripcion'],                      
+                      'cliente': data['datos'][0]['cliLastName']+' '+data['datos'][0]['cliName'],                  
                       'cliId':data['datos'][0]['cliId'],
                       'id_usuario':data['datos'][0]['id_usuario'],
-
                     };
 
                     var arre = new Array();
@@ -138,38 +128,15 @@ $(document).ready(function(event) {
                     //edit=1;
                     $('#id_orden').val(datos['id_orden']);
                     $('#nro').val(datos['nro']);
-                    $('#fecha_inicio').val(arre[0]);
-
-                    /*if(datos['estado']=='C'){
-                       var cu='Curso ';
-                       $('#estado').val(cu);
-                     }
-                     else 
-                     {
-                       if(datos['estado']=='As')
-                          var cu='Asignado ';
-                        $('#estado').val(cu);
-                    
-                        else 
-                      
-                            if(datos['estado']=='T')
-                            var cu='Terminado ';
-                           $('#estado').val(cu);
-                         
-                      }*/
-
-                    
+                    $('#fecha_inicio').val(arre[0]);                    
       
                     $('#estado').val(datos['estado']);
                     $('#cliente').val(datos['cliente']);
                     $('#id_cliente').val(datos['cliId']);
 
                     $('#descripcion').val(datos['descripcion']);
-                     $('#id_usuario').val(datos['id_usuario']);
-      
+                    $('#id_usuario').val(datos['id_usuario']);
 
-                    //completarEdit(datos, edit);
-                    //OpenSale();               
                     click_pedent();
                   },
               
@@ -177,9 +144,8 @@ $(document).ready(function(event) {
                   
                   console.log(result);
                 },
-                dataType: 'json'
-            });
-    
+            dataType: 'json'
+            });    
   });
 
   //cargar pedido
@@ -193,12 +159,8 @@ $(document).ready(function(event) {
     var opcion =i; 
 
     $('#num1').append(opcion);
-    i=i+1; 
-
-    
+    i=i+1;     
   });
-
-
 
   $(".fa-truck").click(function (e) { 
 
@@ -213,7 +175,7 @@ $(document).ready(function(event) {
           success: function(data){
             console.log("llego el detalle");
             console.log(data);
-          console.log(data[0]['id_trabajo']);
+            console.log(data[0]['id_trabajo']);
             console.log(data['id_trabajo']);
             console.log(data.id_trabajo);
             for (var i = 0; i < data.length; i++) {
@@ -263,36 +225,29 @@ $(document).ready(function(event) {
 
   $('#btnSave').click(function(){
 
-      if(acArt == 'View')
-      {
-        $('#modalOT').modal('hide');
-        return;
-      }
-
-      var hayError = false;
-      if($('#nro').val() == '')
-      {
-        hayError = true;
-      }
-
-      if($('#vfech').val() == '')
-      {
-        hayError = true;
-      }
-
-      if($('#vsdetalle').val() == '')
-      {
-        hayError = true;
-      }
-
-      if($('#sucid').val() == '')
-      {
-        hayError = true;
-      }
-
-     
-
-
+      // if(acArt == 'View')
+      // {
+      //   $('#modalOT').modal('hide');
+      //   return;
+      // }
+      // var hayError = false;
+      // if($('#nro').val() == '')
+      // {
+      //   hayError = true;
+      // }
+      // if($('#vfech').val() == '')
+      // {
+      //   hayError = true;
+      // }
+      // if($('#vsdetalle').val() == '')
+      // {
+      //   hayError = true;
+      // }
+      // if($('#sucid').val() == '')
+      // {
+      //   hayError = true;
+      // }
+      $('#modalOT').modal('hide')
       $('#error').fadeOut('slow');
       WaitingOpen('Guardando cambios');
         $.ajax({
@@ -304,8 +259,7 @@ $(document).ready(function(event) {
                       fech: $('#vfech').val(),
                       deta: $('#vsdetalle').val(),
                       sucid: $('#sucid').val(),
-                      cli: $('#cliid').val()
-                      
+                      cli: $('#cliid').val()                      
                     },
           url: 'index.php/otrabajo/setotrabajo', 
           success: function(result){
@@ -322,13 +276,11 @@ $(document).ready(function(event) {
           });
   });
 
-  $(".fa-times-circle").click(function (e) { 
-                   
+  $(".fa-times-circle").click(function (e) {                   
            
       console.log("Esto eliminando"); 
       var idord = $(this).parent('td').parent('tr').attr('id');
-      console.log(idord);
-      
+      console.log(idord);      
       $.ajax({
               type: 'POST',
               data: { idord: idord},
@@ -341,52 +293,35 @@ $(document).ready(function(event) {
                       alert("ORDEN DE TRABAJO Eliminada");
                       regresa();
                     
-                    },
-                
-              error: function(result){
-                    
+                    },                
+              error: function(result){                    
                     console.log(result);
                   }
                  // dataType: 'json'
         });
-  });
-
-      
+  });      
 
   $(".fa-toggle-on").click(function (e) { 
 
       var idord = $(this).parent('td').parent('tr').attr('id');
-
-
-      console.log(idord);
-      
+      console.log(idord);      
       $.ajax({
         type: 'POST',
         data: { idord: idord},
         url: 'index.php/Otrabajo/cambio_estado', //index.php/
         success: function(data){
-                //var data = jQuery.parseJSON( data );
-                
-                console.log(data);
-               
+                //var data = jQuery.parseJSON( data );                
+                console.log(data);               
                 //$(tr).remove();
-
-                alert("Se Finalizando la ORDEN TRABAJO");
-              
-                regresa();
-              
-
-              },
-          
-        error: function(result){
-              
-              console.log(result);
-            }
+                alert("Se Finalizando la ORDEN TRABAJO");              
+                regresa();            
+              },          
+        error: function(result){              
+                console.log(result);
+              }
             //dataType: 'json'
         });
-
-    });
-
+  });
   
   $('#vfech').datepicker({
       changeMonth: true,
@@ -399,8 +334,7 @@ $(document).ready(function(event) {
     console.log("Estoy editado ");
     var idord = $(this).parent('td').parent('tr').attr('id');
     idp=idord;
-    console.log(idord);
-    
+    console.log(idord);    
     $.ajax({
         type: 'GET',
         data: { idord: idord},
@@ -410,44 +344,33 @@ $(document).ready(function(event) {
                 console.log(data);
                 //console.log(data['descripcion']);
                 console.log(data[0]['nro']);
-                //console.log(data['datos'][0]['descripcion']);
-               
+                //console.log(data['datos'][0]['descripcion']);               
                 datos={
                   'nro':data[0]['nro'],
                   'cli' :data[0]['cliId'],
-
                   'clientena':data[0]['cliName'],
                   'cliap':data[0]['cliLastName'],
                   'fecha_inicio':data[0]['fecha_inicio'],
                   'idusuario':data[0]['id_usuario'],
                   'nota':data[0]['descripcion'],
                   'id_sucu':data[0]['id_sucursal'],
-                  'sucursal':data[0]['descripc'],
-                 
-       
+                  'sucursal':data[0]['descripc']   
                 }
-
                 console.log("datos a enviar");
                 console.log(datos);
-
                 $('#cliidedit').html('');
                 $('#sucidedit').html('');
-
                 completarEdit(datos);
-                OpenSale();               
-            
+                OpenSale();       
               },
           
-        error: function(result){
-              
+        error: function(result){              
               console.log(result);
             },
             dataType: 'json'
-        });
-  
+        });  
   });
 
-  //$("#groups").DataTable();
   $('#otrabajo').DataTable({
         "paging": true,
         "lengthChange": true,
@@ -467,9 +390,7 @@ $(document).ready(function(event) {
                   "sPrevious": "Ant."
                 }
           }
-  });
-
-      
+  });      
 
   $('#tabladetalle').DataTable({
         "paging": true,
@@ -490,9 +411,7 @@ $(document).ready(function(event) {
                   "sPrevious": "Ant."
                 }
           }
-  });  
-
-
+  });
 
 });
 
@@ -510,11 +429,9 @@ $(document).ready(function(event) {
      $('select#sucidedit').append($('<option />', { value: datos['id_sucu'],text: datos['sucursal']+'.'}));
    // $('#sucidedit').val(datos['descripc']);
      traer_sucursal2(); 
-
-  }
+}  
   
-  
-  function LoadOT(id_, action){
+function LoadOT(id_, action){
   	idArt = id_;
   	acArt = action;
   	LoadIconAction('modalAction',action);
@@ -530,7 +447,7 @@ $(document).ready(function(event) {
                         changeMonth: true,
                         changeYear: true
                       });
-			                setTimeout("$('#modalOT').modal('show')",800);
+			                setTimeout("$('#modalOT').modal('show')",0);
                       
     					},
     		error: function(result){
@@ -539,10 +456,7 @@ $(document).ready(function(event) {
     				},
           	dataType: 'json'
     		});
-  }
-
-
- 
+} 
 
 function traer_clientes(idcliente){
     $.ajax({
@@ -595,9 +509,7 @@ function finalOT(id_, action){ //esto es nuevo
             },
             dataType: 'json'
         });
-}
-
-  
+}  
  
 traer_usuario();   
 function traer_usuario(){
@@ -631,20 +543,17 @@ function traer_cli2(){
       $.ajax({
         type: 'POST',
         data: { },
-        url: 'index.php/Otrabajo/traer_cli', //index.php/
+        url: 'index.php/Otrabajo/traer_cli', 
         success: function(data){
-          console.log(data);
-               
+                  console.log(data);               
                  //var opcion  = "<option value='-1'>Seleccione...</option>" ; 
                   $('#cliidedit').append(opcion); 
-                for(var i=0; i < data.length ; i++) 
-                {    
+                  for(var i=0; i < data.length ; i++){    
+                    
                       var nombre = data[i]['cliLastName']+' '+data[i]['cliName'];
-                      var opcion  = "<option value='"+data[i]['cliId']+"'>" +nombre+ "</option>" ; 
-
-                    $('#cliidedit').append(opcion); 
-                                   
-                }
+                      var opcion  = "<option value='"+data[i]['cliId']+"'>" +nombre+ "</option>" ;
+                      $('#cliidedit').append(opcion);                                    
+                  }
               },
         error: function(result){
               
@@ -652,7 +561,7 @@ function traer_cli2(){
             },
             dataType: 'json'
         });
-} 
+}
 
 function traer_sucursal2(){
  // $('#sucidedit').html('');
@@ -680,8 +589,6 @@ function traer_sucursal2(){
           dataType: 'json'
       });
 } 
-  
- 
       
 traer_proveedor();
 function traer_proveedor(){
@@ -712,9 +619,7 @@ function traer_proveedor(){
         });
 
 
-}
- 
-    
+} 
 
 function click_pedent(){  var fechai= $("#fecha_inicio").val(); //optengo el valor del campo fecha 
    $.ajax({
@@ -770,7 +675,6 @@ function click_pedent(){  var fechai= $("#fecha_inicio").val(); //optengo el val
 
     }); */ 
 }
-
 
 //guardar asignacion
 function orden(){
@@ -937,9 +841,7 @@ function regresa1(){
     $("#content").load("<?php echo base_url(); ?>index.php/Otrabajo/index/<?php echo $permission; ?>");
     WaitingClose();
     WaitingClose();
-  }
-     
-
+  } 
 
 </script>
 

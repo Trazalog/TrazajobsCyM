@@ -46,7 +46,8 @@
                   echo '<td style="text-align: center">'.$z['numero'].'</td>';
                   echo '<td style="text-align: center">'.$z['bancdescrip'].'</td>';
                   echo '<td style="text-align: center">'.$z['cliLastName'].'   '.$z['cliName'].' </td>';
-                  echo '<td style="text-align: center">'.$z['monto'].'</td>';
+                  echo '<td style="text-align: center">'.number_format($z['monto'], 2, ',', '.').'</td>';
+                  //echo '<td style="text-align: center">'.$z['monto'].'</td>';
                   echo '<td style="text-align: center">'.$z['fecha_vto'].'</td>';
                  
                   
@@ -300,7 +301,8 @@ function traer_cli2(){
             },
             dataType: 'json'
         });
-  } 
+} 
+
 function guardareditar(){
   console.log("Estoy editando");
   console.log("El id de cheque es:"); 
@@ -353,63 +355,44 @@ function guardareditar(){
 
 }
 
-
-
 function guardar(){
+
   console.log("Estoy guardando");
   var banco = $('#banco').val();
   var numero = $('#num').val();
   var cliente = $('#cli').val();
   var fecha = $('#fecha').val();
   var monto = $('#monto').val();
-  //var descripcion = $('#descripcion').val();
-  //var $nu = $("select#num option:selected").html();
-  //console.log($nu);
+  var montoFinal = monto.replace(",", ""); 
 
-  var parametros = {
-    //'cheqnro': nu,
-    'numero': numero,
-
-    'id_banco': banco,
-    'cliente': cliente,
-    'estado': 1,
-    'monto': monto,
-
-    //'id_chequera': numero,
-    'fecha_vto': fecha
-    
-   
-  
-  };                                              
+  var parametros = {'numero': numero,
+                    'id_banco': banco,
+                    'cliente': cliente,
+                    'estado': 1,
+                    'monto': montoFinal,   
+                    'fecha_vto': fecha     
+                  };                                              
   console.log(parametros);
   var hayError = false; 
 
-  if( parametros !="")
-    {                                     
+  if( parametros !=""){                                     
     $.ajax({
       type:"POST",
       url: "index.php/Cheqtercero/agregar_cheque", //controlador /metodo
       data:{parametros:parametros},
       success: function(data){
-        console.log("exito en agregar un nuevo cheque de tercero");
-        regresa();
-
-        },
-      
+                console.log("exito en agregar un nuevo cheque de tercero");
+                regresa();
+              },      
       error: function(result){
           console.log("entro por el error");
           console.log(result);
       },
       // dataType: 'json'
-    });
-   
-  }
-  else 
-  { 
+    });   
+  }else { 
     alert("Por favor complete toda la informacion para poder guardar");
-
   }
-
 }
 
 function regresa(){
@@ -418,19 +401,33 @@ function regresa(){
    WaitingClose();
 }
 
-function format(input)
-{
-  var num = input.value.replace(/\./g,'');
-  if(!isNaN(num)){
-  num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-  num = num.split('').reverse().join('').replace(/^[\.]/,'');
-  input.value = num;
+ /// formato de numero con separador de mil y 2 lugares decimales
+ $("#monto").on({
+  "focus": function(event) {
+    $(event.target).select();
+  },
+  "keyup": function(event) {
+    $(event.target).val(function(index, value) {
+      return value.replace(/\D/g, "")
+        .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+    });
   }
+});
+
+// function format(input)
+// {
+//   var num = input.value.replace(/\./g,'');
+//   if(!isNaN(num)){
+//   num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+//   num = num.split('').reverse().join('').replace(/^[\.]/,'');
+//   input.value = num;
+//   }
    
-  else{ alert('Solo se permiten numeros');
-  input.value = input.value.replace(/[^\d\.]*/g,'');
-  }
-}
+//   else{ alert('Solo se permiten numeros');
+//   input.value = input.value.replace(/[^\d\.]*/g,'');
+//   }
+// }
 
 
 </script>
@@ -541,7 +538,8 @@ function format(input)
             <br> 
             <br>
             <div class="col-xs-8">Monto:
-                <input type="text" id="montoedit" name="montoedit" class="form-control" onkeyup="format(this)" onchange="format(this) " placeholder="Ingrese Monto...">
+                <!-- <input type="text" id="montoedit" name="montoedit" class="form-control" onkeyup="format(this)" onchange="format(this) " placeholder="Ingrese Monto..."> -->
+                <input type="text" id="montoedit" name="montoedit" class="form-control" placeholder="Ingrese Monto...">
             </div> 
             <br>
               <div class="col-xs-8">Observacion
