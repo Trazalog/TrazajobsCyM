@@ -140,35 +140,28 @@ $(document).ready(function(event) {
 
 });
 
-  traer_zona();
-  function traer_zona(){
+traer_zona();
+function traer_zona(){
 
-    $('#zonaId').html(""); 
-    $.ajax({
-        type: 'POST',
-        data: { },
-        url: 'index.php/Cliente/getzona', //index.php/
-        success: function(data){
-               
-                 //var opcion  = "<option value='-1'>Seleccione...</option>" ; 
-                $('#zonaId').append(opcion); 
-                for(var i=0; i < data.length ; i++) 
-                {    
-                  var nombre = data[i]['zonaName'];
-                  var opcion  = "<option value='"+data[i]['zonaId']+"'>" +nombre+ "</option>" ; 
-
-                  $('#zonaId').append(opcion); 
-                                   
-                }
-                
-              },
-        error: function(result){
-              
-              console.log(result);
+  $('#zonaId').html(""); 
+  $.ajax({
+      type: 'POST',
+      data: { },
+      url: 'index.php/Cliente/getzona', //index.php/
+      success: function(data){
+              $('#zonaId').append(opcion); 
+              for(var i=0; i < data.length ; i++){    
+                var nombre = data[i]['zonaName'];
+                var opcion  = "<option value='"+data[i]['zonaId']+"'>" +nombre+ "</option>" ; 
+                $('#zonaId').append(opcion);                                    
+              }                
             },
-            dataType: 'json'
-    });
-  }
+      error: function(result){              
+            console.log(result);
+          },
+      dataType: 'json'
+  });
+}
 
   function traer_zona1(){
 
@@ -216,11 +209,11 @@ $(document).ready(function(event) {
     $('select#zona').append($('<option />', { value: datos['idzo'],text: datos['zo']}));
     $('select#color1').append($('<option />', { value: datos['col']}));
     traer_zona1();
-
   }
 
   function guardar(){
 
+    
     console.log("Estoy guardando");
     var nombre = $('#cliName').val();
     var apellido = $('#cliLastName').val();
@@ -246,7 +239,9 @@ $(document).ready(function(event) {
       //'cliDay': dia,
       //'cliColor': color,
       'estado': 'C'
-    };                                              
+    }; 
+
+
     console.log(parametros);                                
     $.ajax({
       type:"POST",
@@ -259,17 +254,15 @@ $(document).ready(function(event) {
       error: function(result){
           console.log("entro por el error");
           console.log(result);
-      }
+      },
+      dataType: 'json'
     
     });
 
   }
 
-  function guardareditar(){
-    console.log("Estoy editando");
-    console.log("El id de Cliente es:"); 
-    console.log(ed);
-      
+  function guardareditar(){    
+    
     var nomb = $('#nombre1').val();
     var apell = $('#Apellido1').val();
     var dni = $('#dni1').val();
@@ -291,37 +284,23 @@ $(document).ready(function(event) {
           'cliMovil': cel,
           'cliEmail': email,
           'zonaId': zon,
-          'cliDay': dia
-          //'cliColor': tipcli
-      
+          'cliDay': dia     
     };                                              
-    console.log(parametros);
-    var hayError = false; 
-
-    if( parametros !=0)
-      {                                     
-      $.ajax({
+   
+    $.ajax({
         type:"POST",
-        url: "index.php/Cliente/edit_banco", //controlador /metodo
+        url: "index.php/Cliente/update_editar", 
         data:{parametros:parametros, ed:ed},
         success: function(data){
           console.log("exito en editar");
           regresa();     
-          },
-        
+          },          
         error: function(result){
             console.log("entro por el error");
             console.log(result);
-        }
-       
-      });
-     
-    }
-    else 
-    { 
-      alert("Por favor complete todos los campos solicitados");
-    }
-
+        }        
+    });
+  
   }
 
   function guardareliminar(){
@@ -478,7 +457,19 @@ $(document).ready(function(event) {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title"  id="myModalLabel"><span id="modalAction" class="fa fa-fw fa-pencil" style="color: #f39c12" > </span> Editar Cliente</h4>
       </div> 
-      <div class="modal-body input-group ui-widget" id="modalBodyArticle">  
+      <div class="modal-body input-group ui-widget" id="modalBodyArticle"> 
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="alert alert-danger alert-dismissable" id="error" style="display: none">
+            <h4><i class="icon fa fa-ban"></i> Error!</h4>
+              Revise que todos los campos esten completos
+          </div>
+        </div>
+      </div>
+
+
+
         <div class="row" >
           <div class="col-sm-12 col-md-12">
             <div class="row">
@@ -572,7 +563,7 @@ $(document).ready(function(event) {
           </div>  
         </div>
         <div class="modal-footer">  
-          <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" onclick="guardareditar()" >Guardar</button>
+          <button type="button" class="btn btn-primary" id="btnSave"  data-dismiss="modal" onclick="guardareditar()" >Guardar</button>
         </div>  <!-- /.modal footer -->
 
       </div> <!-- /.modal-body -->

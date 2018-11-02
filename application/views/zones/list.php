@@ -48,7 +48,6 @@
     </div><!-- /.col -->
   </div><!-- /.row -->
 </section><!-- /.content -->
-
 <script>
   $(function () {
     //$("#groups").DataTable();

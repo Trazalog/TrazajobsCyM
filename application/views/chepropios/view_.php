@@ -31,25 +31,16 @@
                 {
                   $id=$z['cheqid'];
                   $im=$z['mes'];
-
-                
                     echo '<tr id="'.$id.'" class="'.$im.'" >';
                     echo '<td>';
                     if (strpos($permission,'Edit') !== false) {
                       echo '<i class="fa fa-calculator" style="color: #0000FF; cursor: pointer; margin-left: 15px;" title="ver detalle" data-toggle="modal" data-target="#modalmostrar"></i>';
-                  }
-                  
-                  
-                      
+                  }                      
                   echo '</td>';
                   echo '<td style="text-align: center">'.$z['mes'].'</td>';
                   echo '<td style="text-align: center">'.$z['an'].'</td>';
-                  echo '<td style="text-align: center">'.$z['monto'].'</td>';
-                 
-                  
-                  
-                  echo '</tr>';
-                  
+                  echo '<td style="text-align: center">'.$z['monto'].'</td>';                    
+                  echo '</tr>';                  
                 }
               ?>
             </tbody>
@@ -92,38 +83,26 @@ $(document).ready(function(event) {
     $.ajax({
         type: 'GET',
         data: { datos:datos},
-        url: 'index.php/Cheqpropio/getche', //index.php/
+        url: 'index.php/Cheqpropio/getche', 
         success: function(data){
-          console.log("llego el detalle");
-          console.log(data);
-        //console.log(data[0]['cheqnro']);
-          
-          for (var i = 0; i < data.length; i++) {
-
-            // if (data[i]['cheqestado']== 1){
-            // var estado= 'Curso';
-            // }
-            // else 
-            //   if (data[i]['cheqestado']== 2){
-            //   var estado= 'Pagado';
-            //   }
-
-              var tr = "<tr >"+
-                "<td ></td>"+
-                "<td>"+data[i]['cheqnro']+"</td>"+
-                "<td>"+data[i]['provnombre']+"</td>"+
-                "<td>"+data[i]['cheqmonto']+"</td>"+
-                "<td>"+data[i]['cheqfechae']+"</td>"+
-                "<td>"+data[i]['cheqvenc']+"</td>"+
-                "<td>"+data[i]['cheqestado']+"</td>"+
-                //"<td>"+estado+"</td>"+
-                "</tr>";
-                $('#tabladetalle tbody').append(tr);
-
-           }
-
-          console.log(tr);
-
+                  console.log("llego el detalle");
+                  console.log(data);
+                //console.log(data[0]['cheqnro']);
+                  var acum = 0;
+                  for (var i = 0; i < data.length; i++) {          
+                      acum += parseFloat(data[i]['cheqmonto']);
+                      var tr = "<tr >"+
+                        //"<td ></td>"+
+                        "<td>"+data[i]['cheqnro']+"</td>"+
+                        "<td>"+data[i]['provnombre']+"</td>"+
+                        "<td class='monto'>"+data[i]['cheqmonto']+"</td>"+
+                        "<td>"+data[i]['cheqfechae']+"</td>"+
+                        "<td class='pull-right'>"+data[i]['cheqvenc']+"</td>"+
+                        //"<td>"+data[i]['cheqestado']+"</td>"+                        
+                        "</tr>";
+                        $('#tabladetalle tbody').append(tr);
+                  }
+                  $('#suma').append("<h4 class='pull-right'>Total de cheques: " + acum+ "</h4>");
               },
           
         error: function(result){
@@ -135,6 +114,8 @@ $(document).ready(function(event) {
         });
   
   });
+
+  
 
   $('#cheque').DataTable({
           "paging": true,
@@ -162,7 +143,7 @@ $(document).ready(function(event) {
 
 </script>
   
-<!-- Modal editar-->
+<!-- Modal cheques emitidos -->
  <div class="modal fade" id="modalmostrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document" style="width: 60%">
     <div class="modal-content">
@@ -175,30 +156,30 @@ $(document).ready(function(event) {
       <div class="modal-body input-group ui-widget" id="modalBodyArticle">
         
         <div class="row" >
-          <div class="col-sm-12 col-md-12">
+          <div class="col-xs-12">
 
-          <table class="table table-bordered table-hover" id="tabladetalle">
-            <thead>
-              <tr>
-                <th width="10%"></th>                  
-                <th>Nro de cheque</th>
-                <th>Proveedor</th>
-                <th>Monto</th>
-                <th>Fecha de Emision</th>
-                <th>Fecha de Vencimiento</th>
-                <th>Estado</th>
+            <table class="table table-bordered table-hover" id="tabladetalle">
+              <thead>
+                <tr>
+                  <!-- <th width="10%"></th>                   -->
+                  <th>Nro de cheque</th>
+                  <th>Proveedor</th>
+                  <th>Monto</th>
+                  <th>Fecha de Emision</th>
+                  <th>Fecha de Vencimiento</th>
+                  <!-- <th>Estado</th> -->
 
-              </tr>
-            </thead>
-            <tbody>
-                    
-            </tbody>
-          </table>
+                </tr>
+              </thead>
+              <tbody>
+                      
+              </tbody>
+            </table>
+            <div id="suma"></div>
 
-
-      </div>
-      </div>
-      </div>
+          </div>
+        </div>
+      
 
        </div>  <!-- /.modal-body -->
     </div> <!-- /.modal-content -->

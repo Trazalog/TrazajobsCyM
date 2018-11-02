@@ -23,13 +23,15 @@ class Cliente extends CI_Controller {
 
   }
 
-  public function edit_banco(){
+  public function update_editar(){
 
     $datos=$_POST['parametros'];
     $id=$_POST['ed']; 
+    // var_dump($datos);
+    // var_dump($id);
     $result = $this->Clientes->update_editar($datos,$id);
-    return true;
-
+    echo json_encode($result);
+    //return true;
   }
 
   public function agregar_cliente(){

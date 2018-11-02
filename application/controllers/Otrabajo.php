@@ -31,131 +31,128 @@ class Otrabajo extends CI_Controller {
 	
 	public function setotrabajo(){
 		$data = $this->Otrabajos->setotrabajos($this->input->post());
-		if($data  == false)
-		{
+		if($data  == false){
 			echo json_encode(false);
-		}
-		else
-		{
+		}else{
 			echo json_encode(true);	
 		}
 	}
 
-public function getasigna()
-	{
-
-		$id=$_GET['id_orden'];
-
-		$result = $this->Otrabajos->getasigna($id);
-		if($result)
-		{	
-			$arre['datos']=$result;
-
-			/*$equipos = $this->Comodatos->getequiposBycomodato($id);
-			if($equipos)
-			{
-				$arre['equipos']=$equipos;
-			}
-			else $arre['equipos']=0;*/
-
-
-			echo json_encode($arre);
-		}
-		else echo "nada";
-	}
-
-	//pedidos
-	public function getorden()
-	{
-
-		$id=$_POST['id_orden'];
-
-		$result = $this->Otrabajos->getorden($id);
-		if($result)
-		{	
-			$arre['datos']=$result;
-
-			/*$equipos = $this->Comodatos->getequiposBycomodato($id);
-			if($equipos)
-			{
-				$arre['equipos']=$equipos;
-			}
-			else $arre['equipos']=0;*/
-
-
-			echo json_encode($arre);
-		}
-		else echo "nada";
-	}
-
-	//pedidos a entregar x fecha
-	public function getpedidos()
-	{
-
-		$id=$_GET['fechai'];
-
-		$result = $this->Otrabajos->getpedidos($id);
-		if($result)
-		{	
-			$arre['datos']=$result;
-
-			echo json_encode($arre);
-		}
-		else echo "nada";
-	}
-	// boton agregar
-
-	public function agregar(){//ajax
-    if($_POST){
-      $agregar = $this->Otrabajos->agregar($_POST);
-      echo ($agregar===true)?"bien":"mal";
-    }
-  }
-
-  public function guardar()
-	{
-		
-		
-		$id=$_POST['id_orden'];
-		$datos=$_POST['data'];
-		//print_r($datos['id_orden']); die();
-
-
-
-		$result = $this->Otrabajos->update_guardar($id, $datos);
-		
-		if($result >0)
-		{   echo 1;
-			
-		}
-		else echo "error al insertar";
-	}
-
-  		/*$agregar=$_POST['data'];
-		$equipos=$_POST['idsequipos'];
-
-		$result = $this->Comodatos->insert_comodato($agregar);
-		
-		if($result)
+	public function getasigna()
 		{
-			$ultimoId=$this->db->insert_id(); 
-			
-			$arre=array();
-		    if(count($equipos) > 0 )
-		        foreach ($equipos as $row ) 
-		        {   
-		        	$datos2 = array(
-		        	 'comodatoid'=>$ultimoId, 
-		        	 'equipid'=>$row
-		        	);	
-		          	$this->Comodatos->insert_detacomodato($datos2);
-		        }
 
-	        echo 1;
-			
+			$id=$_GET['id_orden'];
+
+			$result = $this->Otrabajos->getasigna($id);
+			if($result)
+			{	
+				$arre['datos']=$result;
+
+				/*$equipos = $this->Comodatos->getequiposBycomodato($id);
+				if($equipos)
+				{
+					$arre['equipos']=$equipos;
+				}
+				else $arre['equipos']=0;*/
+
+
+				echo json_encode($arre);
+			}
+			else echo "nada";
 		}
-		else echo "error al insertar";
-*/
+
+		//pedidos
+		public function getorden()
+		{
+
+			$id=$_POST['id_orden'];
+
+			$result = $this->Otrabajos->getorden($id);
+			if($result)
+			{	
+				$arre['datos']=$result;
+
+				/*$equipos = $this->Comodatos->getequiposBycomodato($id);
+				if($equipos)
+				{
+					$arre['equipos']=$equipos;
+				}
+				else $arre['equipos']=0;*/
+
+
+				echo json_encode($arre);
+			}
+			else echo "nada";
+		}
+
+		//pedidos a entregar x fecha
+		public function getpedidos()
+		{
+
+			$id=$_GET['fechai'];
+
+			$result = $this->Otrabajos->getpedidos($id);
+			if($result)
+			{	
+				$arre['datos']=$result;
+
+				echo json_encode($arre);
+			}
+			else echo "nada";
+		}
+		// boton agregar
+
+		public function agregar(){//ajax
+			if($_POST){
+				$agregar = $this->Otrabajos->agregar($_POST);
+				echo ($agregar===true)?"bien":"mal";
+			}
+		}
+
+		public function guardar()
+		{
+			
+			
+			$id=$_POST['id_orden'];
+			$datos=$_POST['data'];
+			//print_r($datos['id_orden']); die();
+
+
+
+			$result = $this->Otrabajos->update_guardar($id, $datos);
+			
+			if($result >0)
+			{   echo 1;
+				
+			}
+			else echo "error al insertar";
+		}
+
+				/*$agregar=$_POST['data'];
+			$equipos=$_POST['idsequipos'];
+
+			$result = $this->Comodatos->insert_comodato($agregar);
+			
+			if($result)
+			{
+				$ultimoId=$this->db->insert_id(); 
+				
+				$arre=array();
+					if(count($equipos) > 0 )
+							foreach ($equipos as $row ) 
+							{   
+								$datos2 = array(
+								'comodatoid'=>$ultimoId, 
+								'equipid'=>$row
+								);	
+									$this->Comodatos->insert_detacomodato($datos2);
+							}
+
+						echo 1;
+				
+			}
+			else echo "error al insertar";
+	*/
 
 	public function getcliente(){
 		//$this->load->model('Customers');
@@ -163,17 +160,17 @@ public function getasigna()
 		if($cliente)
 		{	
 			$arre=array();
-	        foreach ($cliente as $row ) 
-	        {   
-	           $arre[]=$row;
-	        }
+					foreach ($cliente as $row ) 
+					{   
+						$arre[]=$row;
+					}
 			echo json_encode($arre);
 		}
 		else echo "nada";
 	}
 
 
-public function getusuario(){
+	public function getusuario(){
 		
 		$usuario = $this->Otrabajos->getusuario();
 		//echo json_encode($Customers);

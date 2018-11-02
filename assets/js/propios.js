@@ -46,6 +46,29 @@ function LoadIconAction(idTag, action){
 	$('#'+idTag).html(icon + actt);
 }
 
+/* Devuelve Fecha Hora formateado para input date */
+function getFechaHoraFormateada(date) {
+	/* date es objeto fecha */
+	var str = date.getFullYear() + "-" + getDosDigitos(date.getMonth()) + "-" + getDosDigitos(date.getDate()) + " " +  getDosDigitos(date.getHours()) + ":" + getDosDigitos(date.getMinutes()) + ":" + getDosDigitos(date.getSeconds());
+	return str;
+}
+/* Devuelve Fecha Hora formateado para input date */
+function getFechaFormateada(date) {
+	/* date es objeto fecha */
+	var str = date.getFullYear() + "-" + getDosDigitos(date.getMonth()) + "-" + getDosDigitos(date.getDate());
+	return str;
+}
+/* Devuelve fecha con dos digitos */
+function getDosDigitos(partTime) {
+	if (partTime<10)
+		return "0"+partTime;
+	return partTime;
+}
+
+
+
+
+
 function ActiveCamera() {
 
 	$("#botonDetener").removeAttr("disabled", "disabled");

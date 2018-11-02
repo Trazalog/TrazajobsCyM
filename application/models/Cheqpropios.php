@@ -68,7 +68,8 @@ class Cheqpropios extends CI_Model
 		jOIN tbl_chequera ON tbl_chequera.cheqId=tbl_cheques.id_chequera
 		jOIN abmproveedores ON abmproveedores.provid= tbl_cheques.provid
 
-		WHERE MONTH(tbl_cheques.cheqvenc)= $m 
+		WHERE MONTH(tbl_cheques.cheqvenc)= $m AND tbl_cheques.cheqestado = 1
+
 		ORDER BY MONTH(tbl_cheques.cheqvenc) ";
 
 		//ORDER BY MONTH(tbl_cheques.cheqfechae) ";

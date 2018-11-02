@@ -31,29 +31,17 @@ class Otrabajos extends CI_Model
 	}
 	
 
-	function getotrabajos($data = null)
-	{
-		if($data == null)
-		{
+	function getotrabajos($data = null){
+		
+		if($data == null){
 			return false;
-		}
-		else
-		{
+		}else{
 			$action = $data['act'];
 			$otid = $data['id'];
+			$data = array();			
+			$query= $this->db->get_where('orden_trabajo',array('id_orden'=>$otid));				
 
-			$data = array();
-
-			
-			$query= $this->db->get_where('orden_trabajo',array('id_orden'=>$otid));
-
-			
-			
-			
-
-			if ($query->num_rows() != 0)
-			{
-				
+			if ($query->num_rows() != 0){				
 				$f = $query->result_array();
 				$data['ot'] = $f[0];
 			} else {
@@ -85,9 +73,7 @@ class Otrabajos extends CI_Model
 			if ($query->num_rows() != 0)
 			{
 				$data['clientes'] = $query->result_array();	
-			}
-			
-
+			}		
 			return $data;
 		}
 	}
@@ -115,12 +101,11 @@ class Otrabajos extends CI_Model
 					    'fecha_inicio' => $fech,
 					    'descripcion' => $deta,
 					    'id_sucursal' => $sucid,
-					     'cliId' => $cli,
-					     'id_usuario' => $usu,
-					     'id_usuario_a' => $usu,
-					      'id_usuario_e' => $usu,
-					      'estado' => $estado
-					   
+						'cliId' => $cli,
+						'id_usuario' => $usu,
+						'id_usuario_a' => $usu,
+						'id_usuario_e' => $usu,
+						'estado' => $estado					   
 					);
 
 			switch($act)
@@ -153,8 +138,7 @@ class Otrabajos extends CI_Model
 		}
 	}
 
-	function getasigna($id)
-	{
+	function getasigna($id){
 	    $sql="SELECT * 
 	    	  FROM orden_trabajo
 	    	  JOIN admcustomers ON admcustomers.cliId= orden_trabajo.cliId
@@ -238,114 +222,104 @@ class Otrabajos extends CI_Model
 	}
 
 	//
-function getusuario(){
+	function getusuario(){
 
-			$query= $this->db->get_where('sisusers');
-			if($query->num_rows()>0){
-                return $query->result();
-            }
-            else{
-                return false;
-            }
-		
-
-}
-
-
-
-function traer_sucursal(){
-
-			$query= $this->db->get_where('sucursal');
-			if($query->num_rows()>0){
-                return $query->result();
-            }
-            else{
-                return false;
-            }
-		
-
-}
-
-function traer_cli(){
-
+				$query= $this->db->get_where('sisusers');
+				if($query->num_rows()>0){
+					return $query->result();
+				}
+				else{
+					return false;
+				}
 			
-            $sql="SELECT * 
-	    	  FROM admcustomers
-	    	 
-	    	  ";
-	    
-	    $query= $this->db->query($sql);
-	    
-	    if( $query->num_rows() > 0)
-	    {
-	      return $query->result_array();	
-	    } 
-	    else {
-	      return false;
-	    }
+
+	}
+
+
+
+	function traer_sucursal(){
+
+				$query= $this->db->get_where('sucursal');
+				if($query->num_rows()>0){
+					return $query->result();
+				}
+				else{
+					return false;
+				}
+			
+
+	}
+
+	function traer_cli(){
+
+		$sql="SELECT * FROM admcustomers";
 		
-
-}
-
-function getnums($id){
-
-	$query= "SELECT id_orden
-	        FROM orden_pedido
-	        WHERE nro_trabajo=$id";
-
-	$query= $this->db->query($sql);
-
-	if($query!=""){
-
-		foreach ($query->result_array() as $row){		
-			$data = $row['id_orden'];		
+		$query= $this->db->query($sql);
+		
+		if( $query->num_rows() > 0)
+		{
+			return $query->result_array();	
+		} 
+		else {
+			return false;
 		}
-		return $data;
-	}else{
-		return 0;
 	}
-}
 
-function getproveedor(){
+	function getnums($id){
 
-	$query= $this->db->get_where('abmproveedores',array('tipo' => 'T'));
-	if($query->num_rows()>0){
-		return $query->result();
+		$query= "SELECT id_orden
+				FROM orden_pedido
+				WHERE nro_trabajo=$id";
+
+		$query= $this->db->query($sql);
+
+		if($query!=""){
+
+			foreach ($query->result_array() as $row){		
+				$data = $row['id_orden'];		
+			}
+			return $data;
+		}else{
+			return 0;
+		}
 	}
-	else{
-		return false;
-	}
-}
 
-function agregar_usuario($data){
+	function getproveedor(){
+
+		$query= $this->db->get_where('abmproveedores',array('tipo' => 'T'));
+		if($query->num_rows()>0){
+			return $query->result();
+		}
+		else{
+			return false;
+		}
+	}
+
+	function agregar_usuario($data){
 				
 	$query = $this->db->insert("sisusers",$data);
 	return $query;
 	
 }
-//nuevo
+	//nuevo
     //guardar_agregar
     
 	function guardar_agregar($data){
                    
         $query = $this->db->insert("orden_trabajo",$data);
     	return $query;
-        
     }
 
     function agregar_pedidos($data){
                    
         $query = $this->db->insert("orden_pedido",$data);
-    	return $query;
-        
+    	return $query;        
     }
         
-        public function update_guardar($id, $datos)
-    {
-         $this->db->where('id_orden', $id);
+    public function update_guardar($id, $datos){
+
+        $this->db->where('id_orden', $id);
         $query = $this->db->update("orden_trabajo",$datos);
-                 
-        
         return $query;
     }
 		

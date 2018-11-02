@@ -62,8 +62,7 @@ class Clientes extends CI_Model
 
         $this->db->where('cliId', $id);
         $query = $this->db->update("admcustomers",$data);
-        return $query;
-        
+        return $query;        
     }
 
     function update_cliente($data, $idord){

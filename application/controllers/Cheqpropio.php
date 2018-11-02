@@ -41,7 +41,7 @@ class Cheqpropio extends CI_Controller {
   public function getche(){
 
     $idm=$_GET['datos'];
-    $dat= $this->Cheqpropios->getdatos($idm); //traigo todos los datos
+    $dat= $this->Cheqpropios->getdatos($idm); 
    
     echo json_encode($dat);
   }
