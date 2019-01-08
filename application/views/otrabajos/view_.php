@@ -27,10 +27,32 @@
         <?php 
             echo '<option value="-1"></option>';
           foreach ($data['clientes'] as $c) {
-           echo '<option value="'.$c['cliId'].'">'.$c['cliLastName'].', '.$c['cliName'].' '.$c['cliMovil'].'</option>';
+           echo '<option value="'.$c['cliId'].'">'.$c['cliLastName'].', '.$c['cliName']. (strlen($c['cliMovil'])!=0?' / Tel: '.$c['cliMovil']:'').'</option>';
           }
         ?>
       </select>
+      <button class="btn btn-success" id="btn-add" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Agregar Cliente</button>
+      <br>
+      <div class="collapse" id="collapseExample" sytle>
+        <div class="card card-body">
+        <form id="cliente">
+          <div class="row" style="margin-left: 10%;">
+                <div class="col-xs-12">
+                  <input type="text" class="form-control" placeholder="Nombre" id="cliName" name="cliName" value="<?php echo $data['customer']['cliName'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?>  >
+                </div>
+                <div class="col-xs-12">
+                <br>
+                   <input type="text" class="form-control" placeholder="Apellido" id="cliLastName"  name="cliLastName"value="<?php echo $data['customer']['cliLastName'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?>  >
+              </div>
+              <div class="col-xs-12">
+              <br>
+                <input type="text" class="form-control" placeholder="Celular" id="cliMovil" name="cliMovil"value="<?php echo $data['customer']['cliMovil'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?> >
+              </div>
+            </div>
+            </form>
+        </div>
+      </div>
+      
     </div>
 </div><br>
 
@@ -68,3 +90,43 @@
       </select>
     </div>
 </div><br>
+
+<script>
+$('#collapseExample').on('hidden.bs.collapse', function () {
+  $('#btn-add').html('Agregar Cliente');
+  if($('#cliName').val()=='' || $('#cliLastName').val()=='' || $('#cliMovil').val()==''){alert("Campos Incompletos");return;}
+  guardar();
+})
+$('#collapseExample').on('show.bs.collapse', function () {
+  $('#btn-add').html('Guardar');
+})
+
+function guardar(){
+  console.log("Guardando Cliente");
+  var nombre = $('#cliName').val();
+  var apellido = $('#cliLastName').val();
+  var movil = $('#cliMovil').val();
+  var parametros = {
+    'cliName': nombre,
+    'cliLastName': apellido,
+    'cliMovil': movil,
+    'estado': 'C'
+  };                                                                        
+  $.ajax({
+    type:"POST",
+    url: "index.php/Cliente/agregar_cliente", 
+    data:{parametros:parametros},
+    success: function(data){
+      console.log("Guardado OK ");
+      var html = '<option value="'+data+'" selected>'+$('#cliName').val()+' '+$('#cliLastName').val()+' / Tel: '+$('#cliMovil').val()+'</option>';
+      $('#cliid').append(html);
+      $('form#cliente')[0].reset();
+     
+    },
+    error: function(result){
+        console.log("entro por el error");
+        console.log(result);
+    }
+  });
+}
+</script>

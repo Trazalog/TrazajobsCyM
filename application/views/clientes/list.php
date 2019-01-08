@@ -224,30 +224,13 @@ $(document).ready(function(event) {
     console.log("Estoy guardando");
     var nombre = $('#cliName').val();
     var apellido = $('#cliLastName').val();
-    // var dni = $('#cliDni').val();
-    // var fecha = $('#cliDateOfBirth').val();
-    // var direccion = $('#cliAddress').val();
-    // var fijo = $('#cliPhone').val();
     var movil = $('#cliMovil').val();
-    // var email = $('#cliMovil').val();
-    // var zona = $('#zonaId').val();
-    // var dia = $('#cliDay').val();
-   // var color = $('#cliColor').val();
     var parametros = {
       'cliName': nombre,
       'cliLastName': apellido,
-      //'cliDni': dni,
-      //'cliDateOfBirth': fecha,
-      //'cliAddress': direccion,
-      //'cliPhone': fijo,
       'cliMovil': movil,
-      //'cliEmail': email,
-      //'zonaId': zona,
-      //'cliDay': dia,
-      //'cliColor': color,
       'estado': 'C'
-    };                                              
-    console.log(parametros);                                
+    };                                                                        
     $.ajax({
       type:"POST",
       url: "index.php/Cliente/agregar_cliente", 
@@ -358,7 +341,7 @@ $(document).ready(function(event) {
 </script>
 <!-- Modal alta de cliente-->
 <div class="modal fade" id="modaltarea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document" style="width: 40%">
+  <div class="modal-dialog modal-lg" role="document" style="width: 50%">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -383,6 +366,12 @@ $(document).ready(function(event) {
               </div>
               <div class="col-xs-8">
                 <input type="text" class="form-control" placeholder="Apellido" id="cliLastName"  name="cliLastName"value="<?php echo $data['customer']['cliLastName'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?>  >
+              </div>
+              <div class="col-xs-4">
+                <label style="margin-top: 7px;">Celular: </label>
+              </div>
+              <div class="col-xs-8">
+                <input type="text" class="form-control" placeholder="0264 - 155095888" id="cliMovil" name="cliMovil"value="<?php echo $data['customer']['cliMovil'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?> >
               </div>
             </div><br>
             <!-- <div class="row">
