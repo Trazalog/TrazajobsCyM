@@ -17,10 +17,10 @@
               <tr>
                 <th  width="20%" style="text-align: center">Acciones</th>
                 <th style="text-align: center">Cliente</th>
-                <th style="text-align: center">CUIT/DNI</th>
-                <th style="text-align: center">Domicilio</th>
+                <!-- <th style="text-align: center">CUIT/DNI</th>
+                <th style="text-align: center">Domicilio</th> -->
                 <th style="text-align: center">Tel. Celular</th>
-                <th style="text-align: center">Tel. Fijo</th>
+                <!-- <th style="text-align: center">Tel. Fijo</th> -->
                 
               </tr>
             </thead>
@@ -41,10 +41,10 @@
                             
                     echo '</td>';
                     echo '<td style="text-align: center">'.$z['cliLastName'].'  '.$z['cliName'].'</td>';
-                    echo '<td style="text-align: center">'.$z['cliDni'].'</td>';
-                    echo '<td style="text-align: center">'.$z['cliAddress'].'</td>';     
+                    //echo '<td style="text-align: center">'.$z['cliDni'].'</td>';
+                    //echo '<td style="text-align: center">'.$z['cliAddress'].'</td>';     
                     echo '<td style="text-align: center">'.$z['cliMovil'].'</td>';
-                    echo '<td style="text-align: center">'.$z['cliPhone'].'</td>';
+                    //echo '<td style="text-align: center">'.$z['cliPhone'].'</td>';
                     echo '</tr>';
                   }  
                 }
@@ -224,29 +224,28 @@ $(document).ready(function(event) {
     console.log("Estoy guardando");
     var nombre = $('#cliName').val();
     var apellido = $('#cliLastName').val();
-    var dni = $('#cliDni').val();
-    var fecha = $('#cliDateOfBirth').val();
-    var direccion = $('#cliAddress').val();
-    var fijo = $('#cliPhone').val();
+    // var dni = $('#cliDni').val();
+    // var fecha = $('#cliDateOfBirth').val();
+    // var direccion = $('#cliAddress').val();
+    // var fijo = $('#cliPhone').val();
     var movil = $('#cliMovil').val();
-    var email = $('#cliMovil').val();
-    var zona = $('#zonaId').val();
-    var dia = $('#cliDay').val();
+    // var email = $('#cliMovil').val();
+    // var zona = $('#zonaId').val();
+    // var dia = $('#cliDay').val();
    // var color = $('#cliColor').val();
     var parametros = {
       'cliName': nombre,
       'cliLastName': apellido,
-      'cliDni': dni,
-      'cliDateOfBirth': fecha,
-      'cliAddress': direccion,
-      'cliPhone': fijo,
+      //'cliDni': dni,
+      //'cliDateOfBirth': fecha,
+      //'cliAddress': direccion,
+      //'cliPhone': fijo,
       'cliMovil': movil,
-      'cliEmail': email,
-      'zonaId': zona,
-      'cliDay': dia,
+      //'cliEmail': email,
+      //'zonaId': zona,
+      //'cliDay': dia,
       //'cliColor': color,
       'estado': 'C'
-
     };                                              
     console.log(parametros);                                
     $.ajax({
@@ -254,9 +253,8 @@ $(document).ready(function(event) {
       url: "index.php/Cliente/agregar_cliente", 
       data:{parametros:parametros},
       success: function(data){
-        console.log("exito en agregar un nuevo banco ");
+        console.log("exito en agregar un nuevo cliente ");
         regresa();
-
         },
       error: function(result){
           console.log("entro por el error");
@@ -367,10 +365,10 @@ $(document).ready(function(event) {
         <h4 class="modal-title"  id="myModalLabel"><span id="modalAction" class="fa fa-plus-square" style="color: #008000" > </span>  Agregar Cliente</h4>
       </div> <!-- /.modal-header  -->
 
-      <div class="modal-body input-group ui-widget" id="modalBodyArticle">
+      <div class="modal-body ui-widget" id="modalBodyArticle">
         
-        <div class="row" >
-          <div class="col-sm-12 col-md-12">
+        <!-- <div class="row" > -->
+          <!-- <div class="col-sm-12 col-md-12"> -->
             <div class="row">
               <div class="col-xs-4">
                 <label style="margin-top: 7px;">Nombre <strong style="color: #dd4b39">*</strong>: </label>
@@ -387,21 +385,21 @@ $(document).ready(function(event) {
                 <input type="text" class="form-control" placeholder="Apellido" id="cliLastName"  name="cliLastName"value="<?php echo $data['customer']['cliLastName'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?>  >
               </div>
             </div><br>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-xs-4">
                 <label style="margin-top: 7px;">Dni <strong style="color: #dd4b39">*</strong>: </label>
               </div>
               <div class="col-xs-8">
                 <input type="text" class="form-control" placeholder="12345678" id="cliDni" name="cliDni" value="<?php echo $data['customer']['cliDni'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?>  maxlength="8">
               </div>
-            </div><br>
-            <div class="row">
+            </div><br> -->
+            <!-- <div class="row">
               <div class="col-xs-4">
                 <label style="margin-top: 7px;">Fec. Nacimiento <strong style="color: #dd4b39">*</strong>: </label>
               </div>
               <div class="col-xs-8">
                 <input type="date" class="form-control" id="cliDateOfBirth" name="cliDateOfBirth" placeholder="dd-mm-aaaa" value="<?php //echo $data['customer']['cliDateOfBirth'];?>" <?php //echo ($data['read'] == true ? 'disabled="disabled"' : '');?> >
-               <!-- <input type="text" name="cliDateOfBirth" class="datepicker" id="cliDateOfBirth">-->
+               <!- - <input type="text" name="cliDateOfBirth" class="datepicker" id="cliDateOfBirth">- ->
               </div>
             </div><br>
             <div class="row">
@@ -419,7 +417,7 @@ $(document).ready(function(event) {
               <div class="col-xs-8">
                 <input type="text" class="form-control" placeholder="0264 - 4961020" id="cliPhone" name="cliPhone" value="<?php echo $data['customer']['cliPhone'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?> >
               </div>
-            </div><br>
+            </div><br> -->
             <div class="row">
               <div class="col-xs-4">
                 <label style="margin-top: 7px;">Celular: </label>
@@ -428,7 +426,7 @@ $(document).ready(function(event) {
                 <input type="text" class="form-control" placeholder="0264 - 155095888" id="cliMovil" name="cliMovil"value="<?php echo $data['customer']['cliMovil'];?>" <?php echo ($data['read'] == true ? 'disabled="disabled"' : '');?> >
               </div>
             </div><br>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-xs-4">
                 <label style="margin-top: 7px;">Mail: </label>
               </div>
@@ -459,9 +457,9 @@ $(document).ready(function(event) {
                     ?>
                 </select>
               </div>
-            </div><br>
-          </div>
-        </div>                   
+            </div><br> -->
+          <!-- </div> -->
+        <!-- </div>                    -->
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" onclick="guardar()" >Guardar</button>

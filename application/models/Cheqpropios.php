@@ -54,6 +54,12 @@ class Cheqpropios extends CI_Model
 	
 	}
 	
+	function pagarCheques($cheqid, $datos){	
+
+		$this->db->where('cheqid', $cheqid);
+        $query = $this->db->update("tbl_cheques",$datos);
+		return $query;
+	}
 
 	function getdatos($m){
 

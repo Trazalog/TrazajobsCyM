@@ -30,6 +30,14 @@ class Cheqpropio extends CI_Controller {
 
   }
 
+  public function pagarCheque(){
+    
+    $cheqid = $this->input->post('idCHeque');      
+    $datos = array('cheqestado'=>"2");  // corresponde al estado P (pagado)
+		$result = $this->Cheqpropios->pagarCheques($cheqid,$datos);
+    echo json_encode($result);
+  }
+
   public function getche(){
 
     $idm=$_GET['datos'];
@@ -46,7 +54,6 @@ class Cheqpropio extends CI_Controller {
     print_r(json_encode($result));
 
   }
-
 
   public function edit_chequera(){
 
@@ -83,9 +90,7 @@ class Cheqpropio extends CI_Controller {
 
       }
       return 1; //0
-  }
-
-    
+  }    
 
   public function getchequera(){
 
@@ -99,8 +104,7 @@ class Cheqpropio extends CI_Controller {
             echo $this->db->insert_id();
           else echo 0;
       }
-    }
-
+  }
 
   public function getpropio(){
 
@@ -120,7 +124,7 @@ class Cheqpropio extends CI_Controller {
             else echo "nada";
                    //print_r(json_encode($result));
              }
-    }
+  }
 
   public function getnumero(){
 
@@ -130,7 +134,7 @@ class Cheqpropio extends CI_Controller {
          
         print_r(json_encode($result));
       
-    }
+  }
 
   public function baja_cheque(){
   

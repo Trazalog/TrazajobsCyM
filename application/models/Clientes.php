@@ -25,8 +25,7 @@ class Clientes extends CI_Model
     function agregar_clientes($data){
                    
         $query = $this->db->insert("admcustomers",$data);
-    	return $query;
-        
+    	return $query;        
     }
    
 	function getzonas(){

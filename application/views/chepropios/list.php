@@ -21,7 +21,7 @@
                 <th  width="20%" style="text-align: center">Acciones</th>
                 <th style="text-align: center">Nro de Cheque</th>
                 <th style="text-align: center">Proveedores</th>
-                <th style="text-align: center">Fecha de Emision</th>
+                <!-- <th style="text-align: center">Fecha de Emision</th> -->
                 <th style="text-align: center">Fecha de vencimiento</th>
                 <th style="text-align: center">Monto</th>
                 <th style="text-align: center">Estado</th>
@@ -30,6 +30,8 @@
             </thead>
             <tbody>
               <?php
+              //echo"<pre>";
+              //var_dump($list);
                 foreach($list as $z)
                 {
                   $id=$z['cheqid'];
@@ -42,16 +44,25 @@
                   if (strpos($permission,'Del') !== false) {
                       echo '<i class="fa fa-fw fa-times-circle"  title="Editar" style="color: #dd4b39; cursor: pointer; margin-left: 15px;"></i>';
                   }
-                  
+
+                  if (strpos($permission,'Edit') !== false) {
+                    
+                    if( ($z['cheqestado'] == '1')){     // corresponde al estado P (pagado)
+                      echo '<i  href="#"class="fa fa-fw fa fa-toggle-on" style="color: #f39c12; cursor: pointer; margin-left: 15px;" title="Pagar"></i>';
+                    }else{
+                      echo '<i class="fa fa-fw fa fa-toggle-off" title="Pagado" style="color: #A4A4A4; cursor: pointer; margin-left: 15px;"></i>';
+                    }
+                  }
                       
                   echo '</td>';
                   echo '<td style="text-align: center">'.$z['cheqnro'].'</td>';
                   echo '<td style="text-align: center">'.$z['proveedor'].'</td>';
-                  echo '<td style="text-align: center">'.$z['cheqfechae'].'</td>';
+                  //echo '<td style="text-align: center">'.$z['cheqfechae'].'</td>';
                   echo '<td style="text-align: center">'.$z['cheqvenc'].'</td>';
-                  echo '<td style="text-align: center">'.$z['cheqmonto'].'</td>';
-                  echo '<td style="text-align: center">'.($z['cheqestado'] == 'C' ? '<small class="label pull-left bg-green" >Curso</small>' :'<small class="label pull-left bg-blue">Pagado</small>' ).'</td>';
                   
+                 // echo '<td style="text-align: center">'.$z['cheqmonto'].'</td>';
+                  echo '<td style="text-align: center">'.number_format($z['cheqmonto'], 2, ',', '.').'</td>';
+                  echo '<td style="text-align: center">'.($z['cheqestado'] == '1' ? '<small class="label pull-left bg-green" >Curso</small>' :'<small class="label pull-left bg-blue">Pagado</small>' ).'</td>';                  
                   
                   echo '</tr>';
                   
@@ -165,7 +176,7 @@ $('#num').change(function(){
   idcheq=id_cheq;
   console.log(idcheq);
 
-      /*cuando elijo chequera , mando el id de cheque mando ese id y me fijo en q chequera esta y la cantidad y e*/
+   /*cuando elijo chequera , mando el id de cheque mando ese id y me fijo en q chequera esta y la cantidad y e*/
 
       $.ajax({
             type: 'POST',
@@ -222,12 +233,7 @@ $('#num').change(function(){
                           
 
                           }
-
-                   // }
-
-                   
-
-
+                   // } 
                   },
               
             error: function(result){
@@ -238,7 +244,7 @@ $('#num').change(function(){
       });   
 });
 
-  $('#deposito').DataTable({
+$('#deposito').DataTable({
         "paging": true,
         "lengthChange": true,
         "searching": true,
@@ -259,8 +265,30 @@ $('#num').change(function(){
         }
   });
 
-  });
+});
  
+$(document).on("click", ".fa-toggle-on", function() {
+  
+  var idCHeque = $(this).parent('td').parent('tr').attr('id');
+  console.log(idCHeque);
+  $.ajax({
+    type: 'POST',
+    data: { idCHeque: idCHeque},
+    url: 'index.php/Cheqpropio/pagarCheque', 
+    success: function(data){
+          
+            console.log(data);
+            alert("Se cambio el estado del cheque a Pagado");            
+            regresa();          
+          },
+      
+    error: function(result){
+          
+          console.log(result);
+        },
+        dataType: 'json'
+    });
+});
 
 function completarEdit(datos){
 
@@ -332,8 +360,6 @@ function traer_proveeedor(){
         });
 }
 
-
-
 traer_numero();
 function traer_numero(){
       $.ajax({
@@ -388,7 +414,6 @@ function traer_chequera(){
         dataType: 'json'
     });
 }
-
 
 function traer_provee(){
 
@@ -468,8 +493,6 @@ function guardareditar(){
 
 }
 
-
-
 function guardar(){
   console.log("Estoy guardando");
   
@@ -487,7 +510,7 @@ function guardar(){
                     'cheqvenc': fechav,
                     'provid': proveedor,
                     'cheqmonto': montoFinal,
-                    'cheqestado': 'C',
+                    'cheqestado': '1',  // id coresponde a estado C (curso)
                     'id_chequera': numero,
                     'cheqfechae': fechae   
                     };                                              
@@ -520,9 +543,9 @@ function guardar(){
 }
 
 function regresa(){
-
+  WaitingOpen('');
   $("#content").load("<?php echo base_url(); ?>index.php/Cheqpropio/index/<?php echo $permission; ?>");
-   WaitingClose();
+   WaitingClose('Cargando lista...');
 }
 
 
