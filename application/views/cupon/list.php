@@ -406,6 +406,7 @@ function cargar_cupones(){
     // dataType: 'json',
     url:'index.php/Cupon/guardar_cupones',
     success: function(result){
+      contador = 0;
       $("table#cupones tbody").html('');
     },
     error: function(result){
