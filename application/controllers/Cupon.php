@@ -14,6 +14,12 @@ class Cupon extends CI_Controller {
     $this->load->view('cupon/list', $data);
   }
 
+  function guardar_cupones(){
+    $data = $this->input->post();
+    $result = $this->Cupones->guardar_cupones($data);
+    echo $result;
+  }
+
   public function gettarjeta(){
 
     
