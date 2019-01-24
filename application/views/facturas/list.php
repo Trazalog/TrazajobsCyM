@@ -51,34 +51,43 @@
 </section><!-- /.content -->
 
 <script>
-  $(function() {
+
 
     /* carga la vista agregar factura */
     $("#btnAdd").on("click", function(){
         cargarView("Factura", "getProveedoresFactura", $('#permission').val() );
     });
 
+
+    var factura_seleccionada;
     /* elimina la factura a la que se le hace click */
     $(".btnDelete").on("click", function(){
+        
+        $('#modaleliminar').modal('show');
+        factura_seleccionada = $(this);
+    });
+
+    function eliminar_factura(){
         WaitingOpen('Eliminando factura');
         $.ajax({
             data: {
-                facid : $(this).data("idfac"),
+                facid : factura_seleccionada.data("idfac"),
             },
             dataType: 'json',
             type: 'POST',
             url: 'index.php/Factura/deleteFactura',
             success: function(result){
                 WaitingClose();
+                $(factura_seleccionada).parent().parent().remove();
                 //alert("ok"+result);
-                cargarView('Factura', 'index', $('#permission').val() );
+             //   cargarView('Factura', 'index', $('#permission').val() );
             },
             error: function(result){
                 WaitingClose();
                 alert("error"+result);
             }
         });
-    });
+    }
 
     /* carga la vista editar factura */
     $(".btnEdit").on("click", function(){
@@ -134,5 +143,30 @@
         } ]
     });
 
-});
+
+
 </script>
+
+
+<!-- Modal eliminar-->
+<div class="modal fade" id="modaleliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document" style="width: 50%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"  id="myModalLabel"><span id="modalAction" class="fa fa-fw fa-times-circle" style="color: #dd4b39" > </span> Eliminar Cliente</h4>
+      </div> <!-- /.modal-header  -->
+
+      <div class="modal-body input-group ui-widget" id="modalBodyArticle">
+             
+        <label >¿Realmente desea el Registro de Factura?  </label>
+            
+      </div>  <!-- /.modal-body -->
+      <div class="modal-footer">         
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="eliminar_factura()" >SI</button>
+      </div>  <!-- /.modal footer -->     
+    </div> <!-- /.modal-content -->
+  </div>  <!-- /.modal-dialog modal-lg -->
+</div>  <!-- /.modal fade -->
+<!-- / Modal -->

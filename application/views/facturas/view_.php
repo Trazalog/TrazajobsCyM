@@ -114,13 +114,13 @@
                         <div class="col-xs-12">
 
                           <div class="col-xs-3">
-                            <label style="display:block">Número:
+                            <label style="display:block">Número: <strong style="color: #dd4b39">*</strong>
                               <input type="text" id="txtNumeroFac" class="form-control input-sm" placeholder="<?php //echo
                               $lastIdFactura+1; ?>">
                             </label>
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3">
-                            <label style="display:block">Tipo:
+                            <label style="display:block">Tipo: <strong style="color: #dd4b39">*</strong>
                               <select id="SelectTipoFac" name="SelectTipoFac" class="form-control input-sm select2">
                                 <option value="-1">Seleccione...</option>
                                 <option value="A">A</option>
@@ -131,7 +131,7 @@
                             <input class="reset" type="hidden" id="id_equipo" name="id_equipo">
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3 col-xs-offset-3">
-                            <label style="display:block">Fecha:
+                            <label style="display:block">Fecha: <strong style="color: #dd4b39">*</strong>
                               <input type="date" id="dateFecha" class="form-control input-sm" value='<?php echo date("Y-m-d");?>'>
                             </label>
                           </div><!-- /.col-xs-3 -->
@@ -143,7 +143,7 @@
 
                         <div class="col-xs-12">
                           <div class="col-xs-6">
-                            <label style="display:block">Subtotal ($):
+                            <label style="display:block">Subtotal ($): <strong style="color: #dd4b39">*</strong>
                               <input type="number" class="form-control input-sm reset" id="txtSubtotal" placeholder="0">
                             </label>
                           </div><!-- /.col-xs-6 -->
@@ -230,7 +230,7 @@
                             </label>
                           </div><!-- /.col-xs-6 -->
                         </div><!-- /.col-xs-12 -->
-                        <button class="btn btn-primary" style="float:right;" onclick="agregar_factura()">+Agregar</button>
+                        <button class="btn btn-primary" style="float:right;margin: 15px;" onclick="agregar_factura()">+Agregar</button>
 
                       </div><!-- /.row -->
 
@@ -463,6 +463,7 @@ function agregar_factura(){
   );
   contador++; 
   $('.reset').val('0');
+  $('#error').fadeOut('slow');
   $('#txtNumeroFac').val('');
 }
 function guardar_facturas(){
@@ -527,3 +528,26 @@ function eliminar_factura(o){
   $(o).parent().parent().remove();
 }
 </script>
+
+<!-- Modal eliminar-->
+<div class="modal fade" id="modaleliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document" style="width: 50%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"  id="myModalLabel"><span id="modalAction" class="fa fa-fw fa-times-circle" style="color: #dd4b39" > </span> Eliminar Cliente</h4>
+      </div> <!-- /.modal-header  -->
+
+      <div class="modal-body input-group ui-widget" id="modalBodyArticle">
+             
+        <label >¿Realmente desea el Registro de Factura?  </label>
+            
+      </div>  <!-- /.modal-body -->
+      <div class="modal-footer">         
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" onclick="guardareliminar()" >SI</button>
+      </div>  <!-- /.modal footer -->     
+    </div> <!-- /.modal-content -->
+  </div>  <!-- /.modal-dialog modal-lg -->
+</div>  <!-- /.modal fade -->
+<!-- / Modal -->
