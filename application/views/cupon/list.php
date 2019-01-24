@@ -408,6 +408,7 @@ function cargar_cupones(){
     success: function(result){
       contador = 0;
       $("table#cupones tbody").html('');
+      regresa();
     },
     error: function(result){
       alert('Al Cargar los cupones. Intente Nuevamente');
@@ -449,33 +450,33 @@ function ValidarCampos(){
           <div class="col-sm-12 col-md-12">
               <br>
               <form id="cupones_inputs">
-              <div class="col-xs-6">Tarjeta:
+              <div class="col-xs-6">Tarjeta<strong style="color: #dd4b39">*</strong>:
                   <select type="text" id="tarjeta" class="form-control"></select>
               </div>
-              <div class="col-xs-6">Fecha:
+              <div class="col-xs-6">Fecha<strong style="color: #dd4b39">*</strong>:
                   <input type="date" id="fecha" class="form-control">
               </div>
       
-              <div class="col-xs-12">Cupon:
+              <div class="col-xs-12">Cupon<strong style="color: #dd4b39">*</strong>:
                   <input type="text" id="cupon" class="form-control reset" placeholder="Ingrese Cupon...">
               </div>
           
-              <div class="col-xs-12">Cliente:
+              <div class="col-xs-12">Cliente<strong style="color: #dd4b39">*</strong>:
                   <input type="text" id="cliente"  class="form-control reset" placeholder="Ingrese Cliente...">
       
               </div>
-              <div class="col-xs-12">Lote:
+              <div class="col-xs-12">Lote<strong style="color: #dd4b39">*</strong>:
                   <input type="text" id="lote" class="form-control reset" placeholder="Ingrese Lote...">
       
               </div>
-              <div class="col-xs-12">Monto:
+              <div class="col-xs-12">Monto<strong style="color: #dd4b39">*</strong>:
                   <input type="text" id="monto" class="form-control reset" onkeyup="format(this)" onchange="format(this) "
                       placeholder="Ingrese Monto...">
               </div>
-              <div class="col-xs-12">Factura:
+              <div class="col-xs-12">Factura<strong style="color: #dd4b39">*</strong>:
                   <input type="text" id="factura" class="form-control reset" placeholder="Ingrese Factura...">
               </div></form><br>
-              <button class="btn btn-success"style="float: right;" onclick="add_cupon()">+Agregar</button>
+              <button class="btn btn-success"style="float: right;margin-top:10px;" onclick="add_cupon()">+Agregar</button>
           </div>
       </div>
 
