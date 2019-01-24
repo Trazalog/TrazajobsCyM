@@ -43,9 +43,6 @@ class Clientes extends CI_Model
 		//$query= $this->db->get_where('admcustomers',array('cliId'=>$id));
 	    $sql="SELECT *
 	    	  FROM admcustomers
-	    	  JOIN confzone ON confzone.zonaId=admcustomers.zonaId
-	    		  
-
 	    	  WHERE admcustomers.cliId=$id
 	    	  ";  
 	    $query= $this->db->query($sql);  

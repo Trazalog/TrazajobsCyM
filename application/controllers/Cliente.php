@@ -19,7 +19,7 @@ class Cliente extends CI_Controller {
 
     $id=$_GET['idord'];
     $result = $this->Clientes->getpencil($id);
-    print_r(json_encode($result));
+    echo json_encode($result);
 
   }
 
