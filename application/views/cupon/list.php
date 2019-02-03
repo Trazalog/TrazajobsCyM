@@ -71,7 +71,6 @@
 
 <script>
   var ed = "";
-  $(document).ready(function (event) {
 
     //Editar
     $(".fa-pencil").click(function (e) {
@@ -91,9 +90,9 @@
 
           datos = {
 
-            'fecha': data[0]['cuponfech'],
+            'fecha': data[0]['cuponfech'].split(" ")[0],
             'cupon': data[0]['cuponnro'],
-            'factura': data[0]['cuponfecha'],
+            'factura': data[0]['cuponfactura'],
             'cliente': data[0]['cuponcliente'],
             'monto': data[0]['cuponmonto'],
             'tarjetaid': data[0]['tarjetaid'],
@@ -116,11 +115,18 @@
 
     });
 
+    var cupon_seleccionado;
     //Cambio de estado a un equipo
     $(".fa-times-circle").click(function (e) {
+      $('#modaleliminar').modal('show');
+      cupon_seleccionado = $(this).parent('td').parent('tr').attr('id');
+
+    })
+
+    function eliminar_cupon_2(){
 
       console.log("Esto eliminando");
-      var idcupo = $(this).parent('td').parent('tr').attr('id');
+      var idcupo = cupon_seleccionado;
       console.log(idcupo);
 
       $.ajax({
@@ -143,11 +149,7 @@
         },
         dataType: 'json'
       });
-
-
-
-    });
-
+    }
     $('#deposito').DataTable({
       "paging": true,
       "lengthChange": true,
@@ -168,8 +170,6 @@
         }
       }
     });
-
-  });
 
   traer_tarjeta();
   function traer_tarjeta() {
@@ -204,6 +204,7 @@
     $('#fechaedit').val(datos['fecha']);
     $('#clienteedit').val(datos['cliente']);
     $('#montoedit').val(datos['monto']);
+    $('#facturaedit').val(datos['factura']);
 
     $('select#tarjetaedit').append($('<option />', { value: datos['tarjetaid'], text: datos['tarjetadescrip'] }));
     traer_tarjeta2();
@@ -575,4 +576,27 @@ function ValidarCampos(){
 
 </div> <!-- /.modal-dialog modal-lg -->
 </div> <!-- /.modal fade -->
+<!-- / Modal -->
+
+<!-- Modal eliminar-->
+<div class="modal fade" id="modaleliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document" style="width: 50%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"  id="myModalLabel"><span id="modalAction" class="fa fa-fw fa-times-circle" style="color: #dd4b39" > </span> Eliminar Cliente</h4>
+      </div> <!-- /.modal-header  -->
+
+      <div class="modal-body input-group ui-widget" id="modalBodyArticle">
+             
+        <label >¿Realmente desea el Registro de Cupon?  </label>
+            
+      </div>  <!-- /.modal-body -->
+      <div class="modal-footer">         
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="eliminar_cupon_2()" >SI</button>
+      </div>  <!-- /.modal footer -->     
+    </div> <!-- /.modal-content -->
+  </div>  <!-- /.modal-dialog modal-lg -->
+</div>  <!-- /.modal fade -->
 <!-- / Modal -->

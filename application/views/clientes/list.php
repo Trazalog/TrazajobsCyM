@@ -65,7 +65,7 @@ $(document).ready(function(event) {
   $(".fa-pencil").click(function (e) { 
      
     var idord = $(this).parent('td').parent('tr').attr('id');
-    alert(idord);
+   // alert(idord);
     ed=idord;
     $.ajax({
         type: 'GET',
