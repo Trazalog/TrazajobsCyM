@@ -80,6 +80,7 @@
       console.log(idcu);
       ed = idcu;
       $.ajax({
+        ansync:'false',
         type: 'POST',
         data: { idcu: idcu },
         url: 'index.php/Cupon/getpencil', //index.php/
@@ -206,8 +207,8 @@
     $('#montoedit').val(datos['monto']);
     $('#facturaedit').val(datos['factura']);
 
-    $('select#tarjetaedit').append($('<option />', { value: datos['tarjetaid'], text: datos['tarjetadescrip'] }));
     traer_tarjeta2();
+    $('select#tarjetaedit').append($('<option />', { value: datos['tarjetaid'], text: datos['tarjetadescrip'] }));
 
   }
 
