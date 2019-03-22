@@ -7,6 +7,25 @@ class Cupones extends CI_Model
 	{
 		parent::__construct();
 	}
+
+	function guardar_cupones($data){
+		$aux = array();
+		for($i=0; $i<count($data['cliente']); $i++)
+		{ 
+		  $nota  = array(
+			'cuponfech' => $data['fecha'][$i],
+			'cuponnro' => $data['cupon'][$i],
+			'cuponlote' => $data['lote'][$i],
+			'cuponfactura' => $data['factura'][$i],
+			'cuponcliente' => $data['cliente'][$i],
+			'cuponmonto' => $data['monto'][$i],
+			'cuponestado' => 'C',
+			'tarjetaid' => $data['tarjeta'][$i]
+		  );
+		  $aux[] = $nota;
+		}
+		return $this->db->insert_batch('tbl_cupon',$aux);
+	}
 	
 	function tarea_List(){
 

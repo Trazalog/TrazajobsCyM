@@ -9,7 +9,7 @@
           <button class="btn btn-block btn-success" style="width: 100px; margin-top: 10px;" id="listado">Ver Listado</button>
         </div><!-- /.box-header -->
         <div class="box-body">
-
+        <form id="factura">
           <div role="tabpanel" class="tab-panel">
             <div class="form-group">
               <div class="panel panel-default">
@@ -19,6 +19,7 @@
                 <div class="panel-body">
                   <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="tabpanelProveedores">
+             
                       <div class="row">
                         <div class="col-xs-12">
                           <div class="col-xs-6"><label>Proveedor: </label>
@@ -66,9 +67,9 @@
             <div class="form-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h2 class="panel-title">Factura</h2>
+                  <h2 class="panel-title"><a data-toggle="collapse" href="#collapse1">Formulario de Factura</a></h2>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body panel-collapse collapse" id="collapse1">
                   <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="tabpanelFactura">
 
@@ -113,13 +114,13 @@
                         <div class="col-xs-12">
 
                           <div class="col-xs-3">
-                            <label style="display:block">Número:
+                            <label style="display:block">Número: <strong style="color: #dd4b39">*</strong>
                               <input type="text" id="txtNumeroFac" class="form-control input-sm" placeholder="<?php //echo
                               $lastIdFactura+1; ?>">
                             </label>
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3">
-                            <label style="display:block">Tipo:
+                            <label style="display:block">Tipo: <strong style="color: #dd4b39">*</strong>
                               <select id="SelectTipoFac" name="SelectTipoFac" class="form-control input-sm select2">
                                 <option value="-1">Seleccione...</option>
                                 <option value="A">A</option>
@@ -127,10 +128,10 @@
                                 <option value="C">C</option>
                               </select>
                             </label>
-                            <input type="hidden" id="id_equipo" name="id_equipo">
+                            <input class="reset" type="hidden" id="id_equipo" name="id_equipo">
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3 col-xs-offset-3">
-                            <label style="display:block">Fecha:
+                            <label style="display:block">Fecha: <strong style="color: #dd4b39">*</strong>
                               <input type="date" id="dateFecha" class="form-control input-sm" value='<?php echo date("Y-m-d");?>'>
                             </label>
                           </div><!-- /.col-xs-3 -->
@@ -142,8 +143,8 @@
 
                         <div class="col-xs-12">
                           <div class="col-xs-6">
-                            <label style="display:block">Subtotal ($):
-                              <input type="number" class="form-control input-sm" id="txtSubtotal" placeholder="0">
+                            <label style="display:block">Subtotal ($): <strong style="color: #dd4b39">*</strong>
+                              <input type="number" class="form-control input-sm reset" id="txtSubtotal" placeholder="0">
                             </label>
                           </div><!-- /.col-xs-6 -->
                         </div><!-- /.col-xs-12 -->
@@ -155,16 +156,16 @@
                         <div class="col-xs-12">
                           <div class="col-xs-3" style="display:inline-block; float:none;">
                             <label style="display:block">IVA (%):
-                              <input type="number" class="form-control input-sm" id="txtIva" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtIva" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3" style="display:inline-block; float:none;">
                             <label style="display:block">IVA ($):
-                              <input type="number" class="form-control input-sm" id="txtIva2" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtIva2" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3" style="vertical-align:bottom; display:inline-block; float:none;">
-                            <input type="button" class="btn btn-primary" id="btnIva2" value="+" >
+                            <input type="button" class="btn btn-primary reset" id="btnIva2" value="+" >
                           </div><!-- /.col-xs-3 -->
                         </div><!-- /.col-xs-12 -->
 
@@ -175,12 +176,12 @@
                         <div class="col-xs-12">
                           <div class="col-xs-3" style="display:inline-block; float:none;">
                             <label style="display:block">IVA2 (%):
-                              <input type="number" class="form-control input-sm" id="txtOtroIva" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtOtroIva" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3" style="display:inline-block; float:none;">
                             <label style="display:block">IVA2 ($):
-                              <input type="number" class="form-control input-sm" id="txtOtroIva2" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtOtroIva2" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                         </div><!-- /.col-xs-12 -->
@@ -192,12 +193,12 @@
                         <div class="col-xs-12">
                           <div class="col-xs-3">
                             <label style="display:block">Ing. Brutos (%):
-                              <input type="number" class="form-control input-sm" id="txtIngresosBrutos" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtIngresosBrutos" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3">
                             <label style="display:block">Ing. Brutos ($):
-                              <input type="number" class="form-control input-sm" id="txtIngresosBrutos2" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtIngresosBrutos2" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                         </div><!-- /.col-xs-12 -->
@@ -208,12 +209,12 @@
                         <div class="col-xs-12">
                           <div class="col-xs-3">
                             <label style="display:block">Retenciones (%):
-                              <input type="number" class="form-control input-sm" id="txtRetenciones" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtRetenciones" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                           <div class="col-xs-3">
                             <label style="display:block">Retenciones ($):
-                              <input type="number" class="form-control input-sm" id="txtRetenciones2" value="0">
+                              <input type="number" class="form-control input-sm reset" id="txtRetenciones2" value="0">
                             </label>
                           </div><!-- /.col-xs-3 -->
                         </div><!-- /.col-xs-12 -->
@@ -225,25 +226,48 @@
                         <div class="col-xs-12">
                           <div class="col-xs-12">
                             <label style="display:block">Neto ($):
-                              <input type="number" class="form-control input-sm" id="txtTotal">
+                              <input type="number" class="form-control input-sm reset" id="txtTotal">
                             </label>
                           </div><!-- /.col-xs-6 -->
                         </div><!-- /.col-xs-12 -->
+                        <button class="btn btn-primary" style="float:right;margin: 15px;" onclick="agregar_factura()">+Agregar</button>
 
                       </div><!-- /.row -->
 
                     </div><!-- /.tabpanel -->
                   </div><!-- /.tab-content -->
+                  
                 </div><!-- /.panel-body -->
+                
 
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" id="btnCancelarForm">Cancelar</button>
-                  <button type="button" class="btn btn-primary" id="btnGuardarForm">Guardar</button>
-                </div>
+              
 
               </div><!-- /.panel-default -->
             </div><!-- /.form-group -->
           </div><!-- /.tab-panel -->
+          </form>
+          <div>
+          <form id="facturas_cargadas">
+            <table id="facturas" class="table table-bordered table-hover">
+              <thead>
+                  <tr>
+                    <th>Número</th>
+                    <th>Tipo</th>
+                    <th>Proveedor</th>
+                    <th>Total</th>
+                    <th>Acción</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="btnCancelarForm">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="btnGuardarForm" onclick="guardar_facturas()">Guardar</button>
+          </div>
 
         </div><!-- /.box-body -->
       </div><!-- /.box -->
@@ -272,8 +296,10 @@ $(function() {
   /* cargo parametros al seleccionar el proveedor */
   $("#selectProveedor").on("change", function() {
     //si option value != -1
+    $('#collapse1').collapse("show");
     $("#razonSocial").val( $("#selectProveedor option:selected").text() );
     $("#cuit").val( $("#selectProveedor option:selected").data("cuit") );
+
 
     // elimino la opcion seleccionar (para no tener que validar al guardar si hay proveedor)
     $("#selectProveedor option[value='-1']").remove();
@@ -345,8 +371,122 @@ $(function() {
 
 
   /* guardo la factura */
-  $("#btnGuardarForm").on("click", function(){
+  // $("#btnGuardarForm").on("click", function(){
 
+  //   hayError = false;
+  //   if( ($('#txtNumeroFac').val() == '') || ($('#txtNumeroFac').val() == '0') )
+  //   {
+  //     //alert("nro factura= 0");
+  //     hayError = true;
+  //   }
+  //   if($('#SelectTipoFac').val() == '-1')
+  //   {
+  //     //alert("tipo factura= -1");
+  //     hayError = true;
+  //   }
+  //   if($('#dateFecha').val() == '')
+  //   {
+  //     //alert("fecha= vacia");
+  //     hayError = true;
+  //   }
+  //   if( ($('#txtSubtotal').val() == '0') || ($('#txtSubtotal').val() == '') )
+  //   {
+  //     //alert("monto= vacia");
+  //     hayError = true;
+  //   }
+  //   if( ($('#txtTotal').val() == '0') || ($('#txtTotal').val() == '') )
+  //   {
+  //     //alert("total= vacia");
+  //     hayError = true;
+  //   }
+
+  //   if(hayError == true){
+  //     $('#error').fadeIn('slow');
+  //     return;
+  //   }
+
+  //   $('#error').fadeOut('slow');
+
+  //   WaitingOpen('Guardando cambios');
+
+  //   $.ajax({
+  //     data: {
+  //       facnumero          : $('#txtNumeroFac').val(),
+  //       facfecha           : $('#dateFecha').val(),
+  //       factipo            : $('#SelectTipoFac').val(),
+  //       facproveedorid     : $('#selectProveedor').val(),
+  //       facsubtotal        : $('#txtSubtotal').val(),
+  //       faciva             : $('#txtIva2').val(),
+  //       faciva2            : $('#txtOtroIva2').val(),
+  //       facingresosbrutos  : $('#txtIngresosBrutos2').val(),
+  //       facretenciones     : $('#txtRetenciones2').val(),
+  //       factotal           : $('#txtTotal').val(),
+  //       factipocomprobante : $('input[name=radioTipoComprobante]:checked').val(),
+  //       facestado          : $('#chkPagado').prop('checked') ? 'P' : 'C'
+  //     },
+  //     dataType: 'json',
+  //     type: 'POST',
+  //     url: 'index.php/Factura/setFactura',
+  //     success: function(result){
+  //       WaitingClose();
+  //       //alert("ok"+result);
+  //       cargarView('Factura', 'index', $('#permission').val() );
+  //     },
+  //     error: function(){
+  //       WaitingClose();
+  //       alert("Error al guardar la factura");
+  //     }
+  //   });
+  // });
+
+});
+var contador = 0;
+function agregar_factura(){
+  event.preventDefault();
+  if(!validar_campos()){alert('Campos Incompletos');return;}
+  $('table#facturas tbody').append(
+    '<tr>'+
+        '<td><input class="hidden" name="facnumero['+contador+']" value="'+$('#txtNumeroFac').val()+'">'+$('#txtNumeroFac').val()+'</td>'+
+        '<td><input class="hidden" name="factipo['+contador+']" value="'+$('#SelectTipoFac').val()+'">'+$('#SelectTipoFac').val()+'</td>'+
+        '<td><input class="hidden" name="facproveedorid['+contador+']" value="'+$('#selectProveedor').val()+'">'+$('#selectProveedor option:selected').text()+'</td>'+
+        '<td><input class="hidden" name="factotal['+contador+']" value="'+$('#txtTotal').val()+'">$'+$('#txtTotal').val()+'</td>'+
+        '<td><i class="fa fa-fw fa-times-circle" title="Eliminar Cupon" style="color: #dd4b39; cursor: pointer;" onclick="eliminar_factura(this)"></i></td>'+
+        '<td class="hidden"><input class="hidden" name="facfecha['+contador+']" value="'+$('#dateFecha').val()+'">'+
+        '<input class="hidden" name="facsubtotal['+contador+']" value="'+$('#txtSubtotal').val()+'">'+
+        '<input class="hidden" name="faciva['+contador+']" value="'+$('#txtIva2').val()+'">'+
+        '<input class="hidden" name="faciva2['+contador+']" value="'+$('#txtOtroIva2').val()+'">'+
+        '<input class="hidden" name="facingresosbrutos['+contador+']" value="'+$('#txtIngresosBrutos2').val()+'">'+
+        '<input class="hidden" name="facretenciones['+contador+']" value="'+$('#txtRetenciones2').val()+'">'+
+        '<input class="hidden" name="factipocomprobante['+contador+']" value="'+$('input[name=radioTipoComprobante]:checked').val()+'">'+
+        '<input class="hidden" name="facestado['+contador+']" value="'+($('#chkPagado').prop('checked') ? 'P' : 'C')+'">'+
+    '</td></tr>'
+  );
+  contador++; 
+  $('.reset').val('0');
+  $('#error').fadeOut('slow');
+  $('#txtNumeroFac').val('');
+}
+function guardar_facturas(){
+  var datos = $("#facturas_cargadas").serializeArray();
+  if (datos.length==0) {alert('No hay facturas cargadas'); return;}
+  $.ajax({
+    type: 'post',
+    data: datos,
+    // dataType: 'json',
+    url:'index.php/Factura/guardar_facturas',
+    success: function(result){
+      contador = 0;
+      cargarView('Factura', 'index', $('#permission').val() );
+     // $('table#facturas tbody').html('');
+    },
+    error: function(result){
+      alert('Error al Cargar los Facutaras. Intente Nuevamente');
+    }
+  });
+  
+}
+
+function validar_campos(){
     hayError = false;
     if( ($('#txtNumeroFac').val() == '') || ($('#txtNumeroFac').val() == '0') )
     {
@@ -376,42 +516,38 @@ $(function() {
 
     if(hayError == true){
       $('#error').fadeIn('slow');
-      return;
+      return false;
+    }else{
+      return true;
     }
 
     $('#error').fadeOut('slow');
+}
 
-    WaitingOpen('Guardando cambios');
-
-    $.ajax({
-      data: {
-        facnumero          : $('#txtNumeroFac').val(),
-        facfecha           : $('#dateFecha').val(),
-        factipo            : $('#SelectTipoFac').val(),
-        facproveedorid     : $('#selectProveedor').val(),
-        facsubtotal        : $('#txtSubtotal').val(),
-        faciva             : $('#txtIva2').val(),
-        faciva2            : $('#txtOtroIva2').val(),
-        facingresosbrutos  : $('#txtIngresosBrutos2').val(),
-        facretenciones     : $('#txtRetenciones2').val(),
-        factotal           : $('#txtTotal').val(),
-        factipocomprobante : $('input[name=radioTipoComprobante]:checked').val(),
-        facestado          : $('#chkPagado').prop('checked') ? 'P' : 'C'
-      },
-      dataType: 'json',
-      type: 'POST',
-      url: 'index.php/Factura/setFactura',
-      success: function(result){
-        WaitingClose();
-        //alert("ok"+result);
-        cargarView('Factura', 'index', $('#permission').val() );
-      },
-      error: function(){
-        WaitingClose();
-        alert("Error al guardar la factura");
-      }
-    });
-  });
-
-});
+function eliminar_factura(o){
+  $(o).parent().parent().remove();
+}
 </script>
+
+<!-- Modal eliminar-->
+<div class="modal fade" id="modaleliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document" style="width: 50%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"  id="myModalLabel"><span id="modalAction" class="fa fa-fw fa-times-circle" style="color: #dd4b39" > </span> Eliminar Cliente</h4>
+      </div> <!-- /.modal-header  -->
+
+      <div class="modal-body input-group ui-widget" id="modalBodyArticle">
+             
+        <label >¿Realmente desea el Registro de Factura?  </label>
+            
+      </div>  <!-- /.modal-body -->
+      <div class="modal-footer">         
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal" onclick="guardareliminar()" >SI</button>
+      </div>  <!-- /.modal footer -->     
+    </div> <!-- /.modal-content -->
+  </div>  <!-- /.modal-dialog modal-lg -->
+</div>  <!-- /.modal fade -->
+<!-- / Modal -->

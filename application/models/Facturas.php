@@ -68,6 +68,31 @@ class Facturas extends CI_Model{
         }
     }
 
+    function guardar_facturas($data){
+
+        $aux = array();
+		for($i=0; $i<count($data['facnumero']); $i++)
+		{ 
+		  $factura = array(
+            'facNumero'          => $data['facnumero'][$i],
+            'facFecha'           => $data['facfecha'][$i],
+            'facTipo'            => $data['factipo'][$i],
+            'facProveedorId'     => $data['facproveedorid'][$i],
+            'facSubtotal'        => $data['facsubtotal'][$i],
+            'facIva'             => $data['faciva'][$i],
+            'facIva2'            => $data['faciva2'][$i],
+            'facIngresosBrutos'  => $data['facingresosbrutos'][$i],
+            'facRetenciones'     => $data['facretenciones'][$i],
+            'facTotal'           => $data['factotal'][$i],
+            'facTipoComprobante' => $data['factipocomprobante'][$i],
+            'facEstado'          => $data['facestado'][$i]
+
+         );
+		  $aux[] = $factura;
+		}
+		return $this->db->insert_batch('tbl_factura',$aux);
+    }
+
     /**
      * Graba la factura en la base de datos.
      *

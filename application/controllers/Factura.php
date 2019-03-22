@@ -42,6 +42,12 @@ class Factura extends CI_Controller {
         $this->load->view('facturas/view_', $data);
     }
 
+    public function guardar_facturas(){
+        $data = $this->input->post();
+        $result = $this->Facturas->guardar_facturas($data);
+        echo $result;
+    }
+
     /**
      * Factura::setFactura()
      * Guarda la carga de factura en la base de datos.
