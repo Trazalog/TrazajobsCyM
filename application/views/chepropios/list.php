@@ -9,8 +9,6 @@
             if (strpos($permission,'Add') !== false) {
               echo '<button class="btn btn-block btn-success" style="width: 100px; margin-top: 10px;" data-toggle="modal" data-target="#modaltarea" id="btnAdd">Agregar</button>';
               echo '<button class="btn btn-block btn-success" style="width: 100px; margin-top: 10px; text-align: center;"  id="btnemitidos"> Cheq.Emitidos  </button>';
-
-
             }
           ?>
         </div><!-- /.box-header -->

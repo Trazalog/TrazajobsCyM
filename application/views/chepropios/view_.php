@@ -69,38 +69,29 @@ $(document).ready(function(event) {
 
     //Editar
   $(".fa-calculator").click(function (e) { 
-   $("#modalmostrar tbody tr").remove();
-    var idcheq = $(this).parent('td').parent('tr').attr('id');
-    console.log("ID de cheque");
-    console.log(idcheq);
+    $("#modalmostrar tbody tr").remove();
+    var idcheq = $(this).parent('td').parent('tr').attr('id');    
     ed=idcheq;
-
-    var idmes= $(this).parent('td').parent('tr').attr('class');
-    console.log(idmes);
+    var idmes= $(this).parent('td').parent('tr').attr('class');    
     datos= parseInt(idmes);
-    console.log("Mes");
-    console.log(datos);
+   
     $.ajax({
         type: 'GET',
         data: { datos:datos},
         url: 'index.php/Cheqpropio/getche', 
         success: function(data){
-                  console.log("llego el detalle");
-                  console.log(data);
-                //console.log(data[0]['cheqnro']);
+                  
                   var acum = 0;
                   for (var i = 0; i < data.length; i++) {          
                       acum += parseFloat(data[i]['cheqmonto']);
-                      var tr = "<tr >"+
-                        //"<td ></td>"+
-                        "<td>"+data[i]['cheqnro']+"</td>"+
-                        "<td>"+data[i]['provnombre']+"</td>"+
-                        "<td class='monto'>"+data[i]['cheqmonto']+"</td>"+
-                        "<td>"+data[i]['cheqfechae']+"</td>"+
-                        "<td class='pull-right'>"+data[i]['cheqvenc']+"</td>"+
-                        //"<td>"+data[i]['cheqestado']+"</td>"+                        
-                        "</tr>";
-                        $('#tabladetalle tbody').append(tr);
+                      var tr = "<tr >"+                     
+                                  "<td>"+data[i]['cheqnro']+"</td>"+
+                                  "<td>"+data[i]['provnombre']+"</td>"+
+                                  "<td class='monto'>"+data[i]['cheqmonto']+"</td>"+
+                                  "<td>"+data[i]['cheqfechae']+"</td>"+
+                                  "<td class='pull-right'>"+data[i]['cheqvenc']+"</td>"+  
+                                "</tr>";
+                      $('#tabladetalle tbody').append(tr);
                   }
                   $('#suma').append("<h4 class='pull-right'>Total de cheques: " + acum+ "</h4>");
               },
@@ -115,9 +106,9 @@ $(document).ready(function(event) {
   
   });
 
-  
-
-  $('#cheque').DataTable({
+});
+ 
+$('#cheque').DataTable({
           "paging": true,
           "lengthChange": true,
           "searching": true,
@@ -138,14 +129,32 @@ $(document).ready(function(event) {
           }
   });
 
+$('#tabladetalle').DataTable({
+    "paging": false,
+    "lengthChange": true,
+    "searching": false,
+    "ordering": false,
+    "info": false,
+    "autoWidth": true,
+    "language": {
+      "lengthMenu": "Ver _MENU_ filas por página",
+      "zeroRecords": "No hay registros",
+      "info": "Mostrando página _PAGE_ de _PAGES_",
+      "infoEmpty": "No hay registros disponibles",
+      "infoFiltered": "(filtrando de un total de _MAX_ registros)",
+      "sSearch": "Buscar:  ",
+      "oPaginate": {
+        "sNext": "Sig.",
+        "sPrevious": "Ant."
+      }
+    }
 });
- 
 
 </script>
   
 <!-- Modal cheques emitidos -->
  <div class="modal fade" id="modalmostrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document" style="width: 60%">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -153,30 +162,27 @@ $(document).ready(function(event) {
         <h4 class="modal-title"  id="myModalLabel"><span id="modalAction" class="fa fa-calculator" style="color: #0000FF" > </span> Detalle de Cheques Emitidos</h4>
        </div> <!-- /.modal-header  -->
 
-      <div class="modal-body input-group ui-widget" id="modalBodyArticle">
+      <div class="modal-body" id="modalBodyArticle">
         
         <div class="row" >
-          <div class="col-xs-12">
-
-            <table class="table table-bordered table-hover" id="tabladetalle">
-              <thead>
-                <tr>
-                  <!-- <th width="10%"></th>                   -->
-                  <th>Nro de cheque</th>
-                  <th>Proveedor</th>
-                  <th>Monto</th>
-                  <th>Fecha de Emision</th>
-                  <th>Fecha de Vencimiento</th>
-                  <!-- <th>Estado</th> -->
-
-                </tr>
-              </thead>
-              <tbody>
-                      
-              </tbody>
-            </table>
-            <div id="suma"></div>
-
+          <div class="col-xs-12 col-md-12 table-responsive">
+            
+              <table class="table table-bordered table-hover" id="tabladetalle">
+                <thead>
+                  <tr>                
+                    <th>Nro de cheque</th>
+                    <th>Proveedor</th>
+                    <th>Monto</th>
+                    <th>Fecha de Emision</th>
+                    <th>Fecha de Vencimiento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                        
+                </tbody>
+              </table>
+              <div id="suma"></div>
+         
           </div>
         </div>
       
