@@ -276,7 +276,7 @@ $(document).ready(function(event) {
             url: 'index.php/otrabajo/setotrabajo', 
             success: function(result){
                           //WaitingClose();
-                          //$('#modalOT').modal('hide');
+                          $('.modal-backdrop').hide();
                           //setTimeout("cargarView('otrabajos', 'index', '"+$('#permission').val()+"');",1000);
                           regresa1();
                   },
@@ -851,7 +851,7 @@ function regresa1(){
   $('#content').empty();
   //$('#modalOT').empty();
   //$('#modalAsig').empty();
-  $("#content").load("<?php echo base_url(); ?>index.php/Otrabajo/index/<?php echo $permission; ?>");
+  $("#content").load("<?php echo base_url(); ?>index.php/Otrabajo/listOrden/<?php echo $permission; ?>");
   // WaitingClose();
   WaitingClose();
 } 
