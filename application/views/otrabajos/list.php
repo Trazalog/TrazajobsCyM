@@ -230,50 +230,64 @@ $(document).ready(function(event) {
       //   $('#modalOT').modal('hide');
       //   return;
       // }
-      // var hayError = false;
-      // if($('#nro').val() == '')
-      // {
-      //   hayError = true;
-      // }
-      // if($('#vfech').val() == '')
-      // {
-      //   hayError = true;
-      // }
-      // if($('#vsdetalle').val() == '')
-      // {
-      //   hayError = true;
-      // }
-      // if($('#sucid').val() == '')
-      // {
-      //   hayError = true;
-      // }
+      var hayError = false;
+      if($('#nro').val() == '')
+      {
+        hayError = true;
+      }
+      if($('#vfech').val() == '')
+      {
+        hayError = true;
+      }
+      if($('#vsdetalle').val() == '')
+      {
+        hayError = true;
+      }
+      if($('#sucid').val() == '')
+      {
+        hayError = true;
+      }
+      // $('#error').fadeOut();
+      // $('#modalOT').modal('hide');
+      
+      if (hayError == true) {
+        return;
+      } else {
       $('#modalOT').modal('hide')
-      $('#error').fadeOut('slow');
-      WaitingOpen('Guardando cambios');
+
+        var d = $('#vfech').val();      
+        var f = d.split("-");
+        var año = f[2];
+        var mes = f[1];
+        var dia = f[0];
+        var fecha = año + "-" + mes + "-" + dia;
+
         $.ajax({
-              type: 'POST',
-              data: { 
-                      id : idArt, 
-                      act: acArt, 
-                      nro: $('#nro').val(),
-                      fech: $('#vfech').val(),
-                      deta: $('#vsdetalle').val(),
-                      sucid: $('#sucid').val(),
-                      cli: $('#cliid').val()                      
-                    },
-          url: 'index.php/otrabajo/setotrabajo', 
-          success: function(result){
-                        WaitingClose();
-                        //$('#modalOT').modal('hide');
-                        //setTimeout("cargarView('otrabajos', 'index', '"+$('#permission').val()+"');",1000);
-                        regresa1();
+            type: 'POST',
+            data: { 
+                    id : idArt, 
+                    act: acArt, 
+                    nro: $('#nro').val(),
+                    fech: fecha,
+                    deta: $('#vsdetalle').val(),
+                    sucid: $('#sucid').val(),
+                    cli: $('#cliid').val()                      
+                  },
+            url: 'index.php/otrabajo/setotrabajo', 
+            success: function(result){
+                          //WaitingClose();
+                          $('.modal-backdrop').hide();
+                          //setTimeout("cargarView('otrabajos', 'index', '"+$('#permission').val()+"');",1000);
+                          regresa1();
+                  },
+            error: function(result){
+                  WaitingClose();
+                  alert("error");
                 },
-          error: function(result){
-                WaitingClose();
-                alert("error");
-              },
-              dataType: 'json'
-          });
+                dataType: 'json'
+        });
+      }
+      
   });
 
   $(".fa-times-circle").click(function (e) {                   
@@ -324,8 +338,8 @@ $(document).ready(function(event) {
   });
   
   $('#vfech').datepicker({
-      changeMonth: true,
-      changeYear: true
+      // changeMonth: true,
+      // changeYear: true
   }); 
 
     //Editar
@@ -441,20 +455,19 @@ function LoadOT(id_, action){
           	data: { id : id_, act: action },
     		url: 'index.php/otrabajo/getotrabajo', 
     		success: function(result){
-			                WaitingClose();
-			                $("#modalBodyOT").html(result.html);
-                      $('#vfech').datepicker({
-                        changeMonth: true,
-                        changeYear: true
-                      });
-			                setTimeout("$('#modalOT').modal('show')",0);
-                      
+                  WaitingClose();
+                  $("#modalBodyOT").html(result.html);
+                  $('#vfech').datepicker({
+                    changeMonth: true,
+                    changeYear: true
+                  });
+                  setTimeout("$('#modalOT').modal('show')",0);                      
     					},
     		error: function(result){
     					WaitingClose();
     					alert("error");
     				},
-          	dataType: 'json'
+        dataType: 'json'
     		});
 } 
 
@@ -835,19 +848,19 @@ function guardarpedido(){
   
 function regresa1(){
   
-    $('#content').empty();
-    $('#modalOT').empty();
-    $('#modalAsig').empty();
-    $("#content").load("<?php echo base_url(); ?>index.php/Otrabajo/index/<?php echo $permission; ?>");
-    WaitingClose();
-    WaitingClose();
-  } 
+  $('#content').empty();
+  //$('#modalOT').empty();
+  //$('#modalAsig').empty();
+  $("#content").load("<?php echo base_url(); ?>index.php/Otrabajo/listOrden/<?php echo $permission; ?>");
+  // WaitingClose();
+  WaitingClose();
+} 
 
 </script>
 
 
 
-<!-- Modal -->
+<!-- Modal Agregar Nueva ot-->
 <div class="modal fade" id="modalOT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
